@@ -105,4 +105,8 @@
 (define-key emacs-lisp-mode-map (kbd "C-4")   (lambda () (interactive) (multiply-last-sexp 4)))
 (define-key emacs-lisp-mode-map (kbd "C-c f") 'defun-this-symbol)
 
+(dolist (mode '(lisp-mode-hook
+                slime-repl-mode-hook))
+  (add-hook mode (lambda () (paredit-mode 1))))
+
 (provide 'cnf-lisp)

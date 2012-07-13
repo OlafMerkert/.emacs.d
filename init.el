@@ -42,9 +42,6 @@
     (when (not (package-installed-p p))
       (package-install p))))
 
-(require 'starter-kit)
-(require 'starter-kit-lisp)
-
 ;; general settings
 (column-number-mode t)
 (setq initial-scratch-message    nil
@@ -89,6 +86,9 @@
 (yas/global-mode 1)
 
 ;; (load-theme 'solarized-light t)
+
+(require 'starter-kit)
+(require 'starter-kit-lisp)
 
 (dolist (cnf '("functions"
                "lisp"
