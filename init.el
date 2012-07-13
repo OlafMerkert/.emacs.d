@@ -19,6 +19,7 @@
       starter-kit-lisp
       starter-kit-bindings
       solarized-theme
+      zenburn-theme
       expand-region
       ace-jump-mode
       js2-mode
@@ -83,6 +84,7 @@
 (yas/global-mode 1)
 
 ;; (load-theme 'solarized-light t)
+(load-theme 'zenburn t)
 
 (require 'starter-kit)
 (require 'starter-kit-lisp)
