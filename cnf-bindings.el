@@ -17,9 +17,19 @@
 (define-minor-mode my-keys-minor-mode
     "A minor mode with adjusted keybindings."
   t " K" 'my-keys-minor-mode-map)
+
 ;; disable in minibuffer
 (add-hook 'minibuffer-setup-hook
           (lambda () (my-keys-minor-mode 0)))
+
+(defadvice load (after give-my-keybindings-priority)
+  "Try to ensure that my keybindings always have priority."
+  (if (not (eq (car (car minor-mode-map-alist)) 'my-keys-minor-mode))
+      (let ((mykeys (assq 'my-keys-minor-mode minor-mode-map-alist)))
+        (assq-delete-all 'my-keys-minor-mode minor-mode-map-alist)
+        (add-to-list 'minor-mode-map-alist mykeys))))
+(ad-activate 'load)
+
 (require 'mark-more-like-this)(require 'expand-region)
 (define-key my-keys-minor-mode-map (kbd "C-j")        'ace-jump-mode)
 (define-key my-keys-minor-mode-map (kbd "M-j")        'iy-go-to-char)

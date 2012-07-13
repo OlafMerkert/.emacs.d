@@ -80,7 +80,7 @@
       (backward-char 2))))
 
 (setq lisp-indent-function 'common-lisp-indent-function
-      slime-complete-symbol-function 'slime-fuzzy-complete-symbol
+      ;; slime-complete-symbol-function 'slime-fuzzy-complete-symbol
       common-lisp-hyperspec-root "file:///usr/share/doc/hyperspec/")
 
 (eval-after-load 'slime
@@ -100,5 +100,9 @@
 (define-key lisp-mode-map (kbd "C-3")   (lambda () (interactive) (multiply-last-sexp 3)))
 (define-key lisp-mode-map (kbd "C-4")   (lambda () (interactive) (multiply-last-sexp 4)))
 (define-key lisp-mode-map (kbd "C-c f") 'defun-this-symbol)
+(define-key emacs-lisp-mode-map (kbd "C-2")   (lambda () (interactive) (multiply-last-sexp 2)))
+(define-key emacs-lisp-mode-map (kbd "C-3")   (lambda () (interactive) (multiply-last-sexp 3)))
+(define-key emacs-lisp-mode-map (kbd "C-4")   (lambda () (interactive) (multiply-last-sexp 4)))
+(define-key emacs-lisp-mode-map (kbd "C-c f") 'defun-this-symbol)
 
 (provide 'cnf-lisp)
