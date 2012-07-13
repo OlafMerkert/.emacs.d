@@ -93,7 +93,10 @@
 (dolist (cnf '("functions"
                "lisp"
                "tex"
-               "bindings"))
+               "bindings"
+               "personal"
+               "email"))
   (load (concatenate 'string "~/.emacs.d/cnf-" cnf)))
 
 (server-start)
+
