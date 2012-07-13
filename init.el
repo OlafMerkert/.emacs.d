@@ -19,9 +19,6 @@
       starter-kit-lisp
       starter-kit-bindings
       solarized-theme
-      slime
-      slime-repl
-      slime-fuzzy
       expand-region
       ace-jump-mode
       js2-mode

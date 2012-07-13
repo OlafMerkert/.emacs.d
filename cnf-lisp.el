@@ -1,14 +1,8 @@
-(setf slime-load-hook nil)
-(require 'slime-autoloads)
-(slime-setup '(slime-repl
-               slime-fuzzy
-               slime-c-p-c
-               slime-autodoc-mode
-               slime-banner
-               slime-editing-commands
-               slime-presentations
-               slime-typeout-frame
-               slime-fancy-inspector
+;; get slime from quicklisp
+(load "~/.quicklisp/slime-helper.el")
+
+(slime-setup '(slime-fancy
+               slime-banner 
                slime-tramp
                slime-highlight-edits))
 
