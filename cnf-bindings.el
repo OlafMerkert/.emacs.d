@@ -32,4 +32,10 @@
 (define-key my-keys-minor-mode-map (kbd "C-*")        'mark-all-like-this)
 (define-key my-keys-minor-mode-map (kbd "C-o")        'er/expand-region)
 
+;; Move more quickly
+(global-set-key (kbd "C-S-n") (lambda () (interactive) (next-line 5)))
+(global-set-key (kbd "C-S-p") (lambda () (interactive) (previous-line 5)))
+(global-set-key (kbd "C-S-f") (lambda () (interactive) (forward-char 5)))
+(global-set-key (kbd "C-S-b") (lambda () (interactive) (backward-char 5)))
+
 (provide 'cnf-bindings)
