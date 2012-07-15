@@ -82,6 +82,7 @@
 ;; snippets
 (setq yas/snippet-dirs '("~/.emacs.d/snippets"))
 (yas/global-mode 1)
+(add-to-list 'auto-mode-alist '("\\.yasnippet$" . snippet-mode))
 
 ;; (load-theme 'solarized-light t)
 (load-theme 'zenburn t)
