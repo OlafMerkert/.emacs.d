@@ -1,6 +1,7 @@
 ;; Emacs TeX configuration
 
 (setq LaTeX-item-indent 0
+      TeX-newline-function 'reindent-then-newline-and-indent
       TeX-auto-save t    ; this creates auto dirs
       TeX-parse-self t
       TeX-save-query nil   ; autosave before compiling
@@ -39,9 +40,49 @@
             (visual-line-mode 1)
             (TeX-PDF-mode 1)))
 
-;; TODO $$ zu \( \)
-;; TODO () zu \left( \right)
-;; TODO \[ \] oder \( \) zu \begin{equation*} \end{equation*}
+(defun tex-dollars-to-round ()
+  "transform $ ... $ to \( ... \) when inside or on the opening $."
+  (interactive)
+  (save-excursion
+    (unless (looking-at "\\$")
+      (search-backward "$"))
+    (delete-char 1)
+    (insert "\\(")
+    (search-forward "$")
+    (delete-char -1)
+    (insert "\\)")))
+
+(defun tex-round-add-leftright ()
+  "transform ( ... ) to \left( ... \right)"
+  (interactive)
+  (save-excursion
+    (unless (looking-at "(")
+      (search-backward "("))
+    (insert "\\left")
+    (forward-sexp)
+    (backward-char 1)
+    (insert "\\right")))
+
+(defun tex-math-to-equation ()
+  "search for enclosing \[ ... \] or \( ... \) and transform it
+  to \begin{equation} \label{eq:} ... \end{equation}, with cursor
+  just behind eq:."
+  (interactive)
+  (unless (looking-at "\\(\\\\\\[\\|\\\\(\\)")
+    (search-backward-regexp "\\(\\\\\\[\\|\\\\(\\)"))
+  (delete-char 2)
+  (insert "\\begin{equation}")
+  (reindent-then-newline-and-indent)
+  (insert "\\label{eq:}")
+  (let ((label-pos (point)))
+    (newline-and-indent)
+    (search-forward-regexp "\\(\\\\\\]\\|\\\\)\\)")
+    (delete-char -2)
+    (reindent-then-newline-and-indent)
+    (insert "\\end{equation}")
+    (LaTeX-indent-line)
+    (goto-char (- label-pos 1))))
+
 ;; TODO aendere Umgebung \begin{x} \end{x} zu \begin{y} \end{y}
 
 (defvar tex-label-disallowed-chars
@@ -108,4 +149,7 @@
 ;; keybindings for tex stuff
 (eval-after-load 'tex
   '(progn
-    (define-key TeX-mode-map  (kbd "<f2>") 'insert-greek-letter)))
+    (define-key TeX-mode-map (kbd "<f2>")    'insert-greek-letter)
+    (define-key TeX-mode-map (kbd "C-c C-4") 'tex-dollars-to-round)
+    (define-key TeX-mode-map (kbd "C-c (")   'tex-round-add-leftright)
+    (define-key TeX-mode-map (kbd "C-c )")   'tex-math-to-equation)))
