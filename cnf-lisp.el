@@ -80,6 +80,9 @@
 (eval-after-load 'slime
   '(progn
     (define-key slime-mode-map (kbd "TAB")   'slime-indent-and-complete-symbol)
+    (define-key slime-repl-mode-map (kbd "<backspace>") 'paredit-backward-delete)
+    (define-key slime-repl-mode-map (kbd "<delete>") 'paredit-forward-delete)
+    (define-key slime-repl-mode-map (kbd "C-d") 'paredit-forward-delete)
     ;; (define-key slime-mode-map (kbd "C-;")   'slime-insert-balanced-comments)
     ;; (define-key slime-mode-map (kbd "C-'")   'slime-remove-balanced-comments)
     ;; (define-key slime-mode-map (kbd "C-c s") 'clos-insert-accessor-and-initarg)
@@ -102,5 +105,6 @@
 (dolist (mode '(lisp-mode-hook
                 slime-repl-mode-hook))
   (add-hook mode (lambda () (paredit-mode 1))))
+
 
 (provide 'cnf-lisp)
