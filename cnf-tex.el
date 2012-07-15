@@ -44,6 +44,20 @@
 ;; TODO \[ \] oder \( \) zu \begin{equation*} \end{equation*}
 ;; TODO aendere Umgebung \begin{x} \end{x} zu \begin{y} \end{y}
 
+(defvar tex-label-disallowed-chars
+  (mapcar (lambda (x) (elt x 0))
+          '(" "
+            "!"
+            "?"
+            "-"
+            "_")))
+
+(defun tex-text-to-label (text)
+  "remove space and other impractical letters to make a suitable
+  label to use in \label{} commands."
+  (dolist (char tex-label-disallowed-chars)
+    (setf text (remove char text)))
+  (downcase text))
 
 (defun insert-greek-letter (char)
   (interactive "c")
@@ -93,4 +107,5 @@
 
 ;; keybindings for tex stuff
 (eval-after-load 'tex
-    '(define-key TeX-mode-map  (kbd "<f2>") 'insert-greek-letter))
+  '(progn
+    (define-key TeX-mode-map  (kbd "<f2>") 'insert-greek-letter)))

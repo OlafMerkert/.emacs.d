@@ -1,0 +1,25 @@
+# -*- mode: snippet -*-
+# name: document
+# key: doc
+# --
+\documentclass[a4paper]{${1:scrartcl}}
+
+\setkomafont{disposition}{\bfseries}
+
+\usepackage[${2:ngerman}]{babel}
+\usepackage{olmath,olthm${3:}}
+
+\title{${4:titel}}
+
+\begin{document}
+
+\maketitle
+
+$0
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: ${5:t}
+%%% End: 
