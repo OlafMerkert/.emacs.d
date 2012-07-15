@@ -22,12 +22,23 @@
 (add-hook 'minibuffer-setup-hook
           (lambda () (my-keys-minor-mode 0)))
 
+(defvar minor-mode-map-precedence
+  '((my-keys-minor-mode . 100)
+    (yas/minor-mode     . 80)
+    (paredit-mode       . 60)))
+
 (defadvice load (after give-my-keybindings-priority)
   "Try to ensure that my keybindings always have priority."
-  (if (not (eq (car (car minor-mode-map-alist)) 'my-keys-minor-mode))
-      (let ((mykeys (assq 'my-keys-minor-mode minor-mode-map-alist)))
-        (assq-delete-all 'my-keys-minor-mode minor-mode-map-alist)
-        (add-to-list 'minor-mode-map-alist mykeys))))
+  (setf minor-mode-map-alist
+        (sort minor-mode-map-alist
+              (lambda (a b)
+                (let ((prec-a (cdr (assq (car a) minor-mode-map-precedence)))
+                      (prec-b (cdr (assq (car b) minor-mode-map-precedence))))
+                  (cond ((not (or prec-a prec-b)) t)
+                        ((not prec-a) nil)
+                        ((not prec-b) t)
+                        (t (> prec-a prec-b))))))))
+
 (ad-activate 'load)
 
 (require 'mark-more-like-this)(require 'expand-region)
