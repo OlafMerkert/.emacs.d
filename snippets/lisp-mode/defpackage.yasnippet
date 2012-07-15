@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: defpackage
+# key: dp
+# --
+(defpackage :${1:name}
+  ${2:(:nicknames :$3)}
+  (:use :cl :ol $4)
+  (:export))
+
+(in-package :$1)
+
+$0
