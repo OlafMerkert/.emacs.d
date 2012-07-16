@@ -75,9 +75,8 @@
         ("~/Projekte/ol-utils" "ol-utils")
         ("~/Projekte/math-utils" "math-utils")
         ("~/Projekte/continued-fractions" "continued-fractions")
-        ("~/Projekte/avcl" "avcl")
+        ("~/Projekte/web-document-gallery" "web-document")
         ("~/Studium/MasterArbeit" "master")))
-
 
 ;; snippets
 (setq yas/snippet-dirs '("~/.emacs.d/snippets"))
