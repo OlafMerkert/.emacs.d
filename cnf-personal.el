@@ -2,5 +2,5 @@
 (setq user-full-name "Olaf Merkert")
 
 (setq tramp-default-method "ssh"
-      tramp-default-user "olaf"
-      tramp-default-host "www.sl2z.de")
+      tramp-default-user "root"
+      tramp-default-host "localhost")
