@@ -85,8 +85,8 @@
 (add-to-list 'auto-mode-alist '("\\.yasnippet$" . snippet-mode))
 
 ;; use nxml for html editing
-(add-to-list 'auto-save-list/ '("\\.html$" . nxml-mode))
-(add-to-list 'auto-save-list/ '("\\.htm$" . nxml-mode))
+(add-to-list 'auto-save-list '("\\.html$" . nxml-mode))
+(add-to-list 'auto-save-list '("\\.htm$" . nxml-mode))
 
 ;; (load-theme 'solarized-light t)
 (load-theme 'zenburn t)
