@@ -1,10 +1,12 @@
 ;; get slime from quicklisp
-(load "~/.quicklisp/slime-helper.el")
+(defvar ql-slime-helper "~/.quicklisp/slime-helper.el")
 
-(slime-setup '(slime-fancy
-               slime-banner 
-               slime-tramp
-               slime-highlight-edits))
+(when (file-exists-p ql-slime-helper)
+  (load ql-slime-helper)
+  (slime-setup '(slime-fancy
+                 slime-banner 
+                 slime-tramp
+                 slime-highlight-edits)))
 
 (setq slime-lisp-implementations
       '(;;(sbcl ("/usr/bin/sbcl"))
