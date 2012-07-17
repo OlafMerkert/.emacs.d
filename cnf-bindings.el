@@ -59,4 +59,10 @@
 (global-set-key (kbd "C-S-f") (lambda () (interactive) (forward-char 5)))
 (global-set-key (kbd "C-S-b") (lambda () (interactive) (backward-char 5)))
 
+
+(eval-after-load 'nxml-mode
+  '(define-key nxml-mode-map (kbd "<return>") 'reindent-then-newline-and-indent))
+(eval-after-load 'css-mode
+  '(define-key css-mode-map  (kbd "<return>") 'reindent-then-newline-and-indent))
+
 (provide 'cnf-bindings)
