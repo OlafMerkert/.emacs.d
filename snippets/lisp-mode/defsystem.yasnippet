@@ -2,7 +2,7 @@
 # name: defsystem
 # key: ds
 # --
-(defsystem :${1:name}
-    :depends-on (ol-utils$2)
-    :serial t
-    :components ((:file "${3:filebase}")$0))
+(defsystem ${1:name}
+  :depends-on (ol-utils$2)
+  :serial t
+  :components ((:file "${3:filebase}")$0))
