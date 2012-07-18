@@ -65,4 +65,7 @@
 (eval-after-load 'css-mode
   '(define-key css-mode-map  (kbd "<return>") 'reindent-then-newline-and-indent))
 
+(eval-after-load 'gnus-art
+  '(define-key gnus-article-mode-map (kbd "C-c C-s") 'gnus-article-save-part))
+
 (provide 'cnf-bindings)
