@@ -25,4 +25,7 @@
            "sent-messages")
           ((message-mail-p)
            ;; Mail
-           "nnimap:1und1:INBOX"))))
+           "nnimap+1und1:INBOX"))))
+
+(setq gnus-gcc-mark-as-read t)
+
