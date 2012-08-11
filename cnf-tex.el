@@ -37,6 +37,7 @@
 (add-hook 'TeX-mode-hook
           (lambda ()
             (flyspell-mode 1)
+            (auto-fill-mode -1)
             (visual-line-mode 1)
             (TeX-PDF-mode 1)))
 
