@@ -6,6 +6,7 @@
 
 ;; global key settings
 (global-set-key (kbd "<f6>")       'magit-status)
+(global-set-key (kbd "<f8>")       'gnus)
 (global-set-key (kbd "<f9>")       'slime-selector)
 (global-set-key (kbd "S-<return>") 'split-line)
 (global-set-key (kbd "C-x M-o")    'other-frame)
