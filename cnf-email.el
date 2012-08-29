@@ -3,13 +3,17 @@
 ;; use the local exim server to send mail
 (setq send-mail-function 'sendmail-send-it)
 
-;; use a remote imap server
+;; use the remote 1und1 imap server
 (setq gnus-select-method
       '(nnimap "1und1"
         (nnimap-address "imap.1und1.de")
         (nnimap-server-port 993)
         (nnimap-stream tls)
         (nnir-search-engine imap)))
+
+;; use 1und1 news server
+(add-to-list 'gnus-secondary-select-methods
+             '(nntp "news.online.de"))
 
 ;; store sent email on the imap server as well
  (setq gnus-message-archive-method
@@ -29,3 +33,5 @@
 
 (setq gnus-gcc-mark-as-read t)
 
+;; enable topic mode
+(add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
