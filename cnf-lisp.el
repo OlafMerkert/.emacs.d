@@ -18,6 +18,12 @@
         (clisp ("/usr/bin/clisp"))
         (ccl ("/usr/local/bin/ccl"))))
 
+(defun slime-selector-or-start ()
+  (interactive)
+  (if (slime-connected-p)
+      (slime-selector)
+      (slime)))
+
 (defun extract-last-sexp ()
   (let ((opoint (point)))
     (backward-sexp)
