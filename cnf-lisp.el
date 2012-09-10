@@ -20,7 +20,8 @@
 
 (defun slime-selector-or-start ()
   (interactive)
-  (if (slime-connected-p)
+  (if (and (fboundp 'slime-connected-p)
+           (slime-connected-p))
       (slime-selector)
       (slime)))
 
