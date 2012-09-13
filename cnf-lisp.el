@@ -10,11 +10,11 @@
 
 (setq slime-lisp-implementations
       '(;;(sbcl ("/usr/bin/sbcl"))
-        ;;(sbcl ("/usr/bin/sbcl" "--core"
-        ;;            "/home/olaf/sbcl-gtk2.core"))
-        (sbcl ("/usr/bin/sbcl"
-               "--dynamic-heap-size" "4096"
-               "--control-stack-size" "16"))
+        (sbcl ("/usr/bin/sbcl" "--core"
+                   "/home/olaf/sbcl-gtk2.core"))
+        ;; (sbcl ("/usr/bin/sbcl"
+        ;;        "--dynamic-heap-size" "4096"
+        ;;        "--control-stack-size" "16"))
         (clisp ("/usr/bin/clisp"))
         (ccl ("/usr/local/bin/ccl"))))
 
