@@ -112,7 +112,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(safe-local-variable-values (quote ((ispell-dictionary . da) (ispell-dictionary . dansk) (ispell-dictionary . en_GB) (Base . 10) (Syntax . ANSI-Common-Lisp) (Package . CLIM-INTERNALS) (Package . DREI-CORE) (Syntax . Common-Lisp) (whitespace-line-column . 80) (lexical-binding . t)))))
+ '(safe-local-variable-values (quote ((Encoding . utf-8) (readtable . runes) (Package . CXML) (Package . ESA) (Lowercase . Yes) (Package . CLIM-DEMO) (ispell-dictionary . da) (ispell-dictionary . dansk) (ispell-dictionary . en_GB) (Base . 10) (Syntax . ANSI-Common-Lisp) (Package . CLIM-INTERNALS) (Package . DREI-CORE) (Syntax . Common-Lisp) (whitespace-line-column . 80) (lexical-binding . t)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
