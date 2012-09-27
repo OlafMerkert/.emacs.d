@@ -89,9 +89,13 @@
 
 ;; (load-theme 'solarized-light t)
 (load-theme 'zenburn t)
+;; (load-theme 'tango-dark)
 
 (require 'starter-kit)
 (require 'starter-kit-lisp)
+
+;; disable some unwanted stuff from the starter kit
+(remove-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
 
 (dolist (cnf '("functions"
                "lisp"
