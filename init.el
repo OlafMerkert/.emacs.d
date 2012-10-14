@@ -91,6 +91,13 @@
 (load-theme 'zenburn t)
 ;; (load-theme 'tango-dark)
 
+;; prettify xml code
+(defun prettify-xml ()
+  (interactive)
+  (replace-string "><" ">
+<")
+  (indent-region (buffer-end -1) (buffer-end 1)))
+
 (require 'starter-kit)
 (require 'starter-kit-lisp)
 

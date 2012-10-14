@@ -62,7 +62,10 @@
 
 
 (eval-after-load 'nxml-mode
-  '(define-key nxml-mode-map (kbd "<return>") 'reindent-then-newline-and-indent))
+  '(progn
+    (define-key nxml-mode-map (kbd "<return>") 'reindent-then-newline-and-indent)
+    (define-key nxml-mode-map (kbd "C-c p") 'prettify-xml)))
+
 (eval-after-load 'css-mode
   '(define-key css-mode-map  (kbd "<return>") 'reindent-then-newline-and-indent))
 
