@@ -18,12 +18,34 @@
         (clisp ("/usr/bin/clisp"))
         (ccl ("/usr/local/bin/ccl"))))
 
-(defun slime-selector-or-start ()
+(defun slime-sl2z ()
   (interactive)
+  ;; setup translators
+  (setq slime-to-lisp-filename-function
+        (lambda (file-name)
+          (subseq file-name (length "/ssh:olaf@sl2z.de:")))
+        slime-from-lisp-filename-function
+        (lambda (file-name)
+          (concat "/ssh:olaf@sl2z.de:" file-name)))
+  ;; connect to slime on server
+  (slime-connect "127.0.0.1" 4005))
+
+(defun slime-local ()
+  (interactivve)
+  ;; setup translators
+  (setq slime-to-lisp-filename-function   'identity
+        slime-from-lisp-filename-function 'identity)
+  ;; start slime
+  (slime))
+
+(defun slime-selector-or-start (arg)
+  (interactive "P")
   (if (and (fboundp 'slime-connected-p)
            (slime-connected-p))
       (slime-selector)
-      (slime)))
+      (if arg ; connect to remote swank on server
+          (slime-sl2z)
+          (slime-local))))
 
 (defun extract-last-sexp ()
   (let ((opoint (point)))
@@ -114,6 +136,7 @@
 (dolist (mode '(lisp-mode-hook
                 slime-repl-mode-hook))
   (add-hook mode (lambda () (paredit-mode 1))))
+
 
 
 (provide 'cnf-lisp)
