@@ -83,7 +83,7 @@
       (backward-char 2))))
 
 (setq lisp-indent-function 'common-lisp-indent-function
-      ;; slime-complete-symbol-function 'slime-fuzzy-complete-symbol
+      slime-complete-symbol-function 'slime-fuzzy-complete-symbol
       common-lisp-hyperspec-root "file:///usr/share/doc/hyperspec/")
 
 (eval-after-load 'slime
