@@ -53,6 +53,7 @@
 (define-key my-keys-minor-mode-map (kbd "C-M-m")      'mark-more-like-this) ; like the other two, but takes an argument (negative is previous)
 (define-key my-keys-minor-mode-map (kbd "C-*")        'mark-all-like-this)
 (define-key my-keys-minor-mode-map (kbd "C-o")        'er/expand-region)
+(define-key my-keys-minor-mode-map (kbd "C-&")        'mc/edit-lines)
 
 ;; Move more quickly
 (global-set-key (kbd "C-S-n") (lambda () (interactive) (next-line 5)))
