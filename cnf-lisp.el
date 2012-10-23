@@ -137,6 +137,8 @@
                 slime-repl-mode-hook))
   (add-hook mode (lambda () (paredit-mode 1))))
 
-
+;; adjustments to indentation
+(setf (get 'ew 'common-lisp-indent-function)
+      '(&rest 0))
 
 (provide 'cnf-lisp)
