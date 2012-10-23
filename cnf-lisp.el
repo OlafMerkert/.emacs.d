@@ -31,10 +31,10 @@
   (slime-connect "127.0.0.1" 4005))
 
 (defun slime-local ()
-  (interactivve)
+  (interactive)
   ;; setup translators
-  (setq slime-to-lisp-filename-function   'identity
-        slime-from-lisp-filename-function 'identity)
+  (setq slime-to-lisp-filename-function   #'convert-standard-filename
+        slime-from-lisp-filename-function #'identity)
   ;; start slime
   (slime))
 
