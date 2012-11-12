@@ -104,9 +104,14 @@
       (insert "(defgeneric" name " ())")
       (backward-char 2))))
 
+;; customisations of indenting
 (setq lisp-indent-function 'common-lisp-indent-function
       slime-complete-symbol-function 'slime-fuzzy-complete-symbol
       common-lisp-hyperspec-root "file:///usr/share/doc/hyperspec/")
+
+(setq lisp-lambda-list-keyword-parameter-alignment t
+      lisp-lambda-list-keyword-alignment t
+      lisp-indent-maximum-backtracking 7)
 
 (eval-after-load 'slime
   '(progn
