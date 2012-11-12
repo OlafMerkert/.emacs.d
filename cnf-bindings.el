@@ -76,4 +76,7 @@
 (eval-after-load 'gnus-art
   '(define-key gnus-article-mode-map (kbd "C-c C-s") 'gnus-article-save-part))
 
+(eval-after-load 'bibtex
+  '(define-key bibtex-mode-map (kbd "C-m") 'bibtex-next-field))
+
 (provide 'cnf-bindings)
