@@ -12,8 +12,8 @@
         (nnir-search-engine imap)))
 
 ;; use 1und1 news server
-(add-to-list 'gnus-secondary-select-methods
-             '(nntp "news.online.de"))
+;; (add-to-list 'gnus-secondary-select-methods
+;;              '(nntp "news.online.de"))
 
 ;; store sent email on the imap server as well
  (setq gnus-message-archive-method
