@@ -40,6 +40,9 @@
     (when (not (package-installed-p p))
       (package-install p))))
 
+(setq desktop-path '("~/.emacs.d/sessions/"))
+(desktop-save-mode 1)
+
 ;; general settings
 (column-number-mode t)
 (setq initial-scratch-message    nil
@@ -87,8 +90,8 @@
 (add-to-list 'auto-mode-alist '("\\.html$" . nxml-mode))
 (add-to-list 'auto-mode-alist '("\\.htm$" . nxml-mode))
 
-;; (load-theme 'solarized-light t)
-(load-theme 'zenburn t)
+(load-theme 'solarized-light t)
+;; (load-theme 'zenburn t)
 ;; (load-theme 'tango-dark)
 
 ;; prettify xml code
