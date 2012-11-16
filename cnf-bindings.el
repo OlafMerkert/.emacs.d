@@ -79,4 +79,11 @@
 (eval-after-load 'bibtex
   '(define-key bibtex-mode-map (kbd "C-m") 'bibtex-next-field))
 
+;; in tex, regexp search can be distracting (we often want to search
+;; for `$'
+(eval-after-load 'tex
+  '(progn
+    (define-key TeX-mode-map (kbd "C-s") 'isearch-forward)
+    (define-key TeX-mode-map (kbd "C-r") 'isearch-backward)))
+
 (provide 'cnf-bindings)
