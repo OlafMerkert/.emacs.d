@@ -59,9 +59,11 @@
 (setq ispell-program-name "aspell"
       ispell-extra-args '("--sug-mode=ultra"))
 
+;; don't flyspell automatically
+(remove-hook 'text-mode-hook 'turn-on-flyspell)
+
 (add-hook 'text-mode-hook
           (lambda ()
-            ;; (flyspell-mode 1)
             (visual-line-mode 1)))
 
 ;; browser
@@ -105,7 +107,6 @@
 (require 'starter-kit-lisp)
 
 ;; disable some unwanted stuff from the starter kit
-(remove-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
 
 (dolist (cnf '("functions"
                "lisp"
