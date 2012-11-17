@@ -84,6 +84,10 @@
 (eval-after-load 'tex
   '(progn
     (define-key TeX-mode-map (kbd "C-s") 'isearch-forward)
-    (define-key TeX-mode-map (kbd "C-r") 'isearch-backward)))
+    (define-key TeX-mode-map (kbd "C-r") 'isearch-backward)
+    (define-key TeX-mode-map (kbd "M-%") 'query-replace)
+    (define-key TeX-mode-map (kbd "C-M-s") 'isearch-forward-regexp)
+    (define-key TeX-mode-map (kbd "C-M-r") 'isearch-backward-regexp)
+    (define-key TeX-mode-map (kbd "C-M-%") 'query-replace-regexp)))
 
 (provide 'cnf-bindings)
