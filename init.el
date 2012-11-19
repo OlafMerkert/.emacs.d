@@ -92,10 +92,6 @@
 (add-to-list 'auto-mode-alist '("\\.html$" . nxml-mode))
 (add-to-list 'auto-mode-alist '("\\.htm$" . nxml-mode))
 
-(load-theme 'solarized-light t)
-;; (load-theme 'zenburn t)
-;; (load-theme 'tango-dark)
-
 ;; prettify xml code
 (defun prettify-xml ()
   (interactive)
@@ -117,6 +113,10 @@
   (load (concatenate 'string "~/.emacs.d/cnf-" cnf)))
 
 (server-start)
+
+;; (load-theme 'solarized-light t)
+;; (load-theme 'zenburn t)
+;; (load-theme 'tango-dark)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

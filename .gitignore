@@ -8,3 +8,5 @@ auto-save-list
 /url/cookies
 /bookmarks
 /sessions/
+/eshell/history
+/eshell/lastdir
