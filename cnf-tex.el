@@ -147,10 +147,32 @@
                 ("Y" . "\\Psi")
                 ("W" . "\\Omega"))))
 
+;; some custom navigation functions (esp for math mode)
+(defun symb (&rest strings)
+  (intern (apply 'concat strings)))
+
+(defmacro create-tex-goto (name string)
+  `(progn
+     (defun ,(symb "tex-goto-prev-" name) ()
+       (interactive)
+       (search-backward ,string))
+
+     (defun ,(symb "tex-goto-next-" name) ()
+       (interactive)
+       (search-forward ,string))))
+
+(create-tex-goto "backslash" "\\")
+(create-tex-goto "dollar" "$")
+
 ;; keybindings for tex stuff
 (eval-after-load 'tex
   '(progn
     (define-key TeX-mode-map (kbd "<f2>")    'insert-greek-letter)
     (define-key TeX-mode-map (kbd "C-c C-4") 'tex-dollars-to-round)
     (define-key TeX-mode-map (kbd "C-c (")   'tex-round-add-leftright)
-    (define-key TeX-mode-map (kbd "C-c )")   'tex-math-to-equation)))
+    (define-key TeX-mode-map (kbd "C-c )")   'tex-math-to-equation)
+
+    (define-key TeX-mode-map (kbd "C-,") 'tex-goto-prev-backslash)
+    (define-key TeX-mode-map (kbd "C-.") 'tex-goto-next-backslash)
+    (define-key TeX-mode-map (kbd "C-M-p") 'tex-goto-prev-dollar)
+    (define-key TeX-mode-map (kbd "C-M-n") 'tex-goto-next-dollar)))
