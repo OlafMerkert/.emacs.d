@@ -11,15 +11,24 @@
 
 (setq-default TeX-master t)
 
+;; generate pdf file name
+(add-to-list 'TeX-expand-list
+             '("%P" file "pdf" t)
+             t)
+
 (setq TeX-view-program-list
       '(("Okular" ("okular --unique"
                    (mode-io-correlate " -p %(outpage)") " %o"))
-        ("dvips and Okular" ("%(o?)dvips %d -o && okular --unique"
+        ("dvips and Okular" ("%(o?)dvips %d -o %f && okular --unique"
                              (mode-io-correlate " -p %(outpage)") " %f"))
         ("Evince" ("evince"
                    (mode-io-correlate " -i %(outpage)") " %o"))
-        ("dvips and Evince" ("%(o?)dvips %d -o && evince"
-                             (mode-io-correlate " -i %(outpage)") " %f"))))
+        ("dvips and Evince" ("%(o?)dvips %d -o %f && evince"
+                             (mode-io-correlate " -i %(outpage)") " %f"))
+        ("dvips and ps2pdf and evince"
+         ("%(o?)dvips %d -o && ps2pdf %f && evince"
+          (mode-io-correlate " -i %(outpage)")
+          " %P"))))
 
 (setq TeX-view-program-selection
       (cond
@@ -29,7 +38,7 @@
            (output-pdf "Okular")
            (output-html "xdg-open")))
         ((file-exists-p "/usr/bin/evince")
-         '(((output-dvi style-pstricks) "dvips and Evince")
+         '(((output-dvi style-pstricks) "dvips and ps2pdf and evince")
            (output-dvi "Evince")
            (output-pdf "Evince")
            (output-html "xdg-open")))))
