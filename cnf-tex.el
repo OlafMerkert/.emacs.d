@@ -12,9 +12,10 @@
 (setq-default TeX-master t)
 
 ;; generate pdf file name
-(add-to-list 'TeX-expand-list
-             '("%P" file "pdf" t)
-             t)
+(eval-after-load 'tex
+    '(add-to-list 'TeX-expand-list
+              '("%P" file "pdf" t)
+              t))
 
 (setq TeX-view-program-list
       '(("Okular" ("okular --unique"
