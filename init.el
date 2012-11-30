@@ -114,7 +114,7 @@
 
 (server-start)
 
-;; (load-theme 'solarized-light t)
+(load-theme 'solarized-light t)
 ;; (load-theme 'zenburn t)
 ;; (load-theme 'tango-dark)
 
