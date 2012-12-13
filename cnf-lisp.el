@@ -30,13 +30,18 @@
   ;; connect to slime on server
   (slime-connect "127.0.0.1" 4005))
 
-(defun slime-local ()
+(defun slime-local (&optional command)
   (interactive)
   ;; setup translators
   (setq slime-to-lisp-filename-function   #'convert-standard-filename
         slime-from-lisp-filename-function #'identity)
   ;; start slime
-  (slime))
+  (slime command))
+
+(defun slime-local-alt ()
+  (interactive)
+  (slime-local 'clisp))
+
 
 (defun slime-selector-or-start (arg)
   (interactive "P")
