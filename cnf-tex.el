@@ -11,15 +11,25 @@
 
 (setq-default TeX-master t)
 
+;; generate pdf file name
+(eval-after-load 'tex
+    '(add-to-list 'TeX-expand-list
+              '("%P" file "pdf" t)
+              t))
+
 (setq TeX-view-program-list
       '(("Okular" ("okular --unique"
                    (mode-io-correlate " -p %(outpage)") " %o"))
-        ("dvips and Okular" ("%(o?)dvips %d -o && okular --unique"
+        ("dvips and Okular" ("%(o?)dvips %d -o %f && okular --unique"
                              (mode-io-correlate " -p %(outpage)") " %f"))
         ("Evince" ("evince"
                    (mode-io-correlate " -i %(outpage)") " %o"))
-        ("dvips and Evince" ("%(o?)dvips %d -o && evince"
-                             (mode-io-correlate " -i %(outpage)") " %f"))))
+        ("dvips and Evince" ("%(o?)dvips %d -o %f && evince"
+                             (mode-io-correlate " -i %(outpage)") " %f"))
+        ("dvips and ps2pdf and evince"
+         ("%(o?)dvips %d -o && ps2pdf %f && evince"
+          (mode-io-correlate " -i %(outpage)")
+          " %P"))))
 
 (setq TeX-view-program-selection
       (cond
@@ -29,7 +39,7 @@
            (output-pdf "Okular")
            (output-html "xdg-open")))
         ((file-exists-p "/usr/bin/evince")
-         '(((output-dvi style-pstricks) "dvips and Evince")
+         '(((output-dvi style-pstricks) "dvips and ps2pdf and evince")
            (output-dvi "Evince")
            (output-pdf "Evince")
            (output-html "xdg-open")))))
@@ -147,10 +157,32 @@
                 ("Y" . "\\Psi")
                 ("W" . "\\Omega"))))
 
+;; some custom navigation functions (esp for math mode)
+(defun symb (&rest strings)
+  (intern (apply 'concat strings)))
+
+(defmacro create-tex-goto (name string)
+  `(progn
+     (defun ,(symb "tex-goto-prev-" name) ()
+       (interactive)
+       (search-backward ,string))
+
+     (defun ,(symb "tex-goto-next-" name) ()
+       (interactive)
+       (search-forward ,string))))
+
+(create-tex-goto "backslash" "\\")
+(create-tex-goto "dollar" "$")
+
 ;; keybindings for tex stuff
 (eval-after-load 'tex
   '(progn
     (define-key TeX-mode-map (kbd "<f2>")    'insert-greek-letter)
     (define-key TeX-mode-map (kbd "C-c C-4") 'tex-dollars-to-round)
     (define-key TeX-mode-map (kbd "C-c (")   'tex-round-add-leftright)
-    (define-key TeX-mode-map (kbd "C-c )")   'tex-math-to-equation)))
+    (define-key TeX-mode-map (kbd "C-c )")   'tex-math-to-equation)
+
+    (define-key TeX-mode-map (kbd "C-,") 'tex-goto-prev-backslash)
+    (define-key TeX-mode-map (kbd "C-.") 'tex-goto-next-backslash)
+    (define-key TeX-mode-map (kbd "C-M-p") 'tex-goto-prev-dollar)
+    (define-key TeX-mode-map (kbd "C-M-n") 'tex-goto-next-dollar)))

@@ -31,7 +31,8 @@
       w3m
       ipython
       iy-go-to-char
-      mark-multiple
+      iedit
+      multiple-cursors
       )
     "my default selection of packages, to be automatically
   installed at launch.")
@@ -114,7 +115,7 @@
 
 (server-start)
 
-;; (load-theme 'solarized-light t)
+(load-theme 'solarized-light t)
 ;; (load-theme 'zenburn t)
 ;; (load-theme 'tango-dark)
 
