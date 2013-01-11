@@ -125,7 +125,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(safe-local-variable-values (quote ((ispell-dictionary . en) (Package . Maxima) (Package . CL-WHO) (Syntax . COMMON-LISP) (Encoding . utf-8) (readtable . runes) (Package . CXML) (Package . ESA) (Lowercase . Yes) (Package . CLIM-DEMO) (ispell-dictionary . da) (ispell-dictionary . dansk) (ispell-dictionary . en_GB) (Base . 10) (Syntax . ANSI-Common-Lisp) (Package . CLIM-INTERNALS) (Package . DREI-CORE) (Syntax . Common-Lisp) (whitespace-line-column . 80) (lexical-binding . t)))))
+ '(ansi-term-color-vector [unspecific "#586e75" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#002b36"])
+ '(custom-safe-themes (quote ("cfde97b1d5ed1770b8e2e1b739611820c3a3e370cbda75d96e78ef2a5f359b27" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "64b7be5703b90e05f7bc1f63a9f689a7c931626462697bea9476b397da194bd9" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+ '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
+ '(highlight-tail-colors (quote (("#eee8d5" . 0) ("#B4C342" . 20) ("#69CABF" . 30) ("#69B7F0" . 50) ("#DEB542" . 60) ("#F2804F" . 70) ("#F771AC" . 85) ("#eee8d5" . 100))))
+ '(safe-local-variable-values (quote ((TeX-master . ${5:t}) (ispell-dictionary . en) (Package . Maxima) (Package . CL-WHO) (Syntax . COMMON-LISP) (Encoding . utf-8) (readtable . runes) (Package . CXML) (Package . ESA) (Lowercase . Yes) (Package . CLIM-DEMO) (ispell-dictionary . da) (ispell-dictionary . dansk) (ispell-dictionary . en_GB) (Base . 10) (Syntax . ANSI-Common-Lisp) (Package . CLIM-INTERNALS) (Package . DREI-CORE) (Syntax . Common-Lisp) (whitespace-line-column . 80) (lexical-binding . t)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
