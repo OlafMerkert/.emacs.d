@@ -1,3 +1,6 @@
+(load-theme 'zenburn t)
+;; (load-theme 'solarized-light t)
+;; (load-theme 'tango-dark)
 
 (when (>= emacs-major-version 24)
   (require 'package)
@@ -113,11 +116,9 @@
                "email"))
   (load (concatenate 'string "~/.emacs.d/cnf-" cnf)))
 
-(server-start)
+(windmove-default-keybindings)
 
-(load-theme 'solarized-light t)
-;; (load-theme 'zenburn t)
-;; (load-theme 'tango-dark)
+(server-start)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
