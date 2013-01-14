@@ -26,15 +26,19 @@
                    (mode-io-correlate " -i %(outpage)") " %o"))
         ("dvips and Evince" ("%(o?)dvips %d -o %f && evince"
                              (mode-io-correlate " -i %(outpage)") " %f"))
-        ("dvips and ps2pdf and evince"
+        ("dvips and ps2pdf and Evince"
          ("%(o?)dvips %d -o && ps2pdf %f && evince"
+          (mode-io-correlate " -i %(outpage)")
+          " %P"))
+        ("dvips and ps2pdf and Okular"
+         ("%(o?)dvips %d -o && ps2pdf %f && okular"
           (mode-io-correlate " -i %(outpage)")
           " %P"))))
 
 (setq TeX-view-program-selection
       (cond
         ((file-exists-p "/usr/bin/okular")
-         '(((output-dvi style-pstricks) "dvips and Okular")
+         '(((output-dvi style-pstricks) "dvips and ps2pdf and Okular")
            (output-dvi "Okular")
            (output-pdf "Okular")
            (output-html "xdg-open")))
