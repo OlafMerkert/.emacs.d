@@ -31,7 +31,7 @@
           (mode-io-correlate " -i %(outpage)")
           " %P"))
         ("dvips and ps2pdf and Okular"
-         ("%(o?)dvips %d -o && ps2pdf %f && okular"
+         ("%(o?)dvips %d -o && ps2pdf %f && okular --unique"
           (mode-io-correlate " -i %(outpage)")
           " %P"))))
 
