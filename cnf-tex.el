@@ -11,6 +11,9 @@
 
 (setq-default TeX-master t)
 
+;; setup preview-LaTeX
+(setf preview-scale-function 1.2)
+
 ;; generate pdf file name
 (eval-after-load 'tex
     '(add-to-list 'TeX-expand-list
@@ -186,7 +189,8 @@
     (define-key TeX-mode-map (kbd "C-c (")   'tex-round-add-leftright)
     (define-key TeX-mode-map (kbd "C-c )")   'tex-math-to-equation)
 
-    (define-key TeX-mode-map (kbd "C-,") 'tex-goto-prev-backslash)
-    (define-key TeX-mode-map (kbd "C-.") 'tex-goto-next-backslash)
-    (define-key TeX-mode-map (kbd "C-M-p") 'tex-goto-prev-dollar)
-    (define-key TeX-mode-map (kbd "C-M-n") 'tex-goto-next-dollar)))
+    (define-key TeX-mode-map (kbd "C-,")     'tex-goto-prev-backslash)
+    (define-key TeX-mode-map (kbd "C-.")     'tex-goto-next-backslash)
+    (define-key TeX-mode-map (kbd "C-M-p")   'tex-goto-prev-dollar)
+    (define-key TeX-mode-map (kbd "C-M-n")   'tex-goto-next-dollar)
+    (define-key TeX-mode-map (kbd "M-p")     'preview-at-point)))
