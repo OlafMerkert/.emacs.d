@@ -148,7 +148,9 @@
   (add-hook mode (lambda () (paredit-mode 1))))
 
 ;; adjustments to indentation
-(setf (get 'ew 'common-lisp-indent-function)
-      '(&rest 0))
+(setf (get 'ew 'common-lisp-indent-function) '(&rest 0)
+      (get 'defmethod* 'common-lisp-indent-function) (get 'defmethod 'common-lisp-indent-function)
+      (get 'defgeneric* 'common-lisp-indent-function) (get 'defgeneric 'common-lisp-indent-function)
+      )
 
 (provide 'cnf-lisp)
