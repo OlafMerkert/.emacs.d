@@ -49,6 +49,7 @@
 (require 'starter-kit-lisp)
 
 ;; disable some unwanted stuff from the starter kit
+(remove-hook 'prog-mode-hook 'idle-highlight-mode)
 
 ;; general settings
 (column-number-mode t)
@@ -68,7 +69,6 @@
 
 ;; don't flyspell automatically
 (remove-hook 'text-mode-hook 'turn-on-flyspell)
-
 
 (add-hook 'text-mode-hook
           (lambda ()

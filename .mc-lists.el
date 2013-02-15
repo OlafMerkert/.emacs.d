@@ -12,6 +12,7 @@
         paredit-forward
         paredit-forward-delete
         paredit-forward-kill-word
+        paredit-forward-up
         paredit-open-round
         slime-space
         ))
