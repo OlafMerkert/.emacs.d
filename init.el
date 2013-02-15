@@ -45,6 +45,11 @@
 (setq desktop-path '("~/.emacs.d/sessions/"))
 (desktop-save-mode 1)
 
+(require 'starter-kit)
+(require 'starter-kit-lisp)
+
+;; disable some unwanted stuff from the starter kit
+
 ;; general settings
 (column-number-mode t)
 (setq initial-scratch-message    nil
@@ -63,6 +68,7 @@
 
 ;; don't flyspell automatically
 (remove-hook 'text-mode-hook 'turn-on-flyspell)
+
 
 (add-hook 'text-mode-hook
           (lambda ()
@@ -101,10 +107,6 @@
 <")
   (indent-region (buffer-end -1) (buffer-end 1)))
 
-(require 'starter-kit)
-(require 'starter-kit-lisp)
-
-;; disable some unwanted stuff from the starter kit
 
 (dolist (cnf '("functions"
                "lisp"
@@ -118,7 +120,7 @@
 
 (server-start)
 
-(load-theme 'zenburn t)
+;; (load-theme 'zenburn t)
 (load-theme 'anti-zenburn t)
 ;; (load-theme 'solarized-light t)
 ;; (load-theme 'tango-dark)
@@ -128,7 +130,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("0bac11bd6a3866c6dee5204f76908ec3bdef1e52f3c247d5ceca82860cccfa9d" "27470eddcaeb3507eca2760710cc7c43f1b53854372592a3afa008268bcf7a75" "cfde97b1d5ed1770b8e2e1b739611820c3a3e370cbda75d96e78ef2a5f359b27" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "64b7be5703b90e05f7bc1f63a9f689a7c931626462697bea9476b397da194bd9" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+ '(custom-safe-themes (quote ("6b00751018da9a360ac8a7f7af8eb134921a489725735eba663700cebc12fa6f" "0bac11bd6a3866c6dee5204f76908ec3bdef1e52f3c247d5ceca82860cccfa9d" "27470eddcaeb3507eca2760710cc7c43f1b53854372592a3afa008268bcf7a75" "cfde97b1d5ed1770b8e2e1b739611820c3a3e370cbda75d96e78ef2a5f359b27" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "64b7be5703b90e05f7bc1f63a9f689a7c931626462697bea9476b397da194bd9" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(safe-local-variable-values (quote ((Package . TOWN-EXAMPLE) (ispell-dictionary . "en_GB") (ispell-dictionary . "english") (TeX-master . ${5:t}) (ispell-dictionary . en) (Package . Maxima) (Package . CL-WHO) (Syntax . COMMON-LISP) (Encoding . utf-8) (readtable . runes) (Package . CXML) (Package . ESA) (Lowercase . Yes) (Package . CLIM-DEMO) (ispell-dictionary . da) (ispell-dictionary . dansk) (ispell-dictionary . en_GB) (Base . 10) (Syntax . ANSI-Common-Lisp) (Package . CLIM-INTERNALS) (Package . DREI-CORE) (Syntax . Common-Lisp) (whitespace-line-column . 80) (lexical-binding . t)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
