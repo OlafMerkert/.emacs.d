@@ -5,10 +5,15 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        mark-sexp
         paredit-backward-slurp-sexp
+        paredit-backward-up
+        paredit-close-round
+        paredit-forward
         paredit-forward-delete
         paredit-forward-kill-word
         paredit-open-round
+        slime-space
         ))
 
 (setq mc/cmds-to-run-once

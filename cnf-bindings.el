@@ -44,22 +44,23 @@
 
 (ad-activate 'load)
 
-(require 'mark-more-like-this)(require 'expand-region)
+(require 'mark-more-like-this)
+(require 'expand-region)
 (define-key my-keys-minor-mode-map (kbd "C-j")        'ace-jump-mode)
 (define-key my-keys-minor-mode-map (kbd "M-j")        'iy-go-to-char)
 (define-key my-keys-minor-mode-map (kbd "C-x a")      'align-regexp)
 (define-key my-keys-minor-mode-map (kbd "C-x A")      'align-regexp-all)
 (define-key my-keys-minor-mode-map (kbd "C-<return>") 'copy-line-to-other-window)
 (define-key my-keys-minor-mode-map (kbd "C-M-m")      'mark-more-like-this) ; like the other two, but takes an argument (negative is previous)
-(define-key my-keys-minor-mode-map (kbd "C-o")        'er/expand-region)
+;; (define-key my-keys-minor-mode-map (kbd "C-o")        'er/expand-region)
 (define-key my-keys-minor-mode-map (kbd "C-&")        'mc/edit-lines)
 
 (require 'multiple-cursors)
 
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(define-key my-keys-minor-mode-map (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(define-key my-keys-minor-mode-map (kbd "C->") 'mc/mark-next-like-this)
+(define-key my-keys-minor-mode-map (kbd "C-<") 'mc/mark-previous-like-this)
+(define-key my-keys-minor-mode-map (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 (require 'iedit)
  
