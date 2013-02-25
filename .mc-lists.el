@@ -5,7 +5,13 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        end-of-visual-line
+        isearch-exit
+        isearch-forward-regexp
+        isearch-printing-char
+        kill-sexp
         mark-sexp
+        paredit-backward-kill-word
         paredit-backward-slurp-sexp
         paredit-backward-up
         paredit-close-round
@@ -13,10 +19,14 @@
         paredit-forward-delete
         paredit-forward-kill-word
         paredit-forward-up
+        paredit-kill
         paredit-open-round
+        paredit-splice-sexp
         slime-space
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        isearch-other-control-char
+        iy-go-to-char
         ))
