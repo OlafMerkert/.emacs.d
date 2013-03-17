@@ -5,12 +5,14 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        downcase-region
         end-of-visual-line
         isearch-exit
         isearch-forward-regexp
         isearch-printing-char
         kill-sexp
         mark-sexp
+        paredit-backward
         paredit-backward-kill-word
         paredit-backward-slurp-sexp
         paredit-backward-up
@@ -23,10 +25,12 @@
         paredit-open-round
         paredit-splice-sexp
         slime-space
+        smex
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        TeX-next-error
         isearch-other-control-char
         iy-go-to-char
         ))
