@@ -130,7 +130,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("2e3d0f112e5534bae9c0f64760d7d65380add64cafc1a6b6f8bd971e7dc95a50" default)))
+ '(custom-safe-themes (quote ("f5e56ac232ff858afb08294fc3a519652ce8a165272e3c65165c42d6fe0262a0" "36a309985a0f9ed1a0c3a69625802f87dee940767c9e200b89cdebdb737e5b29" "2e3d0f112e5534bae9c0f64760d7d65380add64cafc1a6b6f8bd971e7dc95a50" default)))
  '(safe-local-variable-values (quote ((ispell-dictionary . "en_GB") (ispell-dictionary . "english") (whitespace-line-column . 80) (lexical-binding . t)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

@@ -40,15 +40,15 @@
 
 (setq TeX-view-program-selection
       (cond
+        ((file-exists-p "/usr/bin/evince")
+         '(((output-dvi style-pstricks) "dvips and ps2pdf and Evince")
+           (output-dvi "Evince")
+           (output-pdf "Evince")
+           (output-html "xdg-open")))
         ((file-exists-p "/usr/bin/okular")
          '(((output-dvi style-pstricks) "dvips and ps2pdf and Okular")
            (output-dvi "Okular")
            (output-pdf "Okular")
-           (output-html "xdg-open")))
-        ((file-exists-p "/usr/bin/evince")
-         '(((output-dvi style-pstricks) "dvips and ps2pdf and evince")
-           (output-dvi "Evince")
-           (output-pdf "Evince")
            (output-html "xdg-open")))))
 
 (add-hook 'TeX-mode-hook
