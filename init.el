@@ -20,6 +20,7 @@
       starter-kit-bindings
       solarized-theme
       zenburn-theme
+      anti-zenburn-theme
       expand-region
       ace-jump-mode
       js2-mode
