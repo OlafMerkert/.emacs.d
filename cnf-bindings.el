@@ -80,7 +80,7 @@
           ;; functions.
           (iedit-start (current-word)))))))
  
-(global-set-key (kbd "C-;") 'iedit-dwim)
+;; (global-set-key (kbd "C-;") 'iedit-dwim)
 
 ;; Move more quickly
 (global-set-key (kbd "C-S-n") (lambda () (interactive) (next-line 5)))

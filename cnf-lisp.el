@@ -124,8 +124,8 @@
     (define-key slime-repl-mode-map (kbd "<backspace>") 'paredit-backward-delete)
     (define-key slime-repl-mode-map (kbd "<delete>") 'paredit-forward-delete)
     (define-key slime-repl-mode-map (kbd "C-d") 'paredit-forward-delete)
-    ;; (define-key slime-mode-map (kbd "C-;")   'slime-insert-balanced-comments)
-    ;; (define-key slime-mode-map (kbd "C-'")   'slime-remove-balanced-comments)
+    (define-key slime-mode-map (kbd "C-;")   'slime-insert-balanced-comments)
+    (define-key slime-mode-map (kbd "C-:")   'slime-remove-balanced-comments)
     ;; (define-key slime-mode-map (kbd "C-c s") 'clos-insert-accessor-and-initarg)
 
     (define-key slime-mode-map (kbd "C-c g") 'defgeneric-next)
