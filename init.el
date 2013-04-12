@@ -132,7 +132,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(TeX-source-correlate-mode t)
- '(custom-safe-themes (quote ("72fe2de4a9971ba6578a335d26adaaa99ab6a7a6b5903d72d724789c31916c2a" "f5e56ac232ff858afb08294fc3a519652ce8a165272e3c65165c42d6fe0262a0" "36a309985a0f9ed1a0c3a69625802f87dee940767c9e200b89cdebdb737e5b29" "2e3d0f112e5534bae9c0f64760d7d65380add64cafc1a6b6f8bd971e7dc95a50" default)))
+ '(custom-safe-themes (quote ("50b9927ad9701f257dd1df158760e5d1deffdf19bd9b7efbd902a4f04596df8a" "4e72cb2841e4801ba202a120c1cffdf88f5512536e557d03b3626d890b52f201" "72fe2de4a9971ba6578a335d26adaaa99ab6a7a6b5903d72d724789c31916c2a" "f5e56ac232ff858afb08294fc3a519652ce8a165272e3c65165c42d6fe0262a0" "36a309985a0f9ed1a0c3a69625802f87dee940767c9e200b89cdebdb737e5b29" "2e3d0f112e5534bae9c0f64760d7d65380add64cafc1a6b6f8bd971e7dc95a50" default)))
  '(safe-local-variable-values (quote ((Base . 10) (Syntax . Common-Lisp) (Package . Maxima) (ispell-dictionary . "en_GB") (ispell-dictionary . "english") (whitespace-line-column . 80) (lexical-binding . t)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

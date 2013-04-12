@@ -26,6 +26,7 @@
         paredit-splice-sexp
         slime-space
         smex
+        transpose-words
         ))
 
 (setq mc/cmds-to-run-once
