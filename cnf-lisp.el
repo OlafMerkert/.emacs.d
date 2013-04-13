@@ -10,13 +10,14 @@
 
 (setq slime-lisp-implementations
       '(;;(sbcl ("/usr/bin/sbcl"))
+        (ccl ("/usr/local/bin/ccl"))
         (sbcl ("/usr/bin/sbcl" "--core"
                    "/home/olaf/sbcl-gtk2.core"))
         ;; (sbcl ("/usr/bin/sbcl"
         ;;        "--dynamic-heap-size" "4096"
         ;;        "--control-stack-size" "16"))
         (clisp ("/usr/bin/clisp"))
-        (ccl ("/usr/local/bin/ccl"))))
+        ))
 
 (defun slime-sl2z ()
   (interactive)
@@ -37,6 +38,11 @@
         slime-from-lisp-filename-function #'identity)
   ;; start slime
   (slime command))
+
+  ;; change default package to ol-user
+(add-hook 'slime-connected-hook
+          (lambda () (slime-repl-set-package "OL-USER"))
+          t)
 
 (defun slime-local-alt ()
   (interactive)
