@@ -14,6 +14,9 @@
 (global-set-key (kbd "C-x M-o")    'other-frame)
 (global-set-key (kbd "C-x c")      'comment-dwim)
 
+;; change colour theme
+(global-set-key (kbd "C-x M-t") 'cycle-themes)
+
 ;; rebound movement keys
 (defvar my-keys-minor-mode-map (make-sparse-keymap)
   "Personal customisation of keybindings.")
