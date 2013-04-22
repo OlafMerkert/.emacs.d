@@ -46,7 +46,7 @@
 
 (defun slime-local-alt ()
   (interactive)
-  (slime-local 'clisp))
+  (slime-local 'ccl))
 
 
 (defun slime-selector-or-start (arg)
