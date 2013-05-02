@@ -4,19 +4,19 @@
 (setq send-mail-function 'sendmail-send-it)
 
 ;; use the remote 1und1 imap server
-(setq gnus-select-method
-      '(nnimap "1und1"
-        (nnimap-address "imap.1und1.de")
-        (nnimap-server-port 993)
-        (nnimap-stream tls)
-        (nnir-search-engine imap)))
+;; (setq gnus-select-method
+;;       '(nnimap "1und1"
+;;         (nnimap-address "imap.1und1.de")
+;;         (nnimap-server-port 993)
+;;         (nnimap-stream tls)
+;;         (nnir-search-engine imap)))
 
 ;; use 1und1 news server
 ;; (add-to-list 'gnus-secondary-select-methods
 ;;              '(nntp "news.online.de"))
 
 ;; store sent email on the imap server as well
- (setq gnus-message-archive-method
+(setq gnus-message-archive-method
        '(nnfolder "archive"
          (nnfolder-inhibit-expiry t)
          (nnfolder-directory "~/Mail/archive")
@@ -35,3 +35,21 @@
 
 ;; enable topic mode
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+
+
+(setq gnus-select-method '(nntp "news.gmane.org"))
+
+(setq gnus-secondary-select-methods
+            '((nnimap "1und1"
+               (nnimap-address "imap.1und1.de")
+               (nnimap-server-port 993)
+               (nnimap-stream tls)
+               (nnir-search-engine imap))
+              (nnimap "sns"
+               (nnimap-address "mail.sns.it")
+               (nnimap-server-port 993)
+               (nnimap-stream ssl)
+               (nnir-search-engine imap))))
+
+;; (setq nnmail-split-methods)
+
