@@ -37,7 +37,7 @@
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
 
-(setq gnus-select-method '(nntp "news.gmane.org"))
+(setq gnus-select-method '(nntp "news.tin.it"))
 
 (setq gnus-secondary-select-methods
             '((nnimap "1und1"
