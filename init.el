@@ -127,7 +127,8 @@
 ;; (load-theme 'tango-dark)
 
 (defvar nice-themes '(anti-zenburn zenburn
-                      solarized-light solarized-dark))
+                      solarized-light; solarized-dark
+                      ))
 
 (defun cycle-themes ()
   (interactive)

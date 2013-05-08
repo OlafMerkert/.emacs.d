@@ -5,12 +5,17 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        TeX-insert-backslash
+        TeX-insert-sub-or-superscript
+        beginning-of-visual-line
         downcase-region
         end-of-visual-line
         isearch-exit
         isearch-forward-regexp
         isearch-printing-char
+        iy-go-to-char--command
         kill-sexp
+        kill-visual-line
         mark-sexp
         paredit-backward
         paredit-backward-kill-word
@@ -31,7 +36,4 @@
 
 (setq mc/cmds-to-run-once
       '(
-        TeX-next-error
-        isearch-other-control-char
-        iy-go-to-char
         ))
