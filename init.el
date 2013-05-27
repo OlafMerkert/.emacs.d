@@ -119,11 +119,28 @@
 
 (windmove-default-keybindings)
 
+;;; if we wnat ot show the smae buffer left and right, call these
+(defun same-buffers-from-active ()
+  (interactive)
+  (set-window-buffer (get-lru-window)
+                     (window-buffer (get-mru-window))))
+
+(defun same-buffers-from-inactive ()
+  (interactive)
+  (set-window-buffer (get-mru-window)
+                     (window-buffer (get-lru-window))))
+
+(defun same-buffers (&optional arg)
+  (interactive "P")
+  (if arg
+      (same-buffers-from-inactive)
+      (same-buffers-from-active)))
+
 (server-start)
 
 ;; (load-theme 'zenburn t)
-(load-theme 'anti-zenburn t)
-;; (load-theme 'solarized-light t)
+;; (load-theme 'anti-zenburn t)
+(load-theme 'solarized-light t)
 ;; (load-theme 'tango-dark)
 
 (defvar nice-themes '(anti-zenburn zenburn

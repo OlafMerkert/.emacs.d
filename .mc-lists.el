@@ -8,6 +8,7 @@
         TeX-insert-backslash
         TeX-insert-sub-or-superscript
         beginning-of-visual-line
+        delete-indentation
         downcase-region
         end-of-visual-line
         isearch-exit
@@ -32,8 +33,10 @@
         slime-space
         smex
         transpose-words
+        yas-expand
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        slime-compile-defun
         ))
