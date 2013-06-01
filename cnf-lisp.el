@@ -154,9 +154,23 @@
   (add-hook mode (lambda () (paredit-mode 1))))
 
 ;; adjustments to indentation
-(setf (get 'ew 'common-lisp-indent-function) '(&rest 0)
-      (get 'defmethod* 'common-lisp-indent-function) (get 'defmethod 'common-lisp-indent-function)
-      (get 'defgeneric* 'common-lisp-indent-function) (get 'defgeneric 'common-lisp-indent-function)
-      )
+(defun flatten (x)
+  (cond ((null x) nil)
+        ((atom x)
+         (list x))
+        (t (append (flatten (car x))
+                   (flatten (cdr x))))))
+
+(defmacro copy-cl-indentation (&rest mapping)
+    `(setf ,@(mapcar (lambda (x) `(get ',x 'common-lisp-indent-function))
+                   (flatten mapping))))
+
+(setf (get 'ew 'common-lisp-indent-function) '(&rest 0))
+
+(copy-cl-indentation (defmethod* defmethod)
+                     (defgeneric* defgeneric)
+                     ;; (mvbind multiple-value-bind)
+                     ;;(dbind destructuring-bind)
+                     )
 
 (provide 'cnf-lisp)
