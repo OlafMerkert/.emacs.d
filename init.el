@@ -70,6 +70,12 @@
 ;; don't flyspell automatically
 (remove-hook 'text-mode-hook 'turn-on-flyspell)
 
+;; use english in commit messages
+(defun use-english-dictionary ()
+  (interactive)
+  (ispell-change-dictionary "en_GB"))
+
+(add-hook 'magit-log-edit-mode-hook 'use-english-dictionary)
 
 (add-hook 'text-mode-hook
           (lambda ()
