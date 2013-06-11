@@ -13,7 +13,7 @@
 (global-set-key (kbd "S-<return>") 'split-line)
 (global-set-key (kbd "C-x M-o")    'other-frame)
 (global-set-key (kbd "C-x c")      'comment-dwim)
-(global-set-key (kbd "C-x 4")      'same-buffers)
+(global-set-key (kbd "<f12>")      'same-buffers)
 
 ;; change colour theme
 (global-set-key (kbd "C-x M-t") 'cycle-themes)

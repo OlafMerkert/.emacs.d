@@ -7,6 +7,7 @@
       '(
         TeX-insert-backslash
         TeX-insert-sub-or-superscript
+        ace-jump-mode
         beginning-of-visual-line
         delete-indentation
         downcase-region
@@ -26,6 +27,7 @@
         paredit-forward
         paredit-forward-delete
         paredit-forward-kill-word
+        paredit-forward-slurp-sexp
         paredit-forward-up
         paredit-kill
         paredit-open-round
@@ -39,4 +41,5 @@
 (setq mc/cmds-to-run-once
       '(
         slime-compile-defun
+        slime-selector-or-start
         ))
