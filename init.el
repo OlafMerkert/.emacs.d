@@ -144,21 +144,12 @@
 
 (server-start)
 
-;; (load-theme 'zenburn t)
-;; (load-theme 'anti-zenburn t)
-(load-theme 'solarized-light t)
-;; (load-theme 'tango-dark)
-
-(defvar nice-themes '(anti-zenburn zenburn
-                      solarized-light ; solarized-dark
-                      ))
-
-(defun cycle-themes ()
-  (interactive)
-  (psetf (cdr (last nice-themes)) nice-themes
-         nice-themes (cdr nice-themes)
-         (cdr nice-themes) nil)
-  (load-theme (car nice-themes) t))
+(when window-system
+  (load-theme 'zenburn t)
+  ;; (load-theme 'anti-zenburn t)
+  ;; (load-theme 'solarized-light t)
+  ;; (load-theme 'tango-dark)
+  )
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
