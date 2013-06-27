@@ -145,7 +145,7 @@
 (server-start)
 
 (when window-system
-  (load-theme 'zenburn t)
+  ;; (load-theme 'zenburn t)
   ;; (load-theme 'anti-zenburn t)
   ;; (load-theme 'solarized-light t)
   ;; (load-theme 'tango-dark)
