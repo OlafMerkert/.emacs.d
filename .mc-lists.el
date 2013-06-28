@@ -25,6 +25,7 @@
         paredit-backward-slurp-sexp
         paredit-backward-up
         paredit-close-round
+        paredit-doublequote
         paredit-forward
         paredit-forward-delete
         paredit-forward-kill-word
