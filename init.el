@@ -18,9 +18,9 @@
       starter-kit-js
       starter-kit-lisp
       starter-kit-bindings
-      solarized-theme
-      zenburn-theme
-      anti-zenburn-theme
+      ;; solarized-theme
+      ;; zenburn-theme
+      ;; anti-zenburn-theme
       expand-region
       ace-jump-mode
       js2-mode
@@ -125,7 +125,7 @@
 
 (windmove-default-keybindings)
 
-;;; if we wnat ot show the smae buffer left and right, call these
+;;; if we want to show the same buffer left and right, call these
 (defun same-buffers-from-active ()
   (interactive)
   (set-window-buffer (get-lru-window)
@@ -144,21 +144,6 @@
 
 (server-start)
 
-;; (load-theme 'zenburn t)
-;; (load-theme 'anti-zenburn t)
-(load-theme 'solarized-light t)
-;; (load-theme 'tango-dark)
-
-(defvar nice-themes '(anti-zenburn zenburn
-                      solarized-light ; solarized-dark
-                      ))
-
-(defun cycle-themes ()
-  (interactive)
-  (psetf (cdr (last nice-themes)) nice-themes
-         nice-themes (cdr nice-themes)
-         (cdr nice-themes) nil)
-  (load-theme (car nice-themes) t))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
