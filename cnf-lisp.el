@@ -85,6 +85,10 @@
      (just-one-space 1)
      (insert last-sexp))))
 
+(defun multiply-last-sexp-2 () (interactive) (multiply-last-sexp 2))
+(defun multiply-last-sexp-3 () (interactive) (multiply-last-sexp 3))
+(defun multiply-last-sexp-4 () (interactive) (multiply-last-sexp 4))
+
 (defun multiply-last-sexp-reader (&optional arg)
   (interactive (list (if current-prefix-arg current-prefix-arg 1)))
   (let ((opoint (point))
@@ -133,20 +137,18 @@
     (define-key slime-mode-map (kbd "C-;")   'slime-insert-balanced-comments)
     (define-key slime-mode-map (kbd "C-:")   'slime-remove-balanced-comments)
     ;; (define-key slime-mode-map (kbd "C-c s") 'clos-insert-accessor-and-initarg)
-
     (define-key slime-mode-map (kbd "C-c g") 'defgeneric-next)
+    (define-key slime-mode-map (kbd "C-c #") 'multiply-last-sexp-reader)
+    ))
 
-    (define-key slime-mode-map (kbd "C-!")   (lambda () (interactive) (multiply-last-sexp-reader 1)))
-    (define-key slime-mode-map (kbd "C-@")   (lambda () (interactive) (multiply-last-sexp-reader 2)))
-    (define-key slime-mode-map (kbd "C-#")   (lambda () (interactive) (multiply-last-sexp-reader 3)))))
+(define-key lisp-mode-map (kbd "C-2") 'multiply-last-sexp-2)
+(define-key emacs-lisp-mode-map (kbd "C-2") 'multiply-last-sexp-2)
+(define-key lisp-mode-map (kbd "C-3") 'multiply-last-sexp-3)
+(define-key emacs-lisp-mode-map (kbd "C-3") 'multiply-last-sexp-3)
+(define-key lisp-mode-map (kbd "C-4") 'multiply-last-sexp-4)
+(define-key emacs-lisp-mode-map (kbd "C-4") 'multiply-last-sexp-4)
 
-(define-key lisp-mode-map (kbd "C-2")   (lambda () (interactive) (multiply-last-sexp 2)))
-(define-key lisp-mode-map (kbd "C-3")   (lambda () (interactive) (multiply-last-sexp 3)))
-(define-key lisp-mode-map (kbd "C-4")   (lambda () (interactive) (multiply-last-sexp 4)))
 (define-key lisp-mode-map (kbd "C-c f") 'defun-this-symbol)
-(define-key emacs-lisp-mode-map (kbd "C-2")   (lambda () (interactive) (multiply-last-sexp 2)))
-(define-key emacs-lisp-mode-map (kbd "C-3")   (lambda () (interactive) (multiply-last-sexp 3)))
-(define-key emacs-lisp-mode-map (kbd "C-4")   (lambda () (interactive) (multiply-last-sexp 4)))
 (define-key emacs-lisp-mode-map (kbd "C-c f") 'defun-this-symbol)
 
 (dolist (mode '(lisp-mode-hook

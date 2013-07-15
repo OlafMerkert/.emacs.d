@@ -19,11 +19,13 @@
         kill-sexp
         kill-visual-line
         mark-sexp
+        mouse-yank-primary
         paredit-backward
         paredit-backward-kill-word
         paredit-backward-slurp-sexp
         paredit-backward-up
         paredit-close-round
+        paredit-doublequote
         paredit-forward
         paredit-forward-delete
         paredit-forward-kill-word
