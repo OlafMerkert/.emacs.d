@@ -10,8 +10,9 @@
 
 (setq slime-lisp-implementations
       '(;;(sbcl ("/usr/bin/sbcl"))
-        (sbcl ("/usr/bin/sbcl" "--core"
-                   "/home/olaf/sbcl-gtk2.core"))
+        (sbcl ("/usr/bin/sbcl"
+               ;; "--core" "/home/olaf/sbcl-gtk2.core"
+               ))
         (ccl ("/usr/local/bin/ccl"))
         ;; (sbcl ("/usr/bin/sbcl"
         ;;        "--dynamic-heap-size" "4096"

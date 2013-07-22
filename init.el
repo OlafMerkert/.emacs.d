@@ -34,6 +34,9 @@
       iy-go-to-char
       iedit
       multiple-cursors
+      mark-more-like-this
+      mark-multiple
+      magit
       )
     "my default selection of packages, to be automatically
   installed at launch.")
