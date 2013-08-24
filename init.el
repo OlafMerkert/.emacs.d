@@ -37,6 +37,7 @@
       mark-more-like-this
       mark-multiple
       magit
+      elpy
       )
     "my default selection of packages, to be automatically
   installed at launch.")
@@ -51,6 +52,8 @@
 
 (require 'starter-kit)
 (require 'starter-kit-lisp)
+
+(add-hook 'js-mode-hook 'js2-minor-mode)
 
 ;; disable some unwanted stuff from the starter kit
 
@@ -144,6 +147,10 @@
   (if arg
       (same-buffers-from-inactive)
       (same-buffers-from-active)))
+
+;;; some stuff for python programming
+(elpy-enable)
+(elpy-clean-modeline)
 
 (server-start)
 
