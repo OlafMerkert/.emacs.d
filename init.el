@@ -34,6 +34,10 @@
       iy-go-to-char
       iedit
       multiple-cursors
+      mark-more-like-this
+      mark-multiple
+      magit
+      elpy
       )
     "my default selection of packages, to be automatically
   installed at launch.")
@@ -48,6 +52,8 @@
 
 (require 'starter-kit)
 (require 'starter-kit-lisp)
+
+(add-hook 'js-mode-hook 'js2-minor-mode)
 
 ;; disable some unwanted stuff from the starter kit
 
@@ -142,6 +148,10 @@
       (same-buffers-from-inactive)
       (same-buffers-from-active)))
 
+;;; some stuff for python programming
+(elpy-enable)
+(elpy-clean-modeline)
+
 (server-start)
 
 
@@ -150,7 +160,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(safe-local-variable-values (quote ((Package . HUNCHENTOOT) (Syntax . COMMON-LISP) (Base . 10) (Syntax . Common-Lisp) (Package . Maxima) (ispell-dictionary . "en_GB") (ispell-dictionary . "english") (whitespace-line-column . 80) (lexical-binding . t)))))
+ '(safe-local-variable-values (quote ((Package . emacs) (Package . HUNCHENTOOT) (Syntax . COMMON-LISP) (Base . 10) (Syntax . Common-Lisp) (Package . Maxima) (ispell-dictionary . "en_GB") (ispell-dictionary . "english") (whitespace-line-column . 80) (lexical-binding . t)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

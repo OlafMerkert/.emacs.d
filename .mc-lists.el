@@ -42,6 +42,7 @@
 
 (setq mc/cmds-to-run-once
       '(
+        copy-line-to-other-window
         slime-compile-defun
         slime-selector-or-start
         ))
