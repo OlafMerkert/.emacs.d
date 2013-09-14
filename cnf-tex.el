@@ -81,7 +81,7 @@
     (backward-char 1)
     (insert "\\right")))
 
-(defun tex-math-to-equation ()
+(defun tex-math-to-equation (&optional (equation "equation"))
   "search for enclosing \[ ... \] or \( ... \) and transform it
   to \begin{equation} \label{eq:} ... \end{equation}, with cursor
   just behind eq:."
@@ -89,7 +89,7 @@
   (unless (looking-at "\\(\\\\\\[\\|\\\\(\\)")
     (search-backward-regexp "\\(\\\\\\[\\|\\\\(\\)"))
   (delete-char 2)
-  (insert "\\begin{equation}")
+  (insert "\\begin{" equation "}")
   (reindent-then-newline-and-indent)
   (insert "\\label{eq:}")
   (let ((label-pos (point)))
@@ -97,9 +97,14 @@
     (search-forward-regexp "\\(\\\\\\]\\|\\\\)\\)")
     (delete-char -2)
     (reindent-then-newline-and-indent)
-    (insert "\\end{equation}")
+    (insert "\\end{" equation "}")
     (LaTeX-indent-line)
     (goto-char (- label-pos 1))))
+
+(defun tex-math-to-multline ()
+  (interactive)
+  (tex-math-to-equation "multline*"))
+
 
 ;; TODO aendere Umgebung \begin{x} \end{x} zu \begin{y} \end{y}
 
