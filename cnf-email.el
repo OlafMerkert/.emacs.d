@@ -53,3 +53,16 @@
 
 ;; (setq nnmail-split-methods)
 
+;; blacklist posts by certain people
+
+;; from http://www.emacswiki.org/emacs/BlacklistSpammers on Di 3. Sep 19:09:17 CEST 2013
+(defun gnus-summary-blacklist-poster ()
+   "Put sender on current line in blacklist."
+   (interactive)
+   (let ((spammer (mail-header-from (gnus-summary-article-header)))
+         (current-score-file gnus-current-score-file))
+     (when (gnus-news-group-p gnus-newsgroup-name)
+       (gnus-score-change-score-file "all.BLACKLIST")
+       (gnus-summary-score-entry "From" spammer 'S' -1001 nil)
+       (gnus-score-change-score-file current-score-file)
+       (gnus-score-save))))
