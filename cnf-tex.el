@@ -1,4 +1,5 @@
 ;; Emacs TeX configuration
+(load "tex-site.el" nil t t)
 
 (setq LaTeX-item-indent 0
       TeX-newline-function 'reindent-then-newline-and-indent
@@ -10,6 +11,10 @@
       LaTeX-command "latex -shell-escape") ; enable shell escapes
 
 (setq-default TeX-master t)
+
+;; enable reftex
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(setq reftex-plug-into-AUCTeX t)
 
 ;; setup preview-LaTeX
 (setf preview-scale-function 1.2)

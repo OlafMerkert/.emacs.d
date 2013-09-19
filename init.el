@@ -1,3 +1,7 @@
+;; setup environment variables
+;; (setenv "CDPATH"
+;;         (replace-regexp-in-string "~" (getenv "HOME")
+;;                                   ".:..:~:~/Projekte:~/Perfezionamento/projects"))
 
 (when (>= emacs-major-version 24)
   (require 'package)
