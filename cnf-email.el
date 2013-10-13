@@ -1,3 +1,4 @@
+;; gnus configuration
 (require 'gnus)
 
 ;; use the local exim server to send mail
@@ -33,6 +34,9 @@
 
 (setq gnus-gcc-mark-as-read t)
 
+;; todo use gnus for compose-mail
+
+
 ;; enable topic mode
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
@@ -66,3 +70,43 @@
        (gnus-summary-score-entry "From" spammer 'S' -1001 nil)
        (gnus-score-change-score-file current-score-file)
        (gnus-score-save))))
+
+;;; bbdb configuration
+;; (require 'message)
+(require 'bbdb)
+;; (require 'bbdb-gnus)
+;; (require 'bbdb-com)
+;; (require 'bbdb-hooks)
+
+(bbdb-initialize 'gnus 'message)
+(bbdb-insinuate-message)
+(add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+
+(setq bbdb-file "~/Dokumente/Adressen.bbdb")
+
+(setq bbdb-send-mail-style 'gnus
+      bbdb-complete-name-full-completion t
+      bbdb-completion-type 'primary-or-name
+      bbdb-complete-name-allow-cycling t)
+
+(setq bbdb-offer-save 1
+      bbdb-use-pop-up t
+      bbdb-electric-p t
+      bddb-popup-target-lines 1)
+
+;;; RSS and Atom feeds
+(require 'mm-url)
+(defadvice mm-url-insert (after DE-convert-atom-to-rss () )
+  "Converts atom to RSS by calling xsltproc."
+  (when (re-search-forward "xmlns=\"http://www.w3.org/.*/Atom\""
+                           nil t)
+    (goto-char (point-min))
+    (message "Converting Atom to RSS... ")
+    (call-process-region (point-min) (point-max)
+                         "xsltproc"
+                         t t nil
+                         (expand-file-name "~/atom2rss.xsl") "-")
+    (goto-char (point-min))
+    (message "Converting Atom to RSS... done")))
+
+(ad-activate 'mm-url-insert)
