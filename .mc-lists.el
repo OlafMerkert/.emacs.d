@@ -20,6 +20,10 @@
         kill-visual-line
         mark-sexp
         mouse-yank-primary
+        org-beginning-of-line
+        org-delete-char
+        org-self-insert-command
+        org-todo
         paredit-backward
         paredit-backward-kill-word
         paredit-backward-slurp-sexp
@@ -36,6 +40,7 @@
         paredit-splice-sexp
         slime-space
         smex
+        transpose-sexps
         transpose-words
         yas-expand
         ))

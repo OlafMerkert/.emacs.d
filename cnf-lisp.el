@@ -176,4 +176,12 @@
                      ;;(dbind destructuring-bind)
                      )
 
+
+(defadvice common-lisp-hyperspec (around hyperspec-use-w3m)
+  "Use w3m as for `browse-url' for the CL hyperspec."
+  (let ((browse-url-browser-function 'w3m-browse-url))
+    ad-do-it))
+
+(ad-activate 'common-lisp-hyperspec)
+
 (provide 'cnf-lisp)
