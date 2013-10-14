@@ -168,12 +168,13 @@
     `(setf ,@(mapcar (lambda (x) `(get ',x 'common-lisp-indent-function))
                    (flatten mapping))))
 
-(setf (get 'ew 'common-lisp-indent-function) '(&rest 0))
+(setf (get 'ew 'common-lisp-indent-function) '(&rest 0)
+      (get 'eval-when 'common-lisp-indent-function) '(2 &rest 0))
 
 (copy-cl-indentation (defmethod* defmethod)
                      (defgeneric* defgeneric)
-                     ;; (mvbind multiple-value-bind)
-                     ;;(dbind destructuring-bind)
+                     (mvbind multiple-value-bind)
+                     (dbind destructuring-bind)
                      )
 
 
