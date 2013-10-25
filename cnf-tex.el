@@ -17,7 +17,7 @@
 (setq reftex-plug-into-AUCTeX t)
 
 ;; setup preview-LaTeX
-(setf preview-scale-function 1.2)
+(setf preview-scale-function 1.1)
 
 ;; generate pdf file name
 (eval-after-load 'tex
