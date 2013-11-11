@@ -108,7 +108,7 @@
   '(define-key gnus-article-mode-map (kbd "C-c C-s") 'gnus-article-save-part))
 
 (eval-after-load 'bibtex
-  '(define-key bibtex-mode-map (kbd "C-m") 'bibtex-next-field))
+  '(define-key bibtex-mode-map (kbd "C-j") 'bibtex-next-field))
 
 ;; in tex, regexp search can be distracting (we often want to search
 ;; for `$'
