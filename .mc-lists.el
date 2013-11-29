@@ -38,6 +38,7 @@
         paredit-kill
         paredit-open-round
         paredit-splice-sexp
+        paredit-splice-sexp-killing-backward
         slime-space
         smex
         transpose-sexps
