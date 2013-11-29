@@ -8,14 +8,17 @@
         TeX-insert-backslash
         TeX-insert-sub-or-superscript
         ace-jump-mode
+        backward-sexp
         beginning-of-visual-line
         delete-indentation
+        dired-next-line
         downcase-region
         end-of-visual-line
         isearch-exit
         isearch-forward-regexp
         isearch-printing-char
         iy-go-to-char--command
+        kill-region
         kill-sexp
         kill-visual-line
         mark-sexp
@@ -43,6 +46,7 @@
         smex
         transpose-sexps
         transpose-words
+        wdired-downcase-word
         yas-expand
         ))
 

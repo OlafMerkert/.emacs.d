@@ -137,21 +137,13 @@
 (windmove-default-keybindings)
 
 ;;; if we want to show the same buffer left and right, call these
-(defun same-buffers-from-active ()
-  (interactive)
-  (set-window-buffer (get-lru-window)
-                     (window-buffer (get-mru-window))))
-
-(defun same-buffers-from-inactive ()
-  (interactive)
-  (set-window-buffer (get-mru-window)
-                     (window-buffer (get-lru-window))))
-
 (defun same-buffers (&optional arg)
   (interactive "P")
   (if arg
-      (same-buffers-from-inactive)
-      (same-buffers-from-active)))
+      ;; copy buffer in inactive window to active window
+      (set-window-buffer (get-mru-window) (window-buffer (get-lru-window)))
+      ;; copy buffer in active window to inactive window
+      (set-window-buffer (get-lru-window) (window-buffer (get-mru-window)))))
 
 ;;; some stuff for python programming
 (elpy-enable)
