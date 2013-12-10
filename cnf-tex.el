@@ -86,25 +86,28 @@
     (backward-char 1)
     (insert "\\right")))
 
-(defun tex-math-to-equation (&optional (equation "equation"))
-  "search for enclosing \[ ... \] or \( ... \) and transform it
-  to \begin{equation} \label{eq:} ... \end{equation}, with cursor
-  just behind eq:."
+(defun tex-math-to-equation ()
+  "search for enclosing \[ ... \] or \( ... \) or $$ ... $$ and
+  transform it to \begin{equation} \label{eq:} ...
+  \end{equation}, with cursor just behind eq:."
   (interactive)
-  (unless (looking-at "\\(\\\\\\[\\|\\\\(\\)")
-    (search-backward-regexp "\\(\\\\\\[\\|\\\\(\\)"))
-  (delete-char 2)
-  (insert "\\begin{" equation "}")
-  (reindent-then-newline-and-indent)
-  (insert "\\label{eq:}")
-  (let ((label-pos (point)))
-    (newline-and-indent)
-    (search-forward-regexp "\\(\\\\\\]\\|\\\\)\\)")
-    (delete-char -2)
+  (let ((start-regexp "\\(\\\\\\[\\|\\\\(\\|\\$\\$\\)")
+        (end-regexp "\\(\\\\\\]\\|\\\\)\\|\\$\\$\\)")
+        (equation "equation"))
+    (unless (looking-at start-regexp)
+      (search-backward-regexp start-regexp))
+    (delete-char 2)
+    (insert "\\begin{" equation "}")
     (reindent-then-newline-and-indent)
-    (insert "\\end{" equation "}")
-    (LaTeX-indent-line)
-    (goto-char (- label-pos 1))))
+    (insert "\\label{eq:}")
+    (let ((label-pos (point)))
+      (newline-and-indent)
+      (search-forward-regexp end-regexp)
+      (delete-char -2)
+      (reindent-then-newline-and-indent)
+      (insert "\\end{" equation "}")
+      (LaTeX-indent-line)
+      (goto-char (- label-pos 1)))))
 
 (defun tex-math-to-multline ()
   (interactive)
@@ -197,7 +200,7 @@
     (define-key TeX-mode-map (kbd "<f2>")    'insert-greek-letter)
     (define-key TeX-mode-map (kbd "C-c C-4") 'tex-dollars-to-round)
     (define-key TeX-mode-map (kbd "C-c (")   'tex-round-add-leftright)
-    (define-key TeX-mode-map (kbd "C-c )")   'tex-math-to-equation)
+    (define-key TeX-mode-map (kbd "C-c $")   'tex-math-to-equation)
 
     (define-key TeX-mode-map (kbd "C-,")     'tex-goto-prev-backslash)
     (define-key TeX-mode-map (kbd "C-.")     'tex-goto-next-backslash)
