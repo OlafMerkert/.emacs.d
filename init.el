@@ -149,6 +149,41 @@
 (elpy-enable)
 (elpy-clean-modeline)
 
+(defun search-on-line (word)
+  ;; assume we are at the end of the line
+  (let ((point (point)))
+    (beginning-of-line)
+    (prog1 (search-forward word point t)
+      (goto-char point))))
+
+(defun blank-line-p (&optional n)
+  ;; again assume we are at the end of the line
+  (let ((point (point)))
+    (beginning-of-line (- 2 (or n 1)))
+    (skip-syntax-forward (concat " "
+                                 (char-to-string (char-syntax ?\n)))
+                         point)
+    (prog1 (<= point (point))
+      (goto-char point))))
+
+(defun py-smart-newline ()
+  (interactive)
+  (cond ((blank-line-p 2)
+         (newline))
+        ((or (blank-line-p)
+             (search-on-line "pass")
+             (search-on-line "return"))
+         (newline-and-indent)
+         (delete-char -4)) ; todo use a smarter function for this
+        (t (newline-and-indent))))
+
+;; indent function for python that knows about preceding
+;; newlines, return, pass
+;; figure out what to do with nested function definitions and class
+;; definition: perhaps the convention is that single blank lines,
+;; return and pass removes one level, while double blank lines reset
+;; indentation to 0
+
 (server-start)
 
 

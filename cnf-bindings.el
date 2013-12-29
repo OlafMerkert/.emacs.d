@@ -121,4 +121,7 @@
     (define-key TeX-mode-map (kbd "C-M-r") 'isearch-backward-regexp)
     (define-key TeX-mode-map (kbd "C-M-%") 'query-replace-regexp)))
 
+(eval-after-load 'elpy
+  '(define-key python-mode-map  (kbd "<return>") 'py-smart-newline))
+
 (provide 'cnf-bindings)
