@@ -134,6 +134,7 @@
     (define-key slime-mode-map (kbd "TAB")   'slime-indent-and-complete-symbol)
     (define-key slime-repl-mode-map (kbd "<backspace>") 'paredit-backward-delete)
     (define-key slime-repl-mode-map (kbd "<delete>") 'paredit-forward-delete)
+    (define-key slime-mode-map (kbd "C-M-<backspace>") 'backward-kill-sexp)
     (define-key slime-repl-mode-map (kbd "C-d") 'paredit-forward-delete)
     (define-key slime-mode-map (kbd "C-;")   'slime-insert-balanced-comments)
     (define-key slime-mode-map (kbd "C-:")   'slime-remove-balanced-comments)
