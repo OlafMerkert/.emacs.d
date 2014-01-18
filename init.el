@@ -88,9 +88,9 @@
 
 (add-hook 'magit-log-edit-mode-hook 'use-english-dictionary)
 
-(add-hook 'text-mode-hook
-          (lambda ()
-            (visual-line-mode 1)))
+;; use visual line instead of auto-fill
+(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+(remove-hook 'text-mode-hook 'turn-on-auto-fill)
 
 ;; browser
 (setq browse-url-generic-program   "xdg-open"
