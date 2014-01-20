@@ -22,12 +22,13 @@
       starter-kit-js
       starter-kit-lisp
       starter-kit-bindings
+      ido-vertical-mode
       ;; solarized-theme
       ;; zenburn-theme
       ;; anti-zenburn-theme
       expand-region
       ace-jump-mode
-      js2-mode
+      ;; js2-mode
       auctex
       yasnippet
       lua-mode
@@ -57,6 +58,9 @@
 
 (require 'starter-kit)
 (require 'starter-kit-lisp)
+
+(require 'ido-vertical-mode)
+(ido-vertical-mode 1)
 
 (add-hook 'js-mode-hook 'js2-minor-mode)
 
