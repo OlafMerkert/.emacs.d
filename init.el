@@ -63,6 +63,7 @@
 (ido-vertical-mode 1)
 
 (add-hook 'js-mode-hook 'js2-minor-mode)
+(remove-hook org-mode-hook)
 
 ;; disable some unwanted stuff from the starter kit
 
@@ -137,8 +138,6 @@
                "personal"
                "email"))
   (load (concatenate 'string "~/.emacs.d/cnf-" cnf)))
-
-(windmove-default-keybindings)
 
 ;;; if we want to show the same buffer left and right, call these
 (defun same-buffers (&optional arg)

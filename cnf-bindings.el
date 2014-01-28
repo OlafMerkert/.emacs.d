@@ -124,4 +124,12 @@
 (eval-after-load 'elpy
   '(define-key python-mode-map  (kbd "<return>") 'py-smart-newline))
 
+;;; change quickly between windows
+(require 'windmove)
+(let ((modifier 'shift))
+  (define-key my-keys-minor-mode-map (vector (list modifier 'left))  'windmove-left)
+  (define-key my-keys-minor-mode-map (vector (list modifier 'right)) 'windmove-right)
+  (define-key my-keys-minor-mode-map (vector (list modifier 'up))    'windmove-up)
+  (define-key my-keys-minor-mode-map (vector (list modifier 'down))  'windmove-down))
+
 (provide 'cnf-bindings)
