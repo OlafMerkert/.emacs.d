@@ -63,7 +63,7 @@
 (ido-vertical-mode 1)
 
 (add-hook 'js-mode-hook 'js2-minor-mode)
-(remove-hook org-mode-hook)
+(remove-hook 'text-mode-hook 'turn-on-flyspell)
 
 ;; disable some unwanted stuff from the starter kit
 
