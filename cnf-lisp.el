@@ -122,8 +122,13 @@
 
 ;; customisations of indenting
 (setq lisp-indent-function 'common-lisp-indent-function
-      slime-complete-symbol-function 'slime-fuzzy-complete-symbol
-      common-lisp-hyperspec-root "file:///usr/share/doc/hyperspec/")
+      slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
+
+(let ((local-hyperspec-path "/usr/share/doc/hyperspec/"))
+  (setq common-lisp-hyperspec-root
+        (if (file-exists-p local-hyperspec-path)
+            (concat "file://" local-hyperspec-path)
+            "http://www.lispworks.com/reference/HyperSpec/")))
 
 (setq lisp-lambda-list-keyword-parameter-alignment t
       lisp-lambda-list-keyword-alignment t
