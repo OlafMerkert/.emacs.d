@@ -148,6 +148,9 @@
       ;; copy buffer in active window to inactive window
       (set-window-buffer (get-lru-window) (window-buffer (get-mru-window)))))
 
+;;; fix for using tramp::sudo
+(eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
+
 ;;; some stuff for python programming
 (elpy-enable)
 (elpy-clean-modeline)
