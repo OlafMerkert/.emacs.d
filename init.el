@@ -52,8 +52,8 @@
     (when (not (package-installed-p p))
       (package-install p))))
 
-
 (setq desktop-path '("~/.emacs.d/sessions/"))
+(make-directory (first desktop-path) t)
 (desktop-save-mode 1)
 
 (require 'starter-kit)
