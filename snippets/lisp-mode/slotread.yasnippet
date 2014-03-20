@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: slotread
+# key: slr
+# --
+(${1:name} :initarg :$1
+           ${2::initform ${3:nil}
+           }:reader $1)$0
