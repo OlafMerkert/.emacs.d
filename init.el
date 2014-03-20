@@ -56,6 +56,8 @@
 (make-directory (first desktop-path) t)
 (desktop-save-mode 1)
 
+(load-theme 'solarized-light t)
+
 (require 'starter-kit)
 (require 'starter-kit-lisp)
 
@@ -97,9 +99,12 @@
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
 
+;; disable hl-line-mode
+(remove-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
+
 ;; browser
 (setq browse-url-generic-program   "xdg-open"
-      browse-url-browser-function  'browse-url-chromium
+      browse-url-browser-function  'browse-url-default-browser
       w3m-use-cookies              t
       w3m-pop-up-windows           t
       w3m-use-tab                  nil)

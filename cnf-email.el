@@ -94,6 +94,8 @@
       bbdb-electric-p t
       bddb-popup-target-lines 1)
 
+(setq bbdb-north-american-phone-numbers-p nil)
+
 ;;; RSS and Atom feeds
 (require 'mm-url)
 (defadvice mm-url-insert (after DE-convert-atom-to-rss () )
