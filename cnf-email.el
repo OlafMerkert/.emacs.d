@@ -68,7 +68,6 @@
 (setq gnus-ignored-newsgroups ""
       mm-discouraged-alternatives '("text/html" "text/richtext"))
 
-
 (setq gnus-select-method '(nntp "news.tin.it"))
 
 (setq gnus-secondary-select-methods
@@ -98,6 +97,10 @@
        (gnus-summary-score-entry "From" spammer 'S' -1001 nil)
        (gnus-score-change-score-file current-score-file)
        (gnus-score-save))))
+
+;; where to move stuff by default
+(setq gnus-move-split-methods nil
+      gnus-move-group-prefix-function (lambda (group-name) "nnimap+1und1:Archiv/"))
 
 ;;; bbdb configuration
 ;; (require 'message)
