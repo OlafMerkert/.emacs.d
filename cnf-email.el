@@ -1,20 +1,26 @@
 ;; gnus configuration
 (require 'gnus)
+(require 'smtpmail)
 
 ;; use the local exim server to send mail
-(setq send-mail-function 'sendmail-send-it)
+;; (setq send-mail-function 'sendmail-send-it
+;; message-send-mail-function 'sendmail-send-it)
 
-;; use the remote 1und1 imap server
-;; (setq gnus-select-method
-;;       '(nnimap "1und1"
-;;         (nnimap-address "imap.1und1.de")
-;;         (nnimap-server-port 993)
-;;         (nnimap-stream tls)
-;;         (nnir-search-engine imap)))
+;; setup smtpmail
+(setq send-mail-function 'smtpmail-send-it
+      message-send-mail-function 'smtpmail-send-it)
 
-;; use 1und1 news server
-;; (add-to-list 'gnus-secondary-select-methods
-;;              '(nntp "news.online.de"))
+(setq smtpmail-smtp-server "smtp.1und1.de"
+      smtpmail-smtp-service 465
+      smtpmail-stream-type 'ssl)
+
+(setq smtp-servers-map '(("m-merkert.de" "smtp.1und1.de" 465)
+                         ("sns.it" "mail.sns.it" 465)))
+
+;; TODO setup automatic usage of different adresses depending on account
+
+;; mail queue
+(setq smtpmail-queue-mail nil)
 
 ;; store sent email on the imap server as well
 (setq gnus-message-archive-method
@@ -23,22 +29,44 @@
          (nnfolder-directory "~/Mail/archive")
          (nnfolder-active-file "~/Mail/archive/active")))
 
+(setq message-alternative-emails (regexp-opt (rest user-mail-addresses))
+      gnus-ignored-from-addresses (regexp-opt user-mail-addresses))
+
+(defun gnus-sent-messages-folder ()
+  (if (search "sns.it" (message-field-value "From"))
+      "nnimap+sns:INBOX"
+      "nnimap+1und1:INBOX"))
+
 (setq gnus-message-archive-group
       '((cond
           ((message-news-p)
            ;; News
-           "sent-messages")
+           "sent-news")
+          ;; Mail
           ((message-mail-p)
-           ;; Mail
-           "nnimap+1und1:INBOX"))))
+           (gnus-sent-messages-folder)))))
 
 (setq gnus-gcc-mark-as-read t)
 
-;; todo use gnus for compose-mail
+(defun message-toggle-alternate ()
+  "toggle between the available alternative e-mails available"
+  (interactive)
+  (let* ((from (message-field-value "From"))
+         (pos (position-if (lambda (uma) (search uma from)) user-mail-addresses))
+         (user-mail-address (if (not pos) user-mail-address
+                                (elt user-mail-addresses (mod (+ 1 pos) (length user-mail-addresses))))))
+    (message-replace-header "From" (message-make-from) "Subject")
+    (message-replace-header "Gcc" (gnus-sent-messages-folder) "From")))
 
+(define-key message-mode-map (kbd "C-c a") 'message-toggle-alternate)
+
+
+;; todo use gnus for compose-mail
 
 ;; enable topic mode
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+(setq gnus-ignored-newsgroups ""
+      mm-discouraged-alternatives '("text/html" "text/richtext"))
 
 
 (setq gnus-select-method '(nntp "news.tin.it"))
