@@ -1,6 +1,8 @@
 ;; gnus configuration
 (require 'gnus)
+(require 'message)
 (require 'smtpmail)
+(require 'bbdb)
 
 ;; use the local exim server to send mail
 ;; (setq send-mail-function 'sendmail-send-it
@@ -104,7 +106,7 @@
 
 ;;; bbdb configuration
 ;; (require 'message)
-(require 'bbdb)
+
 ;; (require 'bbdb-gnus)
 ;; (require 'bbdb-com)
 ;; (require 'bbdb-hooks)
