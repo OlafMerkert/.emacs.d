@@ -23,7 +23,7 @@
       starter-kit-lisp
       starter-kit-bindings
       ido-vertical-mode
-      ;; solarized-theme
+      color-theme-solarized
       ;; zenburn-theme
       ;; anti-zenburn-theme
       expand-region
