@@ -146,6 +146,7 @@
     ;; (define-key slime-mode-map (kbd "C-c s") 'clos-insert-accessor-and-initarg)
     (define-key slime-mode-map (kbd "C-c g") 'defgeneric-next)
     (define-key slime-mode-map (kbd "C-c #") 'multiply-last-sexp-reader)
+    (define-key slime-mode-map (kbd "C-c C-<return>") 'slime-macroexpand-1-inplace)
     ))
 
 (define-key lisp-mode-map (kbd "C-2") 'multiply-last-sexp-2)

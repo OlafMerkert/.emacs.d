@@ -48,6 +48,7 @@
         transpose-words
         wdired-downcase-word
         yas-expand
+        backward-sentence
         ))
 
 (setq mc/cmds-to-run-once

@@ -65,6 +65,7 @@
 (define-key my-keys-minor-mode-map (kbd "C->") 'mc/mark-next-like-this)
 (define-key my-keys-minor-mode-map (kbd "C-<") 'mc/mark-previous-like-this)
 (define-key my-keys-minor-mode-map (kbd "C-c C-<") 'mc/mark-all-like-this)
+(define-key my-keys-minor-mode-map (kbd "C-*") 'mc/mark-all-like-this-dwim)
 
 (require 'iedit)
  
