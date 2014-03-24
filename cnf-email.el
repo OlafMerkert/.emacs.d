@@ -3,6 +3,7 @@
 (require 'message)
 (require 'smtpmail)
 (require 'bbdb)
+(require 'bbdb-gnus)
 
 ;; use the local exim server to send mail
 ;; (setq send-mail-function 'sendmail-send-it
@@ -107,13 +108,18 @@
 ;;; bbdb configuration
 ;; (require 'message)
 
-;; (require 'bbdb-gnus)
 ;; (require 'bbdb-com)
 ;; (require 'bbdb-hooks)
 
-(bbdb-initialize 'gnus 'message)
+(bbdb-initialize 'gnus 'message 'w3)
 (bbdb-insinuate-message)
 (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+;; (bbdb-mua-auto-update-init 'gnus 'message)
+(setq bbdb-mua-update-interactive-p '(query . create)
+      bbdb-message-all-addresses t)
+
+(define-key gnus-summary-mode-map (kbd ";") 'bbdb-mua-edit-field)
+(define-key bbdb-mode-map (kbd "C-o") 'bbdb-insert-field)
 
 (setq bbdb-file "~/Dokumente/Adressen.bbdb")
 
