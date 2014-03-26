@@ -8,6 +8,7 @@
         TeX-insert-backslash
         TeX-insert-sub-or-superscript
         ace-jump-mode
+        backward-sentence
         backward-sexp
         beginning-of-visual-line
         delete-indentation
@@ -42,13 +43,13 @@
         paredit-open-round
         paredit-splice-sexp
         paredit-splice-sexp-killing-backward
+        reindent-then-newline-and-indent
         slime-space
         smex
         transpose-sexps
         transpose-words
         wdired-downcase-word
         yas-expand
-        backward-sentence
         ))
 
 (setq mc/cmds-to-run-once

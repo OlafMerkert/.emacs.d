@@ -83,7 +83,9 @@
                (nnimap-address "mail.sns.it")
                (nnimap-server-port 993)
                (nnimap-stream ssl)
-               (nnir-search-engine imap))))
+               (nnir-search-engine imap))
+              ;; use gwene as RSS/Atom -> nntp gateway
+              (nntp "news.gwene.org")))
 
 ;; (setq nnmail-split-methods)
 
@@ -135,19 +137,3 @@
 
 (setq bbdb-north-american-phone-numbers-p nil)
 
-;;; RSS and Atom feeds
-(require 'mm-url)
-(defadvice mm-url-insert (after DE-convert-atom-to-rss () )
-  "Converts atom to RSS by calling xsltproc."
-  (when (re-search-forward "xmlns=\"http://www.w3.org/.*/Atom\""
-                           nil t)
-    (goto-char (point-min))
-    (message "Converting Atom to RSS... ")
-    (call-process-region (point-min) (point-max)
-                         "xsltproc"
-                         t t nil
-                         (expand-file-name "~/atom2rss.xsl") "-")
-    (goto-char (point-min))
-    (message "Converting Atom to RSS... done")))
-
-(ad-activate 'mm-url-insert)
