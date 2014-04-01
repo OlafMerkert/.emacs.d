@@ -138,10 +138,6 @@
 (setq bbdb-north-american-phone-numbers-p nil)
 
 ;;; rss feed commands
-(add-to-list 'gnus-extra-headers 'Archived-at t)
-
-;; gnus-extra-headers
-
 (defun gwene-article-open-full ()
   (interactive)
   (save-excursion
@@ -157,3 +153,15 @@
 
 (define-key gnus-article-mode-map (kbd "o") 'gwene-article-open-full)
 (define-key gnus-summary-mode-map (kbd "o") 'gwene-summary-open-full)
+
+(defun gnus-article-show-only-summary ()
+  (interactive)
+  (gnus-summary-show-only-summary))
+
+(defun gnus-summary-show-only-summary ()
+  (interactive)
+  (gnus-article-show-summary)  
+  (delete-other-windows))
+
+(define-key gnus-article-mode-map (kbd "v") 'gnus-article-show-only-summary)
+(define-key gnus-summary-mode-map (kbd "v") 'gnus-summary-show-only-summary)
