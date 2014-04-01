@@ -137,3 +137,23 @@
 
 (setq bbdb-north-american-phone-numbers-p nil)
 
+;;; rss feed commands
+(add-to-list 'gnus-extra-headers 'Archived-at t)
+
+;; gnus-extra-headers
+
+(defun gwene-article-open-full ()
+  (interactive)
+  (save-excursion
+    (end-of-buffer)
+    (widget-backward 1)
+    (shr-browse-url)))
+
+(defun gwene-summary-open-full ()
+  (interactive)
+  (gnus-summary-select-article-buffer)
+  (gwene-article-open-full)
+  (gnus-article-show-summary))
+
+(define-key gnus-article-mode-map (kbd "o") 'gwene-article-open-full)
+(define-key gnus-summary-mode-map (kbd "o") 'gwene-summary-open-full)
