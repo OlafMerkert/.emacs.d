@@ -11,10 +11,12 @@
         backward-sentence
         backward-sexp
         beginning-of-visual-line
+        delete-horizontal-space
         delete-indentation
         dired-next-line
         downcase-region
         end-of-visual-line
+        indent-new-comment-line
         isearch-exit
         isearch-forward-regexp
         isearch-printing-char
@@ -26,6 +28,8 @@
         mouse-yank-primary
         org-beginning-of-line
         org-delete-char
+        org-end-of-line
+        org-return
         org-self-insert-command
         org-todo
         paredit-backward

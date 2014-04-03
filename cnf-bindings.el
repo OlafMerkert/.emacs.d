@@ -14,6 +14,11 @@
 (global-set-key (kbd "C-x M-o")    'other-frame)
 (global-set-key (kbd "C-x c")      'comment-dwim)
 (global-set-key (kbd "<f12>")      'same-buffers)
+(global-set-key (kbd "<f11> a")    'org-agenda)
+(global-set-key (kbd "<f11> c")    'org-capture)
+(global-set-key (kbd "<f11> l")    'org-store-link)
+(global-set-key (kbd "<f11> b")    'org-iswitchb)
+(global-set-key (kbd "<f11> B")    'bbdb)
 
 ;; change colour theme
 (global-set-key (kbd "C-x M-t") 'cycle-themes)
