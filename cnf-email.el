@@ -123,7 +123,7 @@
 (define-key gnus-summary-mode-map (kbd ";") 'bbdb-mua-edit-field)
 (define-key bbdb-mode-map (kbd "C-o") 'bbdb-insert-field)
 
-(setq bbdb-file "~/Dokumente/Adressen.bbdb")
+(setq bbdb-file "~/Personal/kontakte.bbdb")
 
 (setq bbdb-send-mail-style 'gnus
       bbdb-complete-name-full-completion t
