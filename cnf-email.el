@@ -63,6 +63,33 @@
 
 (define-key message-mode-map (kbd "C-c a") 'message-toggle-alternate)
 
+;; display date in the summary buffer
+(defvar gnus-gwene-summary-line-format)
+(setq gnus-thread-indent-level 1
+      gnus-summary-line-format "%*%U%R%I %(%f%) :%-30=  %s%80=  [ %&user-date; ]\n"
+      gnus-gwene-summary-line-format "%*%U%R%I %s%80=  [ %&user-date; ]\n")
+
+;; and use different format for selected gwene feeds
+(defvar gwene-no-author-feeds)
+(setf gwene-no-author-feeds
+      '("heise"
+        "tagesschau"
+        "questionableco"
+        "xkcd"
+        "lisp.planet"
+        "emacsen.planet"
+        "python.planet"
+        "debian.planet"
+        "fedoraproject.planet"
+        "appleoutsider"))
+
+(defun adjust-summary-line-format ()
+  (when (and (search "nntp+news.gwene.org" gnus-newsgroup-name)
+             (let ((g-n-name-rest (substring gnus-newsgroup-name 20)))
+               (some (lambda (x) (search x g-n-name-rest)) gwene-no-author-feeds)))
+    (setq gnus-summary-line-format gnus-gwene-summary-line-format)))
+
+(add-hook 'gnus-summary-mode-hook 'adjust-summary-line-format)
 
 ;; todo use gnus for compose-mail
 
