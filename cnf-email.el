@@ -147,21 +147,30 @@
 
 (defun gwene-summary-open-full ()
   (interactive)
+  (gnus-summary-select-article)
   (gnus-summary-select-article-buffer)
   (gwene-article-open-full)
   (gnus-article-show-summary))
 
-(define-key gnus-article-mode-map (kbd "o") 'gwene-article-open-full)
-(define-key gnus-summary-mode-map (kbd "o") 'gwene-summary-open-full)
 
 (defun gnus-article-show-only-summary ()
   (interactive)
+  (gnus-article-show-summary)
   (gnus-summary-show-only-summary))
 
 (defun gnus-summary-show-only-summary ()
   (interactive)
-  (gnus-article-show-summary)  
   (delete-other-windows))
 
-(define-key gnus-article-mode-map (kbd "v") 'gnus-article-show-only-summary)
-(define-key gnus-summary-mode-map (kbd "v") 'gnus-summary-show-only-summary)
+(eval-after-load 'gnus-sum
+  '(progn
+    (define-key gnus-summary-mode-map (kbd "v") 'gnus-summary-show-only-summary)
+    (define-key gnus-summary-mode-map (kbd "o") 'gwene-summary-open-full)))
+
+(eval-after-load 'gnus-art
+  '(progn
+    (define-key gnus-article-mode-map (kbd "v") 'gnus-article-show-only-summary)
+    (define-key gnus-article-mode-map (kbd "o") 'gwene-article-open-full)))
+
+;; todo keybindings seem to be overwritten
+;; todo show date in gnus summary
