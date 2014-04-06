@@ -19,6 +19,7 @@
 (global-set-key (kbd "<f11> l")    'org-store-link)
 (global-set-key (kbd "<f11> b")    'org-iswitchb)
 (global-set-key (kbd "<f11> B")    'bbdb)
+(global-set-key (kbd "<f11> s")    'sync-personal-information)
 
 ;; change colour theme
 (global-set-key (kbd "C-x M-t") 'cycle-themes)

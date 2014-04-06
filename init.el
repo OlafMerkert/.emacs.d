@@ -52,6 +52,10 @@
     (when (not (package-installed-p p))
       (package-install p))))
 
+(defmacro defpar (var value)
+  `(progn (defvar ,var)
+          (setf ,var ,value)))
+
 (setq desktop-path '("~/.emacs.d/sessions/"))
 (make-directory (first desktop-path) t)
 (desktop-save-mode 1)
