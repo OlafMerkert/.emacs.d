@@ -73,6 +73,8 @@
 (define-key my-keys-minor-mode-map (kbd "C-c C-<") 'mc/mark-all-like-this)
 (define-key my-keys-minor-mode-map (kbd "C-*") 'mc/mark-all-like-this-dwim)
 
+(global-set-key (kbd "C-x M-l") 'ispell-change-dictionary)
+
 (require 'iedit)
  
 (defun iedit-dwim (arg)
