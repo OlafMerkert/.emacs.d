@@ -3,6 +3,9 @@
 (require 'org-capture)
 (require 'magit)
 
+(defun org-path (filebase)
+   (concat org-directory "/" filebase ".org"))
+
 (eval-after-load 'org
   '(progn
     (define-key org-mode-map (kbd "<f2>") 'insert-greek-letter)))
@@ -10,9 +13,6 @@
 (setq org-deadline-warning-days 5)
 (setq org-directory "~/Personal"
       org-default-notes-file (org-path "notizen"))
-
-(defun org-path (filebase)
-   (concat org-directory "/" filebase ".org"))
 
 
 (defun autocommit-current-org-file ())
@@ -71,6 +71,7 @@
     (if gitdir
         (progn
           (find-file (concat gitdir "readme.org"))
+          (message "%s" org-complex-heading-regexp-format)
           (if hd
               (if (re-search-forward
                    (format org-complex-heading-regexp-format (regexp-quote hd))
@@ -84,3 +85,7 @@
                   )))
         (error "Not in a git project."))))
 
+(defadvice org-capture-set-target-location (after org-capture-function-remove-exact-exact-location)
+  (org-capture-put :exact-position nil))
+
+(ad-activate 'org-capture-set-target-location)
