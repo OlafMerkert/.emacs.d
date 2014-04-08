@@ -53,6 +53,9 @@
         ("s" "SNS Todo" entry
              (file+headline ,(org-path "sns") "Tasks")
              ,org-capture-my-todo-template)
+        ("v" "Vortrag" entry
+             (file+headline ,(org-path "sns") "Vorträge")
+             "* %?%i\n  %a")
         ("p" "Privat Todo" entry
              (file+headline ,(org-path "privat") "Tasks")
              ,org-capture-my-todo-template)
