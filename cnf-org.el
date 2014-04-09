@@ -92,3 +92,7 @@
   (org-capture-put :exact-position nil))
 
 (ad-activate 'org-capture-set-target-location)
+
+;; instruct org to open certain files always with external
+;; applications
+(add-to-list 'org-file-apps '("nb" . "mathematica -sl %s") t)
