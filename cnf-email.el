@@ -177,7 +177,7 @@
   (gnus-summary-select-article)
   (gnus-summary-select-article-buffer)
   (gwene-article-open-full)
-  (gnus-article-show-summary))
+  (gnus-article-show-only-summary))
 
 
 (defun gnus-article-show-only-summary ()
