@@ -10,7 +10,9 @@
   '(progn
     (define-key org-mode-map (kbd "<f2>") 'insert-greek-letter)))
 
-(setq org-deadline-warning-days 5)
+(setq org-deadline-warning-days 5
+      org-completion-use-ido t)
+
 (setq org-directory "~/Personal"
       org-default-notes-file (org-path "notizen"))
 
