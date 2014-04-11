@@ -40,7 +40,9 @@
         (magit-call-git "add" "."))
       (when (magit-anything-staged-p)
         (magit-call-git "commit" "-m"
-                        (concat "synced personal data at "
+                        (concat "synced personal data from "
+                                (system-name)
+                                " at "
                                 (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))))
         (message "Commited changes to personal data.")))
     (magit-pull)
