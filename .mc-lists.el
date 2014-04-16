@@ -16,6 +16,7 @@
         dired-next-line
         downcase-region
         end-of-visual-line
+        forward-sexp
         indent-new-comment-line
         isearch-exit
         isearch-forward-regexp
