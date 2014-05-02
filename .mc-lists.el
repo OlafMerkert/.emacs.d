@@ -18,6 +18,7 @@
         end-of-visual-line
         forward-sexp
         indent-new-comment-line
+        isearch-abort
         isearch-exit
         isearch-forward-regexp
         isearch-printing-char
@@ -27,6 +28,7 @@
         kill-visual-line
         mark-sexp
         mouse-yank-primary
+        multiply-last-sexp-2
         org-beginning-of-line
         org-delete-char
         org-end-of-line
@@ -61,6 +63,8 @@
 (setq mc/cmds-to-run-once
       '(
         copy-line-to-other-window
+        isearch-delete-char
+        isearch-other-control-char
         slime-compile-defun
         slime-selector-or-start
         ))
