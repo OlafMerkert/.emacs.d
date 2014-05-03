@@ -63,6 +63,11 @@
 
 (define-key message-mode-map (kbd "C-c a") 'message-toggle-alternate)
 
+(defadvice message-use-alternative-email-as-from (after message-alternative-correct-gcc)
+  (message-replace-header "Gcc" (gnus-sent-messages-folder) "From"))
+
+;; TODO (ad-activate 'message-use-alternative-email-as-from)
+
 ;; display date in the summary buffer
 (defvar gnus-gwene-summary-line-format)
 (setq gnus-thread-indent-level 1

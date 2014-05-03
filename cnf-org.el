@@ -101,3 +101,12 @@
 ;; applications
 (add-to-list 'org-file-apps '("nb" . "mathematica -sl %s") t)
 (add-to-list 'org-file-apps '("pdf" . "evince %s"))
+
+;;; setup global exporting options
+
+;; make sure shell-escape is turned on (I need it for \gitversioninfo)
+(defadvice org-export-as-pdf (around org-export-latex-shell-escape)
+  (let ((org-export-latex-listings 'minted))
+    ad-do-it))
+
+(ad-activate 'org-export-as-pdf)

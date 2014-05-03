@@ -192,4 +192,8 @@
 
 (ad-activate 'common-lisp-hyperspec)
 
+;; open .sexp files with common-lisp-mode
+(add-to-list 'auto-mode-alist '("\\.sexp$" . common-lisp-mode))
+
+
 (provide 'cnf-lisp)
