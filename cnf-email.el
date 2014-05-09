@@ -35,8 +35,10 @@
 (setq message-alternative-emails (regexp-opt (rest user-mail-addresses))
       gnus-ignored-from-addresses (regexp-opt user-mail-addresses))
 
-(defun gnus-sent-messages-folder ()
-  (if (search "sns.it" (message-field-value "From"))
+(defun gnus-sent-messages-folder (&optional narrowed-p)
+  (if (search "sns.it" (if narrowed-p
+                           (message-fetch-field "From")
+                           (message-field-value "From")))
       "nnimap+sns:INBOX"
       "nnimap+1und1:INBOX"))
 
@@ -47,7 +49,8 @@
            "sent-news")
           ;; Mail
           ((message-mail-p)
-           (gnus-sent-messages-folder)))))
+           nil ; (gnus-sent-messages-folder)
+           ))))
 
 (setq gnus-gcc-mark-as-read t)
 
@@ -63,10 +66,12 @@
 
 (define-key message-mode-map (kbd "C-c a") 'message-toggle-alternate)
 
-(defadvice message-use-alternative-email-as-from (after message-alternative-correct-gcc)
-  (message-replace-header "Gcc" (gnus-sent-messages-folder) "From"))
+(defadvice message-use-alternative-email-as-from (after adjust-gcc-for-alternative)
+  (message (message-fetch-field "From"))
+  (message-remove-header "Gcc")
+  (insert "Gcc: " (gnus-sent-messages-folder t) "\n"))
 
-;; TODO (ad-activate 'message-use-alternative-email-as-from)
+(ad-activate 'message-use-alternative-email-as-from)
 
 ;; display date in the summary buffer
 (defvar gnus-gwene-summary-line-format)
@@ -140,10 +145,6 @@
       gnus-move-group-prefix-function (lambda (group-name) "nnimap+1und1:Archiv/"))
 
 ;;; bbdb configuration
-;; (require 'message)
-
-;; (require 'bbdb-com)
-;; (require 'bbdb-hooks)
 
 (bbdb-initialize 'gnus 'message 'w3)
 (bbdb-insinuate-message)
