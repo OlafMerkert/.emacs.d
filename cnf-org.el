@@ -110,3 +110,8 @@
     ad-do-it))
 
 (ad-activate 'org-export-as-pdf)
+
+;;; configure babel
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t) (lisp . t)))
