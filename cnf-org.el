@@ -100,6 +100,7 @@
 ;; instruct org to open certain files always with external
 ;; applications
 (add-to-list 'org-file-apps '("nb" . "mathematica -sl %s") t)
+(add-to-list 'org-file-apps '("pdf" . "evince %s"))
 
 ;;; setup global exporting options
 

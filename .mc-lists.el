@@ -32,6 +32,7 @@
         org-beginning-of-line
         org-delete-char
         org-end-of-line
+        org-force-self-insert
         org-metaright
         org-return
         org-self-insert-command
