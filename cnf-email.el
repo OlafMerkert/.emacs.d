@@ -168,7 +168,8 @@
       bbdb-electric-p t
       bddb-popup-target-lines 1)
 
-(setq bbdb-north-american-phone-numbers-p nil)
+(setq bbdb-north-american-phone-numbers-p nil
+      bbdb-phone-style nil)
 
 ;;; rss feed commands
 (defun gwene-article-open-full ()
