@@ -4,6 +4,7 @@
 (when (file-exists-p ql-slime-helper)
   (load ql-slime-helper)
   (slime-setup '(slime-fancy
+                 slime-fuzzy
                  slime-banner 
                  slime-tramp
                  slime-highlight-edits)))
@@ -119,6 +120,9 @@
       (goto-char opoint)
       (insert "(defgeneric" name " ())")
       (backward-char 2))))
+
+;; completion
+;; slime-complete-symbol-function
 
 ;; customisations of indenting
 (setq lisp-indent-function 'common-lisp-indent-function
