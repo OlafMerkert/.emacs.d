@@ -123,6 +123,14 @@
         ("~/Projekte/web-document-gallery" "web-document")
         ("~/Studium/MasterArbeit" "master")))
 
+;; eshell
+(defun eshell-paths-hook ()
+  (or (getenv "CDPATH")
+      (setenv "CDPATH" ".:..:~:~/Projekte:~/Perfezionamento/projects"))
+  (setenv "EDITOR" "emacsclient"))
+
+(add-hook 'eshell-mode-hook 'eshell-paths-hook)
+
 ;; snippets
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
 (yas-global-mode 1)
