@@ -109,10 +109,12 @@
   (let ((org-export-latex-listings 'minted))
     ad-do-it))
 
+(ad-activate 'org-export-as-pdf)
+
 ;; use koma script
-(eval-after-load 'org-latex
+(eval-after-load 'ox-latex
   '(progn
-    (add-to-list 'org-export-latex-classes
+    (add-to-list 'org-latex-classes
      '("scrartcl"
        "\\documentclass[a4paper,11pt]{scrartcl}"
        ("\\section{%s}" . "\\section*{%s}")
@@ -121,7 +123,7 @@
        ("\\paragraph{%s}" . "\\paragraph*{%s}")
        ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
-    (add-to-list 'org-export-latex-classes
+    (add-to-list 'org-latex-classes
      '("scrreprt"
        "\\documentclass[a4paper,11pt]{scrreprt}"
        ("\\chapter{%s}" . "\\chapter*{%s}")
@@ -130,8 +132,6 @@
        ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
        ("\\paragraph{%s}" . "\\paragraph*{%s}")
        ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
-
-(ad-activate 'org-export-as-pdf)
 
 ;;; configure babel
 (org-babel-do-load-languages
