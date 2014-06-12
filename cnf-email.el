@@ -91,7 +91,8 @@
         "python.planet"
         "debian.planet"
         "fedoraproject.planet"
-        "appleoutsider"))
+        "appleoutsider"
+        "notebookcheck"))
 
 (defun adjust-summary-line-format ()
   (when (and (search "nntp+news.gwene.org" gnus-newsgroup-name)
