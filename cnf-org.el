@@ -104,16 +104,15 @@
 
 ;;; setup global exporting options
 
-;; make sure shell-escape is turned on (I need it for \gitversioninfo)
-(defadvice org-export-as-pdf (around org-export-latex-shell-escape)
-  (let ((org-export-latex-listings 'minted))
-    ad-do-it))
 
-(ad-activate 'org-export-as-pdf)
-
-;; use koma script
 (eval-after-load 'ox-latex
   '(progn
+    ;; make sure shell-escape is turned on (I need it for \gitversioninfo)
+    (setq org-latex-pdf-process
+     '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+       "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+       "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+    ;; enable koma script
     (add-to-list 'org-latex-classes
      '("scrartcl"
        "\\documentclass[a4paper,11pt]{scrartcl}"
