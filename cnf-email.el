@@ -11,16 +11,27 @@
 
 ;; setup smtpmail
 (setq send-mail-function 'smtpmail-send-it
-      message-send-mail-function 'smtpmail-send-it)
+      message-send-mail-function 'smtpmail-send-it/detect-server)
 
+(defun smtpmail-send-it/detect-server ()
+  (interactive)
+  ;; assume we are in a message buffer
+  (let* ((from (message-fetch-field "From"))
+         (server-settings (or (find-if (lambda (ssm) (search (first ssm) from)) smtp-servers-map)
+                              (first smtp-servers-map))))
+    (let ((smtpmail-smtp-server (second server-settings))
+          (smtpmail-smtp-service (third server-settings))
+          (smtpmail-stream-type (fourth server-settings)))
+      (smtpmail-send-it))))
+
+;; default mail settings
 (setq smtpmail-smtp-server "smtp.1und1.de"
       smtpmail-smtp-service 465
       smtpmail-stream-type 'ssl)
 
-(setq smtp-servers-map '(("m-merkert.de" "smtp.1und1.de" 465)
-                         ("sns.it" "mail.sns.it" 465)))
-
-;; TODO setup automatic usage of different adresses depending on account
+;; different smtp settings based on from adress 
+(setq smtp-servers-map '(("m-merkert.de" "smtp.1und1.de" 465 ssl)
+                         ("sns.it" "mail.sns.it" 465 ssl)))
 
 ;; mail queue
 (setq smtpmail-queue-mail nil)
@@ -67,7 +78,6 @@
 (define-key message-mode-map (kbd "C-c a") 'message-toggle-alternate)
 
 (defadvice message-use-alternative-email-as-from (after adjust-gcc-for-alternative)
-  (message (message-fetch-field "From"))
   (message-remove-header "Gcc")
   (insert "Gcc: " (gnus-sent-messages-folder t) "\n"))
 
