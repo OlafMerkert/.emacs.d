@@ -8,7 +8,9 @@
 
 (eval-after-load 'org
   '(progn
-    (define-key org-mode-map (kbd "<f2>") 'insert-greek-letter)))
+    (define-key org-mode-map (kbd "<f2>") 'insert-greek-letter)
+    (define-key org-mode-map (kbd "<f11> n") 'name-to-bbdb-link)
+    ))
 
 (setq org-deadline-warning-days 5
       org-completion-use-ido t)
@@ -136,3 +138,24 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t) (lisp . t)))
+
+(defun beginning-of-word ()
+  ;; todo not working yet
+  (save-excursion
+    (cond ((looking-at "[:space:]") nil)
+          ((progn (backward-char)
+                  (looking-at "[:space:]")) t)
+          (t nil))))
+
+(defun name-to-bbdb-link ()
+  (interactive)
+  (backward-word)
+  (insert "[[bbdb:")
+  (let ((begin (point)))
+    (forward-word)
+    (let ((name (buffer-substring begin (point))))
+      (insert "][")
+      (insert name)
+      (insert "]]"))))
+
+

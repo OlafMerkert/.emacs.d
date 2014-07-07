@@ -19,6 +19,7 @@
         forward-sexp
         indent-new-comment-line
         isearch-abort
+        isearch-backward-regexp
         isearch-exit
         isearch-forward-regexp
         isearch-printing-char
