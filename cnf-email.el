@@ -29,9 +29,9 @@
       smtpmail-smtp-service 465
       smtpmail-stream-type 'ssl)
 
-;; different smtp settings based on from adress 
+;; different smtp settings based on from adress
 (setq smtp-servers-map '(("m-merkert.de" "smtp.1und1.de" 465 ssl)
-                         ("sns.it" "mail.sns.it" 465 ssl)))
+                         ("sns.it" "smtp.gmail.com" 465 ssl)))
 
 ;; mail queue
 (setq smtpmail-queue-mail nil)
@@ -128,12 +128,15 @@
                (nnimap-stream tls)
                (nnir-search-engine imap))
               (nnimap "sns"
-               (nnimap-address "mail.sns.it")
+               (nnimap-address "imap.gmail.com")
                (nnimap-server-port 993)
                (nnimap-stream ssl)
                (nnir-search-engine imap))
               ;; use gwene as RSS/Atom -> nntp gateway
               (nntp "news.gwene.org")))
+
+;; Make Gnus NOT ignore [Gmail] mailboxes
+(setq gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
 
 ;; (setq nnmail-split-methods)
 
