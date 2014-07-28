@@ -191,6 +191,8 @@
   (save-excursion
     (end-of-buffer)
     (widget-backward 1)
+    ;; (let ((browse-url-browser-function 'w3m-browse-url)
+    ;;       (w3m-pop-up-windows nil)))
     (shr-browse-url)))
 
 (defun gwene-summary-open-full ()

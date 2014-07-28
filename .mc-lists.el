@@ -11,6 +11,7 @@
         backward-sentence
         backward-sexp
         beginning-of-visual-line
+        c-electric-semi&comma
         delete-horizontal-space
         delete-indentation
         dired-next-line
