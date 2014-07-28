@@ -158,4 +158,13 @@
       (insert name)
       (insert "]]"))))
 
+(defun wrap-tex-around-region ()
+  (interactive)
+  (save-excursion
+    (let ((begin (region-beginning))
+          (end (region-end)))
+      (goto-char end)
+      (insert " }")
+      (goto-char begin)
+      (insert "\\text{ "))))
 
