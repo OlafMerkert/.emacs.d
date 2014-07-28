@@ -107,8 +107,11 @@
 (remove-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
 
 ;; browser
+
+
 (setq browse-url-generic-program   "xdg-open"
-      browse-url-browser-function  'browse-url-default-browser
+      browse-url-chromium-program  "google-chrome"
+      browse-url-browser-function  'browse-url-chromium
       w3m-use-cookies              t
       w3m-pop-up-windows           t
       w3m-use-tab                  nil)
