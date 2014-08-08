@@ -15,6 +15,8 @@
 (setq org-deadline-warning-days 5
       org-completion-use-ido t)
 
+(setq org-src-fontify-natively t)
+
 (setq org-directory "~/Personal"
       org-default-notes-file (org-path "notizen"))
 
