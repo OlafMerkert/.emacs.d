@@ -5,6 +5,7 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        comment-dwim
         TeX-insert-backslash
         TeX-insert-sub-or-superscript
         ace-jump-mode
@@ -55,6 +56,7 @@
         paredit-splice-sexp
         paredit-splice-sexp-killing-backward
         reindent-then-newline-and-indent
+        slime-export-symbol-at-point
         slime-space
         smex
         transpose-sexps

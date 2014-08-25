@@ -102,7 +102,8 @@
         "debian.planet"
         "fedoraproject.planet"
         "appleoutsider"
-        "notebookcheck"))
+        "notebookcheck"
+        "endlessparens"))
 
 (defun adjust-summary-line-format ()
   (when (and (search "nntp+news.gwene.org" gnus-newsgroup-name)
