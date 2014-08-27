@@ -111,14 +111,15 @@
 
 (ad-activate 'org-capture-set-target-location)
 
+;;; setup `org-refile'
+(setq org-refile-targets '((nil . (:maxlevel . 2))))
+
 ;; instruct org to open certain files always with external
 ;; applications
 (add-to-list 'org-file-apps '("nb" . "mathematica -sl %s") t)
 (add-to-list 'org-file-apps '("pdf" . "evince %s"))
 
 ;;; setup global exporting options
-
-
 (eval-after-load 'ox-latex
   '(progn
     ;; make sure shell-escape is turned on (I need it for \gitversioninfo)
