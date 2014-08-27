@@ -1,6 +1,7 @@
 (provide 'cnf-org)
 
 (require 'org-capture)
+(require 'org-protocol)
 (require 'magit)
 
 (defun org-path (filebase)
@@ -53,7 +54,7 @@
     (unless pull-only (magit-push))))
 
 ;;; configure org capture
-(setq org-capture-my-todo-template "* TODO %?%i\n  %U\n  %a"
+(setq org-capture-my-todo-template "* TODO %?%i\n  %a"
       org-capture-templates
       `(("t" "Todo" entry
              (file+headline "" "Tasks")
@@ -71,6 +72,14 @@
         ("r" "Readme" entry
              (function find-git-project-readme-tasks)
              ,org-capture-my-todo-template)
+        ("b" "Bookmark" entry
+             (file ,(org-path "bookmarks"))
+             "* %a%?")
+        ("w" "Movie or TV Series" entry
+             (file+headline ,(org-path "privat") "Filme")
+             "* %a%?")
+        ("m" "Music" entry
+             (file+headline ,(org-path "privat") "Musik"))
         ))
 
 (defun find-git-project-readme-tasks ()
@@ -82,7 +91,8 @@
     (if gitdir
         (progn
           (find-file (concat gitdir "readme.org"))
-          (message "%s" org-complex-heading-regexp-format)
+          (goto-char (point-min))
+          ;; (message "%s" org-complex-heading-regexp-format)
           (if hd
               (if (re-search-forward
                    (format org-complex-heading-regexp-format (regexp-quote hd))

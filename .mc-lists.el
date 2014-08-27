@@ -68,6 +68,7 @@
 (setq mc/cmds-to-run-once
       '(
         copy-line-to-other-window
+        end-of-buffer
         isearch-delete-char
         isearch-other-control-char
         slime-compile-defun
