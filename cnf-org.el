@@ -181,3 +181,14 @@
       (goto-char begin)
       (insert "\\text{ "))))
 
+;;; custom `org-protocol' handlers
+(add-to-list 'org-protocol-protocol-alist
+             '("Open in w3m"
+               :protocol "w3m"
+               :function org-protocol-open-in-w3m))
+
+(defun org-protocol-open-in-w3m (fname)
+  (let* ((splitparts (org-protocol-split-data fname t org-protocol-data-separator))
+         (uri (org-protocol-sanitize-uri (car splitparts))))
+    (message uri)
+    (w3m-browse-url uri)))
