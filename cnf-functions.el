@@ -48,3 +48,11 @@ line."
                          point)
     (prog1 (<= point (point))
       (goto-char point))))
+
+;; neat little tip from Howard Abrams
+(defadvice transpose-words (before transpose-at-eol)
+  "Transpose last two words when at end of line"
+  (if (looking-at "$")
+      (backward-word 1)))
+
+(ad-activate 'transpose-words)
