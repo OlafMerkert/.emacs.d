@@ -2,7 +2,7 @@
 (elpy-enable)
 ;; (elpy-clean-modeline)
 
-;; (remove-hook 'python-mode 'esk-paredit-nonlisp)
+;; (remove-hook 'python-mode-hook 'esk-paredit-nonlisp)
 
 (define-key python-mode-map (kbd "<return>") 'newline-and-indent)
 
@@ -11,7 +11,7 @@
   (setq tab-width 4
         indent-tabs-mode t))
 
-(add-hook 'python-mode 'py-use-tab-indentation)
+;; (remove-hook 'python-mode-hook 'py-use-tab-indentation)
 
 (defun py-smart-newline ()
   (interactive)
@@ -67,6 +67,8 @@
                   'visible))
 
 (define-key python-mode-map (kbd "C-x C-e") 'elpy-shell-send-line)
+(define-key python-mode-map (kbd "C-c C-e") nil)
+(define-key elpy-mode-map (kbd "C-c C-e") nil)
 (define-key python-mode-map (kbd "C-M-x") 'elpy-shell-send-definition)
 
 (provide 'cnf-python)
