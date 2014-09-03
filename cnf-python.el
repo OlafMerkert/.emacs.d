@@ -2,7 +2,7 @@
 (elpy-enable)
 ;; (elpy-clean-modeline)
 
-(add-hook 'python-mode 'esk-paredit-nonlisp)
+;; (remove-hook 'python-mode 'esk-paredit-nonlisp)
 
 (define-key python-mode-map (kbd "<return>") 'newline-and-indent)
 
@@ -55,7 +55,11 @@
   (let ((region (elpy-shell--region-without-indentation
                  (save-excursion
                    (search-backward-regexp "^\\(def\\|class\\)")
+                   ;; todo add support for decorators
                    (point))
+                 ;; todo figure out if we can also autofind the end of
+                 ;; a definition: two empty lines, or the next time
+                 ;; a non-trivial character appears at beginning of line
                  (point))))
     (python-shell-send-string region))
   (display-buffer (process-buffer (elpy-shell-get-or-create-process))
