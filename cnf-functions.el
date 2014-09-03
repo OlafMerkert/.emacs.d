@@ -22,3 +22,29 @@ line."
     (other-window 1)
     (insert content)
     (other-window -1)))
+
+;;; if we want to show the same buffer left and right, call these
+(defun same-buffers (&optional arg)
+  (interactive "P")
+  (if arg
+      ;; copy buffer in inactive window to active window
+      (set-window-buffer (get-mru-window) (window-buffer (get-lru-window)))
+      ;; copy buffer in active window to inactive window
+      (set-window-buffer (get-lru-window) (window-buffer (get-mru-window)))))
+
+(defun search-on-line (word)
+  ;; assume we are at the end of the line
+  (let ((point (point)))
+    (beginning-of-line)
+    (prog1 (search-forward word point t)
+      (goto-char point))))
+
+(defun blank-line-p (&optional n)
+  ;; again assume we are at the end of the line
+  (let ((point (point)))
+    (beginning-of-line (- 2 (or n 1)))
+    (skip-syntax-forward (concat " "
+                                 (char-to-string (char-syntax ?\n)))
+                         point)
+    (prog1 (<= point (point))
+      (goto-char point))))
