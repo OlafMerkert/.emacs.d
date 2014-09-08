@@ -1,5 +1,3 @@
-(provide 'cnf-org)
-
 (require 'org-capture)
 (require 'org-protocol)
 (require 'magit)
@@ -187,8 +185,27 @@
                :protocol "w3m"
                :function org-protocol-open-in-w3m))
 
+(add-to-list 'org-protocol-protocol-alist
+             '("Download with youtube-dl"
+               :protocol "ytdl"
+               :function org-protocol-download-with-youtube-dl))
+
 (defun org-protocol-open-in-w3m (fname)
   (let* ((splitparts (org-protocol-split-data fname t org-protocol-data-separator))
          (uri (org-protocol-sanitize-uri (car splitparts))))
-    (message uri)
     (w3m-browse-url uri)))
+
+(defun download-with-youtube-dl (uri)
+  (let ((default-directory "~/Downloads"))
+    (async-shell-command
+     (concat "youtube-dl '"
+             uri
+             "'")
+     (generate-new-buffer "*youtube-dl*"))))
+
+(defun org-protocol-download-with-youtube-dl (fname)
+  (let* ((splitparts (org-protocol-split-data fname t org-protocol-data-separator))
+         (uri (org-protocol-sanitize-uri (car splitparts))))
+    (download-with-youtube-dl uri)))
+
+(provide 'cnf-org)
