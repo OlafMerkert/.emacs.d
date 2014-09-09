@@ -195,8 +195,8 @@
          (uri (org-protocol-sanitize-uri (car splitparts))))
     (w3m-browse-url uri)))
 
-(defun download-with-youtube-dl (uri)
-  (let ((default-directory "~/Downloads"))
+(defun download-with-youtube-dl (uri &rest args)
+  (let ((default-directory "~/Downloads/"))
     (async-shell-command
      (concat "youtube-dl '"
              uri
@@ -207,5 +207,10 @@
   (let* ((splitparts (org-protocol-split-data fname t org-protocol-data-separator))
          (uri (org-protocol-sanitize-uri (car splitparts))))
     (download-with-youtube-dl uri)))
+
+(defun org-link-download-with-youtube-dl ()
+  (interactive)
+  (let ((browse-url-browser-function 'download-with-youtube-dl))
+    (org-open-at-point)))
 
 (provide 'cnf-org)
