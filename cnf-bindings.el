@@ -96,8 +96,8 @@
 (global-set-key (kbd "C-;") 'iedit-mode)
 
 ;; Move more quickly
-(global-set-key (kbd "C-S-n") (lambda () (interactive) (next-line 5)))
-(global-set-key (kbd "C-S-p") (lambda () (interactive) (previous-line 5)))
+(global-set-key (kbd "C-S-n") 'jump-next-word-occurence)
+(global-set-key (kbd "C-S-p") 'jump-prev-word-occurence)
 (global-set-key (kbd "C-S-f") (lambda () (interactive) (forward-char 5)))
 (global-set-key (kbd "C-S-b") (lambda () (interactive) (backward-char 5)))
 

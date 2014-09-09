@@ -56,3 +56,27 @@ line."
       (backward-word 1)))
 
 (ad-activate 'transpose-words)
+
+;; jump to next/previous occurence of symbol at point
+(defun jump-next-word-occurence (&optional count)
+  (interactive "p")
+  (let* ((target-symbol (symbol-at-point))
+         (target (symbol-name target-symbol))
+         (pos (point)))
+    (when (and target-symbol
+               (not (in-string-p))
+               (looking-at-p "\\s_\\|\\sw") ;; Symbol characters
+               )
+      ;; move forward to end of symbol
+      (forward-symbol (if (minusp count) -1 1))
+      (let ((advance (- (point) pos)))
+        (setq regexp (concat "\\_<" (regexp-quote target) "\\_>"))
+        (search-forward-regexp regexp nil t (or count 1))
+        ;; move backward again
+        (backward-char advance)))))
+
+(defun jump-prev-word-occurence (&optional count)
+  (interactive "p")
+  (jump-next-word-occurence (if count (- count) -1)))
+
+(provide 'cnf-functions)
