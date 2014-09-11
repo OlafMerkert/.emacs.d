@@ -213,4 +213,13 @@
   (let ((browse-url-browser-function 'download-with-youtube-dl))
     (org-open-at-point)))
 
+;; setup org-ref
+(let ((org-ref-file "~/.emacs.d/addons/org-ref.org"))
+  (when (file-exists-p org-ref-file)
+    (org-babel-load-file org-ref-file t)))
+
+(setq reftex-default-bibliography '("~/Perfezionamento/topics/topics.bib")
+      org-ref-default-bibliography reftex-default-bibliography
+      org-ref-pdf-directory "~/Perfezionamento/topics/")
+
 (provide 'cnf-org)

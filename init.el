@@ -44,6 +44,7 @@
       magit
       elpy
       bbdb
+      dash
       )
     "my default selection of packages, to be automatically
   installed at launch.")
