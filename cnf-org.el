@@ -52,33 +52,41 @@
     (unless pull-only (magit-push))))
 
 ;;; configure org capture
-(setq org-capture-my-todo-template "* TODO %?%i\n  %a"
-      org-capture-templates
-      `(("t" "Todo" entry
-             (file+headline "" "Tasks")
-             ,org-capture-my-todo-template)
-        ("s" "SNS Todo" entry
-             (file+headline ,(org-path "sns") "Tasks")
-             ,org-capture-my-todo-template)
-        ("v" "Vortrag" entry
-             (file+headline ,(org-path "sns") "Vorträge")
-             "* %?%i\n  %a")
-        ("p" "Privat Todo" entry
-             (file+headline ,(org-path "privat") "Tasks")
-             ,org-capture-my-todo-template)
-        ;; TODO capture to readme.org of current (git) project
-        ("r" "Readme" entry
-             (function find-git-project-readme-tasks)
-             ,org-capture-my-todo-template)
-        ("b" "Bookmark" entry
-             (file ,(org-path "bookmarks"))
-             "* %a%?")
-        ("w" "Movie or TV Series" entry
-             (file+headline ,(org-path "privat") "Filme")
-             "* %a%?")
-        ("m" "Music" entry
-             (file+headline ,(org-path "privat") "Musik"))
-        ))
+(let ((my-todo-template "* TODO %?%i\n  %a")
+      (my-simple-todo-template "* TODO %?"))
+  (setq  org-capture-templates
+         `(("t" "Todo" entry
+                (file+headline "" "Tasks")
+                ,my-todo-template)
+           ("T" "Todo (noref)" entry
+                (file+headline "" "Tasks")
+                ,my-simple-todo-template)
+           ("s" "SNS Todo" entry
+                (file+headline ,(org-path "sns") "Tasks")
+                ,my-todo-template)
+           ("v" "Vortrag" entry
+                (file+headline ,(org-path "sns") "Vorträge")
+                "* %?%i\n  %a")
+           ("p" "Privat Todo" entry
+                (file+headline ,(org-path "privat") "Tasks")
+                ,my-todo-template)
+           ;; TODO capture to readme.org of current (git) project
+           ("r" "Readme" entry
+                (function find-git-project-readme-tasks)
+                ,my-todo-template)
+           ("R" "Readme (noref)" entry
+                (function find-git-project-readme-tasks)
+                ,my-simple-todo-template)
+           ("b" "Bookmark" entry
+                (file ,(org-path "bookmarks"))
+                "* %a%?")
+           ("w" "Movie or TV Series" entry
+                (file+headline ,(org-path "privat") "Filme")
+                "* %a%?")
+           ("m" "Music" entry
+                (file+headline ,(org-path "privat") "Musik")
+                "* %a%?")
+           )))
 
 (defun find-git-project-readme-tasks ()
   (find-git-project-readme "Tasks"))
