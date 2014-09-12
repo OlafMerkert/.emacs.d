@@ -58,6 +58,7 @@
 (require 'expand-region)
 (define-key my-keys-minor-mode-map (kbd "C-j")        'ace-jump-mode)
 (define-key my-keys-minor-mode-map (kbd "M-j")        'iy-go-to-char)
+(define-key my-keys-minor-mode-map (kbd "M-J")        'iy-go-to-char-backward)
 (define-key my-keys-minor-mode-map (kbd "C-x a")      'align-regexp)
 (define-key my-keys-minor-mode-map (kbd "C-x A")      'align-regexp-all)
 (define-key my-keys-minor-mode-map (kbd "C-<return>") 'copy-line-to-other-window)
