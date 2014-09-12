@@ -6,7 +6,17 @@
   (when (probe-file quicklisp-init)
     (load quicklisp-init)))
 
+;;; setup local projects
 #+quicklisp
 (push (merge-pathnames "Projekte/"
                        (user-homedir-pathname))
       quicklisp:*local-project-directories*)
+
+;;; always load my favourite utilities, but don't panic if it can't be
+;;; found. Also change to ol-user directly we are using SBCL
+(handler-case
+    (progn
+      (ql:quickload :ol-utils)
+      #+sbcl (in-package :ol-user))
+  (quicklisp:system-not-found ()
+    (abort)))

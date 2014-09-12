@@ -10,4 +10,6 @@ sbcl --load quicklisp.lisp <<EOF
 EOF
 
 # setup the lisp init file
-ln -s .emacs.d/lispenv.lisp .sbclrc
+ln -sf .emacs.d/external/lispenv.lisp .sbclrc
+ln -sf .emacs.d/external/lispenv.lisp .ccl-init.lisp
+ln -sf .emacs.d/external/lispenv.lisp .clisprc.lisp
