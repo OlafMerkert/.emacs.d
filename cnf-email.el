@@ -225,3 +225,48 @@
 
 ;; todo keybindings seem to be overwritten
 ;; todo show date in gnus summary
+
+;; insert all email addresses for one alias
+
+(defun bbdb-goto-next-record (n)
+  "Move point to the beginning of the next BBDB record.
+With prefix N move forward N records. If there is no next record,
+return nil."
+  (let ((npoint (bbdb-scan-property 'bbdb-record-number 'integerp n)))
+    (if npoint (goto-char npoint))))
+
+(defun bbdb-mail-dwim-for-alias (regexp)
+  "Produce a list of formatted E-Mail adresses for all records
+with `regexp' matching `mail-alias'."
+  (bbdb-search-xfields 'mail-alias regexp)
+  (let (addresses)
+    (with-current-buffer (get-buffer "*BBDB*")
+      (do ((pos (goto-char (point-min))
+                (bbdb-goto-next-record 1)))
+          ((not pos))
+        (push (bbdb-dwim-mail (bbdb-current-record)) addresses)))
+    addresses))
+
+(defun message-insert-group ()
+  "Prompt for a `mail-alias' using ido, then append all mail
+addresses with that alias to the recipient list."
+  (interactive)
+  (save-excursion
+    (let* ((alias (ido-completing-read "Mail alias: " (bbdb-get-mail-aliases)))
+           (addresses (bbdb-mail-dwim-for-alias alias)))
+      ;; go to end of To record
+      (message-goto-to)
+      (let ((to  (message-field-value "To")))
+        (unless (= 0 (length to))
+          (unless (save-excursion (backward-char)
+                                  (looking-at ","))
+            (insert ","))
+          (newline)
+          (insert "    "))
+        (insert (first addresses)))
+      (dolist (addr (rest addresses))
+        (insert ",")
+        (newline)
+        (insert "    " addr)))))
+
+(define-key message-mode-map (kbd "C-c g") 'message-insert-group)
