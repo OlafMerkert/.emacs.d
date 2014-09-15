@@ -33,6 +33,7 @@
 
 (setq python-shell-interpreter "sage"
       python-shell-interpreter-args "-python -i")
+(setq org-babel-python-command "sage -python")
 
 (defun elpy-shell-send-line ()
   "Send the current line to the Python shell. "

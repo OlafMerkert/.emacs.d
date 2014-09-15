@@ -112,6 +112,7 @@
                   )))
         (error "Not in a git project."))))
 
+;; what does this do?
 (defadvice org-capture-set-target-location (after org-capture-function-remove-exact-exact-location)
   (org-capture-put :exact-position nil))
 
@@ -156,7 +157,20 @@
 ;;; configure babel
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((emacs-lisp . t) (lisp . t)))
+ '((emacs-lisp . t)
+   (lisp . t)
+   (python . t)))
+
+(defun babel-language-p (language)
+  (find language org-babel-load-languages :test 'string-equal
+        :key (lambda (x) (symbol-name (car x)))))
+
+(setq org-confirm-babel-evaluate
+      (lambda (language body) (not (babel-language-p language)))
+      ;; do not add leading whitespace for source-blocks after editing
+      ;; (why would anybody want that?)
+      org-src-preserve-indentation t
+      org-edit-src-content-indentation 0)
 
 (defun beginning-of-word ()
   ;; todo not working yet
