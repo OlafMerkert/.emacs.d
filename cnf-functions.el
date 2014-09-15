@@ -68,10 +68,13 @@ line."
                (looking-at-p "\\s_\\|\\sw") ;; Symbol characters
                )
       ;; move forward to end of symbol
-      (forward-symbol (if (minusp count) -1 1))
-      (let ((advance (- (point) pos)))
+      (forward-symbol 1)
+      (let ((advance (- (point) pos))
+            (case-fold-search nil))
+        (if (minusp count) (forward-symbol -1))
         (setq regexp (concat "\\_<" (regexp-quote target) "\\_>"))
         (search-forward-regexp regexp nil t (or count 1))
+        (if (minusp count) (forward-symbol 1))
         ;; move backward again
         (backward-char advance)))))
 
