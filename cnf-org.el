@@ -172,6 +172,15 @@
       org-src-preserve-indentation t
       org-edit-src-content-indentation 0)
 
+(defun strip-blank-lines (str)
+  "Remove all blank lines from the given string `str'."
+  (replace-regexp-in-string "[\n]\+" "\n" str))
+
+(defadvice org-babel-python-evaluate-session (before ob-py-strip-blank-lines)
+  (ad-set-arg 1 (strip-blank-lines (ad-get-arg 1))))
+
+(ad-activate 'org-babel-python-evaluate-session)
+
 (defun beginning-of-word ()
   ;; todo not working yet
   (save-excursion
