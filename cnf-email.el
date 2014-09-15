@@ -103,7 +103,8 @@
         "fedoraproject.planet"
         "appleoutsider"
         "notebookcheck"
-        "endlessparens"))
+        "endlessparens"
+        "kitchin"))
 
 (defun adjust-summary-line-format ()
   (when (and (search "nntp+news.gwene.org" gnus-newsgroup-name)
