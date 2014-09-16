@@ -257,4 +257,6 @@
       org-ref-default-bibliography reftex-default-bibliography
       org-ref-pdf-directory "~/Perfezionamento/topics/")
 
+(define-key org-mode-map (kbd "C-c C-v k") 'org-babel-remove-result)
+
 (provide 'cnf-org)
