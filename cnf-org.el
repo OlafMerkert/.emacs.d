@@ -174,12 +174,16 @@
 
 (defun strip-blank-lines (str)
   "Remove all blank lines from the given string `str'."
-  (replace-regexp-in-string "[\n]\+" "\n" str))
+  ; the space or tab at the beginning of is necessary, because we
+  ; don't want (and need to) strip blank lines between top-level forms
+  (replace-regexp-in-string "[\n]\+\\([ \t]\\)" "\n\\1" str))
 
 (defadvice org-babel-python-evaluate-session (before ob-py-strip-blank-lines)
   (ad-set-arg 1 (strip-blank-lines (ad-get-arg 1))))
 
 (ad-activate 'org-babel-python-evaluate-session)
+;; note that this also removes blank lines in strings, where they could
+;; be wanted. But for now, it is a decent workaround.
 
 (defun beginning-of-word ()
   ;; todo not working yet
