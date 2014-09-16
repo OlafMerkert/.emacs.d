@@ -45,6 +45,7 @@
       elpy
       bbdb
       dash
+      smartparens
       )
     "my default selection of packages, to be automatically
   installed at launch.")
@@ -151,12 +152,8 @@
   (interactive)
   (replace-string "><" ">
 <")
-  (indent-region (buffer-end -1) (buffer-end 1)))
+  (indent-region (point-min) (point-max)))
 
-
-;;; smartparens
-;; 'smartparens-config
-;; smartparens-strict-mode
 
 (dolist (cnf '("functions"
                "lisp"
@@ -165,7 +162,9 @@
                "bindings"
                "personal"
                "email"
-               "org"))
+               "org"
+               ;; "smartparens"
+               ))
   (load (concatenate 'string "~/.emacs.d/cnf-" cnf)))
 
 ;;; fix for using tramp::sudo
