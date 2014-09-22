@@ -31,9 +31,9 @@
 ;; return and pass removes one level, while double blank lines reset
 ;; indentation to 0
 
-(setq python-shell-interpreter "sage"
-      python-shell-interpreter-args "-python -i")
-(setq org-babel-python-command "sage -python")
+(setq python-shell-interpreter "python"
+      python-shell-interpreter-args "-i")
+(setq org-babel-python-command "python")
 
 (defun elpy-shell-send-line ()
   "Send the current line to the Python shell. "
