@@ -170,7 +170,8 @@
       ;; do not add leading whitespace for source-blocks after editing
       ;; (why would anybody want that?)
       org-src-preserve-indentation t
-      org-edit-src-content-indentation 0)
+      org-edit-src-content-indentation 0
+      org-export-babel-evaluate nil)
 
 (defun strip-blank-lines (str)
   "Remove all blank lines from the given string `str'."
