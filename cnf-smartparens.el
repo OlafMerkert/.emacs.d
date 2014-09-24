@@ -1,9 +1,8 @@
-(require 'smartparens)
-
-;; do not autoinsert ' pair if the point is preceeded by word.  This
-;; will handle the situation when ' is used as a contraction symbol in
-;; natural language.  Nil for second argument means to keep the
-;; original definition of closing pair.
-(sp-pair "'" nil :unless '(sp-point-after-word-p))
+(require 'smartparens-config)
 
 ;; smartparens-strict-mode
+(setq sp-autoinsert-if-followed-by-same 3
+      sp-autoinsert-if-followed-by-word t)
+
+(add-hook 'python-mode-hook 'smartparens-strict-mode)
+(add-hook 'js-mode-hook 'smartparens-strict-mode)
