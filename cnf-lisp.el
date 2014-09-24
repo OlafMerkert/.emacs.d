@@ -10,14 +10,10 @@
                  slime-highlight-edits)))
 
 (setq slime-lisp-implementations
-      '(;;(sbcl ("/usr/bin/sbcl"))
-        (sbcl ("/usr/bin/sbcl"
-               ;; "--core" "/home/olaf/sbcl-gtk2.core"
-               ))
+      `((sbcl (,(if (file-exists-p "/usr/local/bin/sbcl")
+                    "/usr/local/bin/sbcl"
+                    "/usr/bin/sbcl")))
         (ccl ("/usr/local/bin/ccl"))
-        ;; (sbcl ("/usr/bin/sbcl"
-        ;;        "--dynamic-heap-size" "4096"
-        ;;        "--control-stack-size" "16"))
         (clisp ("/usr/bin/clisp"))
         ))
 
