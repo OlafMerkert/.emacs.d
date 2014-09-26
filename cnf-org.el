@@ -152,7 +152,13 @@
        ("\\subsection{%s}" . "\\subsection*{%s}")
        ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
        ("\\paragraph{%s}" . "\\paragraph*{%s}")
-       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
+       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+    (add-to-list 'org-latex-packages-alist '("" "minted"))
+
+    (setq org-latex-listings 'minted)))
+
+
 
 ;;; configure babel
 (org-babel-do-load-languages
