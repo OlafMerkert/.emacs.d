@@ -46,6 +46,7 @@
       bbdb
       dash
       smartparens
+      htmlize
       )
     "my default selection of packages, to be automatically
   installed at launch.")

@@ -158,7 +158,28 @@
 
     (setq org-latex-listings 'minted)))
 
+;; turn off indentation-highlight during htmlize
+(defvar htmlize-reenable-modes nil)
+(defvar htmlize-disable-modes nil)
 
+(add-to-list 'htmlize-disable-modes 'highlight-indentation-mode)
+
+(defun htmlize-turn-off-modes ()
+  (make-local-variable 'htmlize-reenable-modes)
+  (dolist (mode htmlize-disable-modes)
+    (when (symbol-value mode)
+      (push mode htmlize-reenable-modes)
+      (funcall mode -1))))
+
+(defun htmlize-turn-on-modes ()
+  (dolist (mode htmlize-reenable-modes)
+    (funcall mode +1))
+  (setf htmlize-reenable-modes nil))
+
+(eval-after-load 'htmlize
+  '(progn
+    (add-hook 'htmlize-before-hook 'htmlize-turn-off-modes)
+    (add-hook 'htmlize-after-hook 'htmlize-turn-on-modes)))
 
 ;;; configure babel
 (org-babel-do-load-languages
