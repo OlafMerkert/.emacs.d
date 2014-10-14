@@ -184,6 +184,17 @@
                      (dbind destructuring-bind)
                      )
 
+;;; TODO improve highlighting of important (custom) macros
+;; (font-lock-add-keywords 'common-lisp-mode
+;;                         '(("(\\(defmacro!\\)[:space:\n]+\\([^:space:()]+\\)"
+;;                            (1 font-lock-keyword-face)
+;;                            (2 font-lock-function-name-face)))
+;;                         t)
+
+;; for hu.dwim.def
+(let ((file "~/.quicklisp/dists/quicklisp/software/hu.dwim.def-20140713-darcs/emacs/hu.dwim.def.el"))
+  (if (file-exists-p file) (load-file file)))
+
 ;;; nicer indentation for cl-who
 ;; for common html tags
 (defun repeated (n item &optional tail)
