@@ -127,6 +127,9 @@
 (add-to-list 'org-file-apps '("pdf" . "evince %s"))
 
 ;;; setup global exporting options
+;; allow use of #+BIND: to configure variables during export
+(setq org-export-allow-bind-keywords t)
+
 (eval-after-load 'ox-latex
   '(progn
     ;; make sure shell-escape is turned on (I need it for \gitversioninfo)
@@ -155,7 +158,6 @@
        ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
     (add-to-list 'org-latex-packages-alist '("" "minted"))
-
     (setq org-latex-listings 'minted)))
 
 ;; turn off indentation-highlight during htmlize

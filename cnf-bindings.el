@@ -5,9 +5,9 @@
 (put 'narrow-to-region 'disabled nil)
 
 ;; global key settings
-(global-set-key (kbd "<f5>")       'linum-mode)
+(global-set-key (kbd "<f5>")       nil)
 (global-set-key (kbd "<f6>")       'magit-status)
-(global-set-key (kbd "C-c g") nil)
+(global-set-key (kbd "C-c g")      nil)
 (global-set-key (kbd "<f8>")       'gnus)
 (global-set-key (kbd "<f9>")       'slime-selector-or-start)
 (global-set-key (kbd "S-<f9>")     'slime-local-alt)
