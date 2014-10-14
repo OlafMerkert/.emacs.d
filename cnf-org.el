@@ -286,5 +286,10 @@
       org-ref-pdf-directory "~/Perfezionamento/topics/")
 
 (define-key org-mode-map (kbd "C-c C-v k") 'org-babel-remove-result)
+(define-key org-mode-map (kbd "C-;") 'tex-goto-prev-dollar)
+(define-key org-mode-map (kbd "C-'") 'tex-goto-next-dollar)
+(define-key org-mode-map (kbd "M-;") 'tex-goto-prev-backslash)
+(define-key org-mode-map (kbd "M-'") 'tex-goto-next-backslash)
+(define-key org-mode-map (kbd "<f5>") 'org-mark-ring-goto)
 
 (provide 'cnf-org)

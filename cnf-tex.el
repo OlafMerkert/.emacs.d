@@ -189,7 +189,10 @@
 
      (defun ,(symb "tex-goto-next-" name) ()
        (interactive)
-       (search-forward ,string))))
+       (when (looking-at (regexp-quote ,string))
+         (forward-char ,(length string)))
+       (search-forward ,string)
+       (backward-char ,(length string)))))
 
 (create-tex-goto "backslash" "\\")
 (create-tex-goto "dollar" "$")
