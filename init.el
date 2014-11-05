@@ -25,10 +25,10 @@
       ido-vertical-mode
       color-theme-solarized
       ;; zenburn-theme
-      ;; anti-zenburn-theme
+      anti-zenburn-theme
       expand-region
       ace-jump-mode
-      ;; js2-mode
+      js2-mode
       auctex
       yasnippet
       lua-mode
@@ -58,10 +58,6 @@
 (defmacro defpar (var value)
   `(progn (defvar ,var)
           (setf ,var ,value)))
-
-(setq desktop-path '("~/.emacs.d/sessions/"))
-(make-directory (car desktop-path) t)
-(desktop-save-mode 1)
 
 (load-theme 'anti-zenburn t)
 
@@ -171,8 +167,6 @@
 ;;; fix for using tramp::sudo
 (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
 
-(server-start)
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -186,3 +180,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(server-start)
+
+(setq desktop-path '("~/.emacs.d/sessions/"))
+(make-directory (car desktop-path) t)
+(desktop-save-mode 1)
+
