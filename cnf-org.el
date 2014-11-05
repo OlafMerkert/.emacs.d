@@ -86,6 +86,9 @@
            ("m" "Music" entry
                 (file+headline ,(org-path "privat") "Musik")
                 "* %a%?")
+           ("z" "Zimmer" entry
+                (file+headline ,(org-path "privat") "Neue Wohnung")
+                "* %?%i\n  %a")
            )))
 
 (defun find-git-project-readme-tasks ()
