@@ -109,7 +109,7 @@
 ;; browser
 (setq browse-url-generic-program   "xdg-open"
       browse-url-chromium-program  "google-chrome"
-      browse-url-browser-function  'browse-url-chromium
+      browse-url-browser-function  'browse-url-firefox
       w3m-use-cookies              t
       w3m-pop-up-windows           t
       w3m-use-tab                  nil)
