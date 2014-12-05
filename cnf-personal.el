@@ -1,5 +1,8 @@
-(setq user-mail-addresses '("olaf@m-merkert.de" "olaf.merkert@sns.it")
-      user-mail-address (first user-mail-addresses)
+(setq active-user-mail-addresses '("olaf@m-merkert.de" "olaf.merkert@sns.it")
+      user-mail-addresses (append active-user-mail-addresses
+                                  '("olaf.merkert@stud.unibas.ch"
+                                    "merkol01@mbx.unibas.ch"))
+      user-mail-address (first active-user-mail-addresses)
       user-full-name "Olaf Merkert")
 
 (setq tramp-default-method "ssh"

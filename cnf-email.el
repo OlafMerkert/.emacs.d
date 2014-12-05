@@ -69,9 +69,9 @@
   "toggle between the available alternative e-mails available"
   (interactive)
   (let* ((from (message-field-value "From"))
-         (pos (position-if (lambda (uma) (search uma from)) user-mail-addresses))
+         (pos (position-if (lambda (uma) (search uma from)) active-user-mail-addresses))
          (user-mail-address (if (not pos) user-mail-address
-                                (elt user-mail-addresses (mod (+ 1 pos) (length user-mail-addresses))))))
+                                (elt active-user-mail-addresses (mod (+ 1 pos) (length active-user-mail-addresses))))))
     (message-replace-header "From" (message-make-from) "Subject")
     (message-replace-header "Gcc" (gnus-sent-messages-folder) "From")))
 
