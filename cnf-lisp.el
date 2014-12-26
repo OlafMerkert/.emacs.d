@@ -139,28 +139,25 @@
 
 (eval-after-load 'slime
   '(progn
-    (define-key slime-mode-map (kbd "TAB")   'slime-indent-and-complete-symbol)
-    (define-key slime-repl-mode-map (kbd "<backspace>") 'paredit-backward-delete)
-    (define-key slime-repl-mode-map (kbd "<delete>") 'paredit-forward-delete)
-    (define-key slime-mode-map (kbd "C-M-<backspace>") 'backward-kill-sexp)
-    (define-key slime-repl-mode-map (kbd "C-d") 'paredit-forward-delete)
-    (define-key slime-mode-map (kbd "C-'")   'slime-insert-balanced-comments)
-    (define-key slime-mode-map (kbd "C-\"")   'slime-remove-balanced-comments)
-    ;; (define-key slime-mode-map (kbd "C-c s") 'clos-insert-accessor-and-initarg)
-    (define-key slime-mode-map (kbd "C-c g") 'defgeneric-next)
-    (define-key slime-mode-map (kbd "C-c #") 'multiply-last-sexp-reader)
-    (define-key slime-mode-map (kbd "C-c C-<return>") 'slime-macroexpand-1-inplace)
+    (define-key slime-mode-map      (kbd "TAB")             'slime-indent-and-complete-symbol)
+    (define-key slime-repl-mode-map (kbd "<backspace>")     'paredit-backward-delete)
+    (define-key slime-repl-mode-map (kbd "<delete>")        'paredit-forward-delete)
+    (define-key slime-mode-map      (kbd "C-M-<backspace>") 'backward-kill-sexp)
+    (define-key slime-repl-mode-map (kbd "C-d")             'paredit-forward-delete)
+    (define-key slime-mode-map      (kbd "C-'")             'slime-insert-balanced-comments)
+    (define-key slime-mode-map      (kbd "C-\"")            'slime-remove-balanced-comments)
+    (define-key slime-mode-map      (kbd "C-c g")           'defgeneric-next)
+    (define-key slime-mode-map      (kbd "C-c #")           'multiply-last-sexp-reader)
+    (define-key slime-mode-map      (kbd "C-c C-<return>")  'slime-macroexpand-1-inplace)
     ))
 
-(define-key lisp-mode-map (kbd "C-2") 'multiply-last-sexp-2)
-(define-key emacs-lisp-mode-map (kbd "C-2") 'multiply-last-sexp-2)
-(define-key lisp-mode-map (kbd "C-3") 'multiply-last-sexp-3)
-(define-key emacs-lisp-mode-map (kbd "C-3") 'multiply-last-sexp-3)
-(define-key lisp-mode-map (kbd "C-4") 'multiply-last-sexp-4)
-(define-key emacs-lisp-mode-map (kbd "C-4") 'multiply-last-sexp-4)
 
-(define-key lisp-mode-map (kbd "C-c f") 'defun-this-symbol)
-(define-key emacs-lisp-mode-map (kbd "C-c f") 'defun-this-symbol)
+(dolist (mode-map (list lisp-mode-map
+                        emacs-lisp-mode-map))
+  (define-key mode-map       (kbd "C-2")   'multiply-last-sexp-2)
+  (define-key mode-map       (kbd "C-3")   'multiply-last-sexp-3)
+  (define-key mode-map       (kbd "C-4")   'multiply-last-sexp-4)
+  (define-key mode-map       (kbd "C-c f") 'defun-this-symbol))
 
 (dolist (mode '(lisp-mode-hook
                 slime-repl-mode-hook))
