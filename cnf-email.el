@@ -121,7 +121,7 @@
 (setq gnus-ignored-newsgroups ""
       mm-discouraged-alternatives '("text/html" "text/richtext"))
 
-(setq gnus-select-method '(nntp "news.tin.it"))
+(setq gnus-select-method '(nntp "akk4-dmz.akk.uni-karlsruhe.de"))
 
 (setq gnus-secondary-select-methods
             '((nnimap "1und1"
