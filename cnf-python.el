@@ -72,4 +72,10 @@
 (define-key elpy-mode-map (kbd "C-c C-e") nil)
 (define-key python-mode-map (kbd "C-M-x") 'elpy-shell-send-definition)
 
+(defun py-remove-debug-statements ()
+  (interactive)
+  (let ((re "^\s*print \"debug.*$"))
+    (delete-matching-lines re (region-beginning) (region-end))))
+
+
 (provide 'cnf-python)
