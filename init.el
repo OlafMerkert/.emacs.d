@@ -174,7 +174,7 @@
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    (quote
-    ("~/Personal/bookmarks.org" "~/Projekte/web-utils/readme.org" "~/Personal/spiele.org" "~/Personal/sns.org" "~/Personal/notizen.org" "~/Personal/privat.org" "~/Perfezionamento/thesis/phd-thesis.en.org")))
+    ("~/Perfezionamento/thesis/continued-fractions-computations.sage.org" "~/Personal/bookmarks.org" "~/Personal/spiele.org" "~/Personal/sns.org" "~/Personal/notizen.org" "~/Personal/privat.org" "~/Perfezionamento/thesis/phd-thesis.en.org")))
  '(safe-local-variable-values
    (quote
     ((ispell-dictionary . "de_DE")
