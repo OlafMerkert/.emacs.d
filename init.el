@@ -23,9 +23,9 @@
       starter-kit-lisp
       starter-kit-bindings
       ido-vertical-mode
-      color-theme-solarized
+      ;; color-theme-solarized
       ;; zenburn-theme
-      anti-zenburn-theme
+      ;; anti-zenburn-theme
       expand-region
       ace-jump-mode
       js2-mode
@@ -59,7 +59,7 @@
   `(progn (defvar ,var)
           (setf ,var ,value)))
 
-(load-theme 'anti-zenburn t)
+;; (load-theme 'anti-zenburn t)
 
 (require 'starter-kit)
 (require 'starter-kit-lisp)
@@ -198,7 +198,8 @@
 
 (server-start)
 
-(setq desktop-path '("~/.emacs.d/sessions/"))
+(setq desktop-path '("~/.emacs.d/sessions/")
+      desktop-restore-frames t)
 (make-directory (car desktop-path) t)
 (desktop-save-mode 1)
 
