@@ -82,4 +82,23 @@ line."
   (interactive "p")
   (jump-next-word-occurence (if count (- count) -1)))
 
+;; prompt for name and create appropriate new yasnippet
+(defun yas-create-snippet (snippet-name snippet-abbrev)
+  (interactive
+   (list (read-string "Snippet name: ")
+         (read-string "Snippet abbrev: ")))
+  (let ((snippet-filename (concat (first yas-snippet-dirs)
+                                  "/"
+                                  (downcase (symbol-name major-mode))
+                                  "/"
+                                  snippet-name
+                                  ".yasnippet")))
+    (find-file snippet-filename)
+    (insert "# -*- mode: snippet -*-
+# name: " snippet-name "
+# key: " snippet-abbrev "
+# --
+")
+    (not-modified)))
+
 (provide 'cnf-functions)

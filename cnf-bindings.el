@@ -145,4 +145,7 @@
   (define-key my-keys-minor-mode-map (vector (list modifier 'up))    'windmove-up)
   (define-key my-keys-minor-mode-map (vector (list modifier 'down))  'windmove-down))
 
+;; quickly create snippets
+(global-set-key (kbd "C-x M-s") 'yas-create-snippet)
+
 (provide 'cnf-bindings)
