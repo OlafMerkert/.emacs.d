@@ -9,6 +9,9 @@
                  slime-tramp
                  slime-highlight-edits)))
 
+;; completion setup
+(setf slime-complete-symbol*-fancy t)
+
 (setq slime-lisp-implementations
       `((sbcl (,(if (file-exists-p "/usr/local/bin/sbcl")
                     "/usr/local/bin/sbcl"
@@ -101,9 +104,10 @@
 (defun defun-this-symbol ()
   (interactive)
   (let ((symbol (extract-this-sexp)))
-    (end-of-buffer)
-    (newline)
-    (newline-and-indent)
+    (beginning-of-defun)
+    (newline 2)
+    (previous-line 2)
+    (indent-according-to-mode)
     (insert "(defun " symbol " ())")
     (backward-char 2)))
 
