@@ -130,7 +130,8 @@
 ;; eshell
 (setenv "EDITOR" "emacsclient")
 (add-to-list 'exec-path (expand-file-name "~/bin"))
-(setq-default eshell-path-env (concat eshell-path-env ":" (expand-file-name "~/bin")))
+(setenv "PATH" (concat (getenv "PATH") ":" (expand-file-name "~/bin")))
+(setq-default eshell-path-env (getenv "PATH"))
 (setq cd-path (list "./"
                     "../"
                     (expand-file-name "~/Projekte")
