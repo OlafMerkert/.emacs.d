@@ -128,12 +128,13 @@
         ("~/Studium/MasterArbeit" "master")))
 
 ;; eshell
-(defun eshell-paths-hook ()
-  (or (getenv "CDPATH")
-      (setenv "CDPATH" ".:..:~:~/Projekte:~/Perfezionamento/projects"))
-  (setenv "EDITOR" "emacsclient"))
-
-(add-hook 'eshell-mode-hook 'eshell-paths-hook)
+(setenv "EDITOR" "emacsclient")
+(add-to-list 'exec-path (expand-file-name "~/bin"))
+(setq-default eshell-path-env (concat eshell-path-env ":" (expand-file-name "~/bin")))
+(setq cd-path (list "./"
+                    "../"
+                    (expand-file-name "~/Projekte")
+                    (expand-file-name "~/Perfezionamento/projects")))
 
 ;; snippets
 (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
