@@ -5,7 +5,8 @@
 (put 'narrow-to-region 'disabled nil)
 
 ;; global key settings
-(global-set-key (kbd "<f5>")       nil)
+(global-set-key (kbd "<f12> h")    'hl-line-mode)
+(global-set-key (kbd "<f12> l")    'linum-mode)
 (global-set-key (kbd "<f6>")       'magit-status)
 (global-set-key (kbd "C-c g")      nil)
 (global-set-key (kbd "<f8>")       'gnus)
@@ -14,7 +15,7 @@
 (global-set-key (kbd "S-<return>") 'split-line)
 (global-set-key (kbd "C-x M-o")    'other-frame)
 (global-set-key (kbd "C-x c")      'comment-dwim)
-(global-set-key (kbd "<f12>")      'same-buffers)
+(global-set-key (kbd "<f12> b")    'same-buffers)
 (global-set-key (kbd "<f11>")      nil)
 (global-set-key (kbd "<f11> a")    'org-agenda)
 (global-set-key (kbd "<f11> c")    'org-capture)
