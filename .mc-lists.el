@@ -5,7 +5,6 @@
 
 (setq mc/cmds-to-run-for-all
       '(
-        comment-dwim
         TeX-insert-backslash
         TeX-insert-sub-or-superscript
         ace-jump-mode
@@ -13,6 +12,7 @@
         backward-sexp
         beginning-of-visual-line
         c-electric-semi&comma
+        comment-dwim
         delete-horizontal-space
         delete-indentation
         dired-next-line
@@ -56,6 +56,7 @@
         paredit-splice-sexp
         paredit-splice-sexp-killing-backward
         reindent-then-newline-and-indent
+        slime-autodoc-space
         slime-export-symbol-at-point
         slime-space
         smex
