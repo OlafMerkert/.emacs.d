@@ -162,6 +162,7 @@
                "personal"
                "email"
                "org"
+               "colours"
                ;; "smartparens"
                ))
   (load (concatenate 'string "~/.emacs.d/cnf-" cnf)))
