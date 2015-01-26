@@ -15,6 +15,10 @@ def clean_uri(uri):
     return uri
 
 
+def uri_quote(uri):
+    return urllib.quote(uri, "%")
+
+
 class ColumnExtension(GObject.GObject, Nautilus.MenuProvider):
     def __init__(self):
         pass
@@ -26,8 +30,8 @@ class ColumnExtension(GObject.GObject, Nautilus.MenuProvider):
             ["/usr/bin/emacsclient",
              "/".join(["org-protocol:/",
                        "capture:/",
-                       urllib.quote_plus(uri),
-                       urllib.quote_plus(name)])])
+                       uri_quote(uri),
+                       name])])
 
     def org_store_link(self, menu, file):
         name = file.get_name()
@@ -36,8 +40,8 @@ class ColumnExtension(GObject.GObject, Nautilus.MenuProvider):
             ["/usr/bin/emacsclient",
              "/".join(["org-protocol:/",
                        "store-link:/",
-                       urllib.quote_plus(uri),
-                       urllib.quote_plus(name)])])
+                       uri_quote(uri),
+                       name])])
 
     def get_file_items(self, window, files):
         if len(files) != 1:
