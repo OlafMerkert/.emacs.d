@@ -16,6 +16,7 @@
 (global-set-key (kbd "C-x M-o")    'other-frame)
 (global-set-key (kbd "C-x c")      'comment-dwim)
 (global-set-key (kbd "<f12> b")    'same-buffers)
+(global-set-key (kbd "<f12> g")    'find-grep)
 (global-set-key (kbd "<f11>")      nil)
 (global-set-key (kbd "<f11> a")    'org-agenda)
 (global-set-key (kbd "<f11> c")    'org-capture)
