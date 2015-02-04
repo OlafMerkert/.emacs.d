@@ -116,10 +116,10 @@
         (error "Not in a git project."))))
 
 ;; what does this do?
-(defadvice org-capture-set-target-location (after org-capture-function-remove-exact-exact-location)
-  (org-capture-put :exact-position nil))
+;; (defadvice org-capture-set-target-location (after org-capture-function-remove-exact-exact-location)
+;;   (org-capture-put :exact-position nil))
 
-(ad-activate 'org-capture-set-target-location)
+;; (ad-activate 'org-capture-set-target-location)
 
 ;;; setup `org-refile'
 (setq org-refile-targets '((nil . (:maxlevel . 2))))
@@ -212,10 +212,10 @@
   ; don't want (and need to) strip blank lines between top-level forms
   (replace-regexp-in-string "[\n]\+\\([ \t]\\)" "\n\\1" str))
 
-(defadvice org-babel-python-evaluate-session (before ob-py-strip-blank-lines)
-  (ad-set-arg 1 (strip-blank-lines (ad-get-arg 1))))
+(defun ob-py-strip-blank-lines (f session body &optional result-type result-params)
+  (funcall f session (strip-blank-lines body) result-type result-params))
 
-(ad-activate 'org-babel-python-evaluate-session)
+(add-advice 'org-babel-python-evaluate-session :around 'ob-py-strip-blank-lines)
 ;; note that this also removes blank lines in strings, where they could
 ;; be wanted. But for now, it is a decent workaround.
 

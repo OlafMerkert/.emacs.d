@@ -77,11 +77,11 @@
 
 (define-key message-mode-map (kbd "C-c a") 'message-toggle-alternate)
 
-(defadvice message-use-alternative-email-as-from (after adjust-gcc-for-alternative)
+(defun message-use-alternative-email-as-from--adjust-gcc-for-alternative ()
   (message-remove-header "Gcc")
   (insert "Gcc: " (gnus-sent-messages-folder t) "\n"))
 
-(ad-activate 'message-use-alternative-email-as-from)
+(add-advice 'message-use-alternative-email-as-from :after 'message-use-alternative-email-as-from--adjust-gcc-for-alternative)
 
 ;; display date in the summary buffer
 (defvar gnus-gwene-summary-line-format)

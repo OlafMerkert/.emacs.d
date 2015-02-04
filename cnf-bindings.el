@@ -45,7 +45,7 @@
     (yas/minor-mode     . 80)
     (paredit-mode       . 60)))
 
-(defadvice load (after give-my-keybindings-priority)
+(defun load--give-my-keybindings-priority (&rest args)
   "Try to ensure that my keybindings always have priority."
   (setf minor-mode-map-alist
         (sort minor-mode-map-alist
@@ -57,7 +57,7 @@
                         ((not prec-b) t)
                         (t (> prec-a prec-b))))))))
 
-(ad-activate 'load)
+(add-advice 'load :after 'load--give-my-keybindings-priority)
 
 (require 'mark-more-like-this)
 (require 'expand-region)
