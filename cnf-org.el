@@ -299,4 +299,11 @@
 (define-key org-mode-map (kbd "M-'") 'tex-goto-next-backslash)
 (define-key org-mode-map (kbd "<f5>") 'org-mark-ring-goto)
 
+;; workaround missing mode check for `org-label-store-link'
+(defun org-label-store-link--test-mode (f)
+  (when (derived-mode-p 'org-mode)
+    (funcall f)))
+
+(advice-add 'org-label-store-link :around 'org-label-store-link--test-mode)
+
 (provide 'cnf-org)
