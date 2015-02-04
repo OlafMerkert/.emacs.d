@@ -129,6 +129,10 @@
 (add-to-list 'org-file-apps '("nb" . "mathematica -sl %s") t)
 (add-to-list 'org-file-apps '("pdf" . "evince %s"))
 
+;; open html exports in browser instead of Emacs (we want to look at
+;; them, not edit them.
+(add-to-list 'org-file-apps '("html" . (browse-url-of-file file)))
+
 ;;; setup global exporting options
 ;; allow use of #+BIND: to configure variables during export
 (setq org-export-allow-bind-keywords t)
