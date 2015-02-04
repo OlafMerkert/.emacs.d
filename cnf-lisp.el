@@ -141,6 +141,8 @@
       lisp-lambda-list-keyword-alignment t
       lisp-indent-maximum-backtracking 7)
 
+(define-key paredit-mode-map (kbd "C-M-<backspace>") 'backward-kill-sexp)
+
 (eval-after-load 'slime
   '(progn
     (define-key slime-mode-map      (kbd "TAB")             'slime-indent-and-complete-symbol)
