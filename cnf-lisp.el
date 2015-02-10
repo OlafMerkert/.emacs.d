@@ -141,7 +141,9 @@
       lisp-lambda-list-keyword-alignment t
       lisp-indent-maximum-backtracking 7)
 
-(define-key paredit-mode-map (kbd "C-M-<backspace>") 'backward-kill-sexp)
+(eval-after-load 'paredit
+  '(progn
+    (define-key paredit-mode-map (kbd "C-M-<backspace>") 'backward-kill-sexp)))
 
 (eval-after-load 'slime
   '(progn
@@ -221,7 +223,7 @@
   (let ((browse-url-browser-function 'w3m-browse-url))
     (funcall f symbol-name)))
 
-(add-advice 'common-lisp-hyperspec :around 'common-lisp-hyperspec--use-w3m)
+(advice-add 'common-lisp-hyperspec :around 'common-lisp-hyperspec--use-w3m)
 
 ;; open .sexp files with common-lisp-mode
 (add-to-list 'auto-mode-alist '("\\.sexp$" . common-lisp-mode))

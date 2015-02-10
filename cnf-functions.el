@@ -50,12 +50,12 @@ line."
       (goto-char point))))
 
 ;; neat little tip from Howard Abrams
-(defun transpose-words--at-eol ()
+(defun transpose-words--at-eol (arg)
   "Transpose last two words when at end of line"
   (if (looking-at "$")
       (backward-word 1)))
 
-(add-advice 'transpose-words :before 'transpose-words--at-eol)
+(advice-add 'transpose-words :before 'transpose-words--at-eol)
 
 ;; jump to next/previous occurence of symbol at point
 (defun jump-next-word-occurence (&optional count)

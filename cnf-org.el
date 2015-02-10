@@ -219,7 +219,7 @@
 (defun ob-py-strip-blank-lines (f session body &optional result-type result-params)
   (funcall f session (strip-blank-lines body) result-type result-params))
 
-(add-advice 'org-babel-python-evaluate-session :around 'ob-py-strip-blank-lines)
+(advice-add 'org-babel-python-evaluate-session :around 'ob-py-strip-blank-lines)
 ;; note that this also removes blank lines in strings, where they could
 ;; be wanted. But for now, it is a decent workaround.
 

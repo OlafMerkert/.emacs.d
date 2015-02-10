@@ -58,7 +58,7 @@
                         ((not prec-b) t)
                         (t (> prec-a prec-b))))))))
 
-(add-advice 'load :after 'load--give-my-keybindings-priority)
+(advice-add 'load :after 'load--give-my-keybindings-priority)
 
 (require 'mark-more-like-this)
 (require 'expand-region)

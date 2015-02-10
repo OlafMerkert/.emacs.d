@@ -81,7 +81,7 @@
   (message-remove-header "Gcc")
   (insert "Gcc: " (gnus-sent-messages-folder t) "\n"))
 
-(add-advice 'message-use-alternative-email-as-from :after 'message-use-alternative-email-as-from--adjust-gcc-for-alternative)
+(advice-add 'message-use-alternative-email-as-from :after 'message-use-alternative-email-as-from--adjust-gcc-for-alternative)
 
 ;; display date in the summary buffer
 (defvar gnus-gwene-summary-line-format)
