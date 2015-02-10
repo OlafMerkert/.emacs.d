@@ -24,6 +24,7 @@
 (global-set-key (kbd "<f11> b")    'org-iswitchb)
 (global-set-key (kbd "<f11> B")    'bbdb)
 (global-set-key (kbd "<f11> s")    'sync-personal-information)
+(global-set-key (kbd "<f11> u")    'browse-url-at-point)
 (global-set-key (kbd "C-c w")      'whitespace-cleanup)
 
 ;; change colour theme

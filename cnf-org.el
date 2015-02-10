@@ -9,7 +9,7 @@
   '(progn
     (define-key org-mode-map (kbd "<f2>") 'insert-greek-letter)
     (define-key org-mode-map (kbd "<f11> n") 'name-to-bbdb-link)
-    ))
+    (define-key org-mode-map (kbd "<f11> t") 'org-toggle-timestamp-type)))
 
 (setq org-deadline-warning-days 5
       org-completion-use-ido t)
