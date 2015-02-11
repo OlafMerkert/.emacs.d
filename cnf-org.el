@@ -288,7 +288,7 @@
     (org-open-at-point)))
 
 ;; setup org-ref
-(let ((org-ref-file "~/.emacs.d/addons/org-ref.org"))
+(let ((org-ref-file "~/.emacs.d/addons/org-ref/org-ref.org"))
   (when (file-exists-p org-ref-file)
     (org-babel-load-file org-ref-file t)))
 
