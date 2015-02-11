@@ -1,74 +1,23 @@
-;; setup environment variables
-;; (setenv "CDPATH"
-;;         (replace-regexp-in-string "~" (getenv "HOME")
-;;                                   ".:..:~:~/Projekte:~/Perfezionamento/projects"))
+(when (version<= emacs-major-version "24")
+  (error "This emacs is too old for this config."))
 
-(when (>= emacs-major-version 24)
-  (require 'package)
-  ;; additional repos for elpa
-  (add-to-list 'package-archives
-               '("melpa" . "http://melpa.org/packages/") t)
-  (add-to-list 'package-archives
-               '("marmalade" . "http://marmalade-repo.org/packages/") t)
-
-  (package-initialize)
-  
-  (when (not package-archive-contents)
-    (package-refresh-contents))
-
-  (defvar my-packages
-    '(starter-kit
-      starter-kit-eshell
-      starter-kit-js
-      starter-kit-lisp
-      starter-kit-bindings
-      ido-vertical-mode
-      ;; color-theme-solarized
-      ;; zenburn-theme
-      ;; anti-zenburn-theme
-      expand-region
-      ace-jump-mode
-      js2-mode
-      auctex
-      yasnippet
-      lua-mode
-      ecb
-      org
-      w3m
-      ipython
-      iy-go-to-char
-      iedit
-      multiple-cursors
-      mark-more-like-this
-      mark-multiple
-      magit
-      elpy
-      bbdb
-      dash
-      smartparens
-      htmlize
-      )
-    "my default selection of packages, to be automatically
-  installed at launch.")
-
-  (dolist (p my-packages)
-    (when (not (package-installed-p p))
-      (package-install p))))
-
-(defmacro defpar (var value)
-  `(progn (defvar ,var)
-          (setf ,var ,value)))
+(add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
+(require 'cnf-utils)
+(require 'cnf-package)
+(require 'cnf-base)
 
 ;; (load-theme 'anti-zenburn t)
 
-(require 'starter-kit)
-(require 'starter-kit-lisp)
-
-(require 'ido-vertical-mode)
-(ido-vertical-mode 1)
 
 (add-hook 'js-mode-hook 'js2-minor-mode)
 (remove-hook 'text-mode-hook 'turn-on-flyspell)
+
+;; ibuffer
+(add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root)
+(after-load 'ibuffer
+    (require 'ibuffer-vc))
+
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; disable some unwanted stuff from the starter kit
 

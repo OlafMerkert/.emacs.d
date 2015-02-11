@@ -70,6 +70,7 @@
       '(
         copy-line-to-other-window
         end-of-buffer
+        iedit-mode
         isearch-delete-char
         isearch-other-control-char
         slime-compile-defun

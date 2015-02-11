@@ -62,7 +62,7 @@
 
 (require 'mark-more-like-this)
 (require 'expand-region)
-(define-key my-keys-minor-mode-map (kbd "C-j")        'ace-jump-mode)
+(define-key my-keys-minor-mode-map (kbd )        'ace-jump-mode)
 (define-key my-keys-minor-mode-map (kbd "M-j")        'iy-go-to-char)
 (define-key my-keys-minor-mode-map (kbd "M-J")        'iy-go-to-char-backward)
 (define-key my-keys-minor-mode-map (kbd "C-x a")      'align-regexp)
@@ -70,37 +70,9 @@
 (define-key my-keys-minor-mode-map (kbd "C-<return>") 'copy-line-to-other-window)
 (define-key my-keys-minor-mode-map (kbd "C-M-m")      'mark-more-like-this) ; like the other two, but takes an argument (negative is previous)
 ;; (define-key my-keys-minor-mode-map (kbd "C-o")        'er/expand-region)
-(define-key my-keys-minor-mode-map (kbd "C-&")        'mc/edit-lines)
 
-(require 'multiple-cursors)
-
-(define-key my-keys-minor-mode-map (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(define-key my-keys-minor-mode-map (kbd "C->") 'mc/mark-next-like-this)
-(define-key my-keys-minor-mode-map (kbd "C-<") 'mc/mark-previous-like-this)
-(define-key my-keys-minor-mode-map (kbd "C-c C-<") 'mc/mark-all-like-this)
-(define-key my-keys-minor-mode-map (kbd "C-*") 'mc/mark-all-like-this-dwim)
 
 (global-set-key (kbd "C-x M-l") 'ispell-change-dictionary)
-
-(require 'iedit)
- 
-(defun iedit-dwim (arg)
-  "Starts iedit but uses \\[narrow-to-defun] to limit its scope."
-  (interactive "P")
-  (if arg
-      (iedit-mode)
-    (save-excursion
-      (save-restriction
-        (widen)
-        ;; this function determines the scope of `iedit-start'.
-        (narrow-to-defun)
-        (if iedit-mode
-            (iedit-done)
-          ;; `current-word' can of course be replaced by other
-          ;; functions.
-          (iedit-start (current-word)))))))
- 
-(global-set-key (kbd "C-;") 'iedit-mode)
 
 ;; Move more quickly
 (global-set-key (kbd "C-S-n") 'jump-next-word-occurence)
