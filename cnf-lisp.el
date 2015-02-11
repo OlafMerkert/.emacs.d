@@ -1,3 +1,9 @@
+(defun insert-provide ()
+  (interactive)
+  (insert "(provide '" (file-name-base (buffer-file-name)) ")"))
+
+(global-set-key (kbd "<f12> p") 'insert-provide)
+
 ;; get slime from quicklisp
 (defvar ql-slime-helper "~/.quicklisp/slime-helper.el")
 
@@ -141,23 +147,21 @@
       lisp-lambda-list-keyword-alignment t
       lisp-indent-maximum-backtracking 7)
 
-(eval-after-load 'paredit
-  '(progn
-    (define-key paredit-mode-map (kbd "C-M-<backspace>") 'backward-kill-sexp)))
+(after-load 'paredit
+  (define-key paredit-mode-map (kbd "C-M-<backspace>") 'backward-kill-sexp))
 
-(eval-after-load 'slime
-  '(progn
-    (define-key slime-mode-map      (kbd "TAB")             'slime-indent-and-complete-symbol)
-    (define-key slime-repl-mode-map (kbd "<backspace>")     'paredit-backward-delete)
-    (define-key slime-repl-mode-map (kbd "<delete>")        'paredit-forward-delete)
-    (define-key slime-mode-map      (kbd "C-M-<backspace>") 'backward-kill-sexp)
-    (define-key slime-repl-mode-map (kbd "C-d")             'paredit-forward-delete)
-    (define-key slime-mode-map      (kbd "C-'")             'slime-insert-balanced-comments)
-    (define-key slime-mode-map      (kbd "C-\"")            'slime-remove-balanced-comments)
-    (define-key slime-mode-map      (kbd "C-c g")           'defgeneric-next)
-    (define-key slime-mode-map      (kbd "C-c #")           'multiply-last-sexp-reader)
-    (define-key slime-mode-map      (kbd "C-c C-<return>")  'slime-macroexpand-1-inplace)
-    ))
+(after-load 'slime
+  (define-key slime-mode-map      (kbd "TAB")             'slime-indent-and-complete-symbol)
+  (define-key slime-repl-mode-map (kbd "<backspace>")     'paredit-backward-delete)
+  (define-key slime-repl-mode-map (kbd "<delete>")        'paredit-forward-delete)
+  (define-key slime-mode-map      (kbd "C-M-<backspace>") 'backward-kill-sexp)
+  (define-key slime-repl-mode-map (kbd "C-d")             'paredit-forward-delete)
+  (define-key slime-mode-map      (kbd "C-'")             'slime-insert-balanced-comments)
+  (define-key slime-mode-map      (kbd "C-\"")            'slime-remove-balanced-comments)
+  (define-key slime-mode-map      (kbd "C-c g")           'defgeneric-next)
+  (define-key slime-mode-map      (kbd "C-c #")           'multiply-last-sexp-reader)
+  (define-key slime-mode-map      (kbd "C-c C-<return>")  'slime-macroexpand-1-inplace)
+  )
 
 
 (dolist (mode-map (list lisp-mode-map

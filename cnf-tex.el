@@ -20,10 +20,10 @@
 (setf preview-scale-function 1.1)
 
 ;; generate pdf file name
-(eval-after-load 'tex
-    '(add-to-list 'TeX-expand-list
-              '("%P" file "pdf" t)
-              t))
+(after-load 'tex
+    (add-to-list 'TeX-expand-list
+     '("%P" file "pdf" t)
+     t))
 
 (setq TeX-view-program-list
       '(("Okular" ("okular --unique"
@@ -198,15 +198,14 @@
 (create-tex-goto "dollar" "$")
 
 ;; keybindings for tex stuff
-(eval-after-load 'tex
-  '(progn
-    (define-key TeX-mode-map (kbd "<f2>")    'insert-greek-letter)
-    (define-key TeX-mode-map (kbd "C-c C-4") 'tex-dollars-to-round)
-    (define-key TeX-mode-map (kbd "C-c (")   'tex-round-add-leftright)
-    (define-key TeX-mode-map (kbd "C-c $")   'tex-math-to-equation)
+(after-load 'tex
+  (define-key TeX-mode-map (kbd "<f2>")    'insert-greek-letter)
+  (define-key TeX-mode-map (kbd "C-c C-4") 'tex-dollars-to-round)
+  (define-key TeX-mode-map (kbd "C-c (")   'tex-round-add-leftright)
+  (define-key TeX-mode-map (kbd "C-c $")   'tex-math-to-equation)
 
-    (define-key TeX-mode-map (kbd "C-,")     'tex-goto-prev-backslash)
-    (define-key TeX-mode-map (kbd "C-.")     'tex-goto-next-backslash)
-    (define-key TeX-mode-map (kbd "C-M-p")   'tex-goto-prev-dollar)
-    (define-key TeX-mode-map (kbd "C-M-n")   'tex-goto-next-dollar)
-    (define-key TeX-mode-map (kbd "M-p")     'preview-at-point)))
+  (define-key TeX-mode-map (kbd "C-,")     'tex-goto-prev-backslash)
+  (define-key TeX-mode-map (kbd "C-.")     'tex-goto-next-backslash)
+  (define-key TeX-mode-map (kbd "C-M-p")   'tex-goto-prev-dollar)
+  (define-key TeX-mode-map (kbd "C-M-n")   'tex-goto-next-dollar)
+  (define-key TeX-mode-map (kbd "M-p")     'preview-at-point))

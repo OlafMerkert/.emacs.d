@@ -1,9 +1,3 @@
-;; enable some commands
-(put 'downcase-region   'disabled nil)
-(put 'upcase-region     'disabled nil)
-(put 'capitalize-region 'disabled nil)
-(put 'narrow-to-region 'disabled nil)
-
 ;; global key settings
 (global-set-key (kbd "<f12> h")    'hl-line-mode)
 (global-set-key (kbd "<f12> l")    'linum-mode)
@@ -26,9 +20,6 @@
 (global-set-key (kbd "<f11> s")    'sync-personal-information)
 (global-set-key (kbd "<f11> u")    'browse-url-at-point)
 (global-set-key (kbd "C-c w")      'whitespace-cleanup)
-
-;; change colour theme
-(global-set-key (kbd "C-x M-t") 'cycle-themes)
 
 ;; rebound movement keys
 (defvar my-keys-minor-mode-map (make-sparse-keymap)
@@ -60,67 +51,33 @@
 
 (advice-add 'load :after 'load--give-my-keybindings-priority)
 
-(require 'mark-more-like-this)
-(require 'expand-region)
-(define-key my-keys-minor-mode-map (kbd )        'ace-jump-mode)
-(define-key my-keys-minor-mode-map (kbd "M-j")        'iy-go-to-char)
-(define-key my-keys-minor-mode-map (kbd "M-J")        'iy-go-to-char-backward)
-(define-key my-keys-minor-mode-map (kbd "C-x a")      'align-regexp)
-(define-key my-keys-minor-mode-map (kbd "C-x A")      'align-regexp-all)
+
 (define-key my-keys-minor-mode-map (kbd "C-<return>") 'copy-line-to-other-window)
-(define-key my-keys-minor-mode-map (kbd "C-M-m")      'mark-more-like-this) ; like the other two, but takes an argument (negative is previous)
-;; (define-key my-keys-minor-mode-map (kbd "C-o")        'er/expand-region)
-
-
-(global-set-key (kbd "C-x M-l") 'ispell-change-dictionary)
 
 ;; Move more quickly
-(global-set-key (kbd "C-S-n") 'jump-next-word-occurence)
-(global-set-key (kbd "C-S-p") 'jump-prev-word-occurence)
 (global-set-key (kbd "C-S-f") (lambda () (interactive) (forward-char 5)))
 (global-set-key (kbd "C-S-b") (lambda () (interactive) (backward-char 5)))
 
+(after-load 'css-mode
+    (define-key css-mode-map  (kbd "<return>") 'reindent-then-newline-and-indent))
 
-(eval-after-load 'nxml-mode
-  '(progn
-    (define-key nxml-mode-map (kbd "<return>") 'reindent-then-newline-and-indent)
-    (define-key nxml-mode-map (kbd "C-c p") 'prettify-xml)))
 
-(eval-after-load 'css-mode
-  '(define-key css-mode-map  (kbd "<return>") 'reindent-then-newline-and-indent))
 
-(eval-after-load 'c-mode
-  '(define-key c-mode-map  (kbd "<return>") 'reindent-then-newline-and-indent))
+(after-load 'gnus-art
+  (define-key gnus-article-mode-map (kbd "C-c C-s") 'gnus-article-save-part))
 
-(eval-after-load 'gnus-art
-  '(define-key gnus-article-mode-map (kbd "C-c C-s") 'gnus-article-save-part))
-
-(eval-after-load 'bibtex
-  '(define-key bibtex-mode-map (kbd "C-j") 'bibtex-next-field))
+(after-load 'bibtex
+  (define-key bibtex-mode-map (kbd "C-j") 'bibtex-next-field))
 
 ;; in tex, regexp search can be distracting (we often want to search
 ;; for `$'
-(eval-after-load 'tex
-  '(progn
+(after-load 'tex
     (define-key TeX-mode-map (kbd "C-s") 'isearch-forward)
-    (define-key TeX-mode-map (kbd "C-r") 'isearch-backward)
-    (define-key TeX-mode-map (kbd "M-%") 'query-replace)
-    (define-key TeX-mode-map (kbd "C-M-s") 'isearch-forward-regexp)
-    (define-key TeX-mode-map (kbd "C-M-r") 'isearch-backward-regexp)
-    (define-key TeX-mode-map (kbd "C-M-%") 'query-replace-regexp)))
+  (define-key TeX-mode-map (kbd "C-r") 'isearch-backward)
+  (define-key TeX-mode-map (kbd "M-%") 'query-replace)
+  (define-key TeX-mode-map (kbd "C-M-s") 'isearch-forward-regexp)
+  (define-key TeX-mode-map (kbd "C-M-r") 'isearch-backward-regexp)
+  (define-key TeX-mode-map (kbd "C-M-%") 'query-replace-regexp))
 
-;; (eval-after-load 'elpy
-;;   '(define-key python-mode-map  (kbd "<return>") 'py-smart-newline))
-
-;;; change quickly between windows
-(require 'windmove)
-(let ((modifier 'shift))
-  (define-key my-keys-minor-mode-map (vector (list modifier 'left))  'windmove-left)
-  (define-key my-keys-minor-mode-map (vector (list modifier 'right)) 'windmove-right)
-  (define-key my-keys-minor-mode-map (vector (list modifier 'up))    'windmove-up)
-  (define-key my-keys-minor-mode-map (vector (list modifier 'down))  'windmove-down))
-
-;; quickly create snippets
-(global-set-key (kbd "C-x M-s") 'yas-create-snippet)
 
 (provide 'cnf-bindings)

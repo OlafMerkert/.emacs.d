@@ -1,3 +1,6 @@
+(use-package 'org
+    :ensure t)
+
 (require 'org-capture)
 (require 'org-protocol)
 (require 'magit)
@@ -5,11 +8,16 @@
 (defun org-path (filebase)
    (concat org-directory "/" filebase ".org"))
 
-(eval-after-load 'org
-  '(progn
+(after-load 'org
     (define-key org-mode-map (kbd "<f2>") 'insert-greek-letter)
-    (define-key org-mode-map (kbd "<f11> n") 'name-to-bbdb-link)
-    (define-key org-mode-map (kbd "<f11> t") 'org-toggle-timestamp-type)))
+  (define-key org-mode-map (kbd "<f11> n") 'name-to-bbdb-link)
+  (define-key org-mode-map (kbd "<f11> t") 'org-toggle-timestamp-type)
+  (define-key org-mode-map (kbd "C-c C-v k") 'org-babel-remove-result)
+  (define-key org-mode-map (kbd "C-;") 'tex-goto-prev-dollar)
+  (define-key org-mode-map (kbd "C-'") 'tex-goto-next-dollar)
+  (define-key org-mode-map (kbd "M-;") 'tex-goto-prev-backslash)
+  (define-key org-mode-map (kbd "M-'") 'tex-goto-next-backslash)
+  (define-key org-mode-map (kbd "<f5>") 'org-mark-ring-goto))
 
 (setq org-deadline-warning-days 5
       org-completion-use-ido t)
@@ -19,8 +27,6 @@
 (setq org-directory "~/Personal"
       org-default-notes-file (org-path "notizen"))
 
-
-(defun autocommit-current-org-file ())
 
 ;; syncing should have the following behaviour
 ;; save all files
@@ -115,12 +121,6 @@
                   )))
         (error "Not in a git project."))))
 
-;; what does this do?
-;; (defadvice org-capture-set-target-location (after org-capture-function-remove-exact-exact-location)
-;;   (org-capture-put :exact-position nil))
-
-;; (ad-activate 'org-capture-set-target-location)
-
 ;;; setup `org-refile'
 (setq org-refile-targets '((nil . (:maxlevel . 2))))
 
@@ -132,104 +132,6 @@
 ;; open html exports in browser instead of Emacs (we want to look at
 ;; them, not edit them.
 (add-to-list 'org-file-apps '("html" . (browse-url-of-file file)))
-
-;;; setup global exporting options
-;; allow use of #+BIND: to configure variables during export
-(setq org-export-allow-bind-keywords t)
-
-(eval-after-load 'ox-latex
-  '(progn
-    ;; make sure shell-escape is turned on (I need it for \gitversioninfo)
-    (setq org-latex-pdf-process
-     '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-       "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-       "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-    ;; enable koma script
-    (add-to-list 'org-latex-classes
-     '("scrartcl"
-       "\\documentclass[a4paper,11pt]{scrartcl}"
-       ("\\section{%s}" . "\\section*{%s}")
-       ("\\subsection{%s}" . "\\subsection*{%s}")
-       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-       ("\\paragraph{%s}" . "\\paragraph*{%s}")
-       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-    (add-to-list 'org-latex-classes
-     '("scrreprt"
-       "\\documentclass[a4paper,11pt]{scrreprt}"
-       ("\\chapter{%s}" . "\\chapter*{%s}")
-       ("\\section{%s}" . "\\section*{%s}")
-       ("\\subsection{%s}" . "\\subsection*{%s}")
-       ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-       ("\\paragraph{%s}" . "\\paragraph*{%s}")
-       ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-    ;;(add-to-list 'org-latex-packages-alist '("" "minted"))
-    (setq org-latex-listings nil) ;; 'minted
-    ))
-
-;; turn off indentation-highlight during htmlize
-(defvar htmlize-reenable-modes nil)
-(defvar htmlize-disable-modes nil)
-
-(add-to-list 'htmlize-disable-modes 'highlight-indentation-mode)
-
-(defun htmlize-turn-off-modes ()
-  (make-local-variable 'htmlize-reenable-modes)
-  (dolist (mode htmlize-disable-modes)
-    (when (symbol-value mode)
-      (push mode htmlize-reenable-modes)
-      (funcall mode -1))))
-
-(defun htmlize-turn-on-modes ()
-  (dolist (mode htmlize-reenable-modes)
-    (funcall mode +1))
-  (setf htmlize-reenable-modes nil))
-
-(eval-after-load 'htmlize
-  '(progn
-    (add-hook 'htmlize-before-hook 'htmlize-turn-off-modes)
-    (add-hook 'htmlize-after-hook 'htmlize-turn-on-modes)))
-
-;;; configure babel
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t)
-   (lisp . t)
-   (python . t)))
-
-(defun babel-language-p (language)
-  (find language org-babel-load-languages :test 'string-equal
-        :key (lambda (x) (symbol-name (car x)))))
-
-(setq org-confirm-babel-evaluate
-      (lambda (language body) (not (babel-language-p language)))
-      ;; do not add leading whitespace for source-blocks after editing
-      ;; (why would anybody want that?)
-      org-src-preserve-indentation t
-      org-edit-src-content-indentation 0
-      org-export-babel-evaluate nil)
-
-(defun strip-blank-lines (str)
-  "Remove all blank lines from the given string `str'."
-  ; the space or tab at the beginning of is necessary, because we
-  ; don't want (and need to) strip blank lines between top-level forms
-  (replace-regexp-in-string "[\n]\+\\([ \t]\\)" "\n\\1" str))
-
-(defun ob-py-strip-blank-lines (f session body &optional result-type result-params)
-  (funcall f session (strip-blank-lines body) result-type result-params))
-
-(advice-add 'org-babel-python-evaluate-session :around 'ob-py-strip-blank-lines)
-;; note that this also removes blank lines in strings, where they could
-;; be wanted. But for now, it is a decent workaround.
-
-(defun beginning-of-word ()
-  ;; todo not working yet
-  (save-excursion
-    (cond ((looking-at "[:space:]") nil)
-          ((progn (backward-char)
-                  (looking-at "[:space:]")) t)
-          (t nil))))
 
 (defun name-to-bbdb-link (&optional arg)
   (interactive "P")
@@ -252,62 +154,5 @@
       (insert " }")
       (goto-char begin)
       (insert "\\text{ "))))
-
-;;; custom `org-protocol' handlers
-(add-to-list 'org-protocol-protocol-alist
-             '("Open in w3m"
-               :protocol "w3m"
-               :function org-protocol-open-in-w3m))
-
-(add-to-list 'org-protocol-protocol-alist
-             '("Download with youtube-dl"
-               :protocol "ytdl"
-               :function org-protocol-download-with-youtube-dl))
-
-(defun org-protocol-open-in-w3m (fname)
-  (let* ((splitparts (org-protocol-split-data fname t org-protocol-data-separator))
-         (uri (org-protocol-sanitize-uri (car splitparts))))
-    (w3m-browse-url uri)))
-
-(defun download-with-youtube-dl (uri &rest args)
-  (let ((default-directory "~/Downloads/"))
-    (async-shell-command
-     (concat "youtube-dl '"
-             uri
-             "'")
-     (generate-new-buffer "*youtube-dl*"))))
-
-(defun org-protocol-download-with-youtube-dl (fname)
-  (let* ((splitparts (org-protocol-split-data fname t org-protocol-data-separator))
-         (uri (org-protocol-sanitize-uri (car splitparts))))
-    (download-with-youtube-dl uri)))
-
-(defun org-link-download-with-youtube-dl ()
-  (interactive)
-  (let ((browse-url-browser-function 'download-with-youtube-dl))
-    (org-open-at-point)))
-
-;; setup org-ref
-(let ((org-ref-file "~/.emacs.d/addons/org-ref/org-ref.org"))
-  (when (file-exists-p org-ref-file)
-    (org-babel-load-file org-ref-file t)))
-
-(setq reftex-default-bibliography '("~/Perfezionamento/topics/topics.bib")
-      org-ref-default-bibliography reftex-default-bibliography
-      org-ref-pdf-directory "~/Perfezionamento/topics/")
-
-(define-key org-mode-map (kbd "C-c C-v k") 'org-babel-remove-result)
-(define-key org-mode-map (kbd "C-;") 'tex-goto-prev-dollar)
-(define-key org-mode-map (kbd "C-'") 'tex-goto-next-dollar)
-(define-key org-mode-map (kbd "M-;") 'tex-goto-prev-backslash)
-(define-key org-mode-map (kbd "M-'") 'tex-goto-next-backslash)
-(define-key org-mode-map (kbd "<f5>") 'org-mark-ring-goto)
-
-;; workaround missing mode check for `org-label-store-link'
-(defun org-label-store-link--test-mode (f)
-  (when (derived-mode-p 'org-mode)
-    (funcall f)))
-
-(advice-add 'org-label-store-link :around 'org-label-store-link--test-mode)
 
 (provide 'cnf-org)

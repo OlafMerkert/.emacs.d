@@ -13,28 +13,14 @@
 
 (defvar my-packages
   '(
-    
-    ;; color-theme-solarized
-    ;; zenburn-theme
-    ;; anti-zenburn-theme
-
-
-    js2-mode
     auctex
-    yasnippet
-    lua-mode
     ecb
     org
-    w3m
     ipython
     mark-multiple
-    magit
     elpy
     bbdb
     dash
-    smartparens
-    htmlize
-    ibuffer-vc
     helm
     )
   "my default selection of packages, to be automatically

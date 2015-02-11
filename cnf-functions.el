@@ -1,36 +1,12 @@
-
-(defun align-regexp-all (beg end regexp)
-  "Align the current region using an ad-hoc separator read from
-the minibuffer.  Unless a prefix argument is given, alignment
-will be repeated.  This is most useful to align tables, for
-instance in TeX."
-  (interactive
-   (list (region-beginning) (region-end)
-         (concat "\\(\\s-*\\)"
-                 (read-string "Align regexp repeatedly: "))))
-  (align-regexp beg end regexp
-                1 align-default-spacing
-                (not current-prefix-arg)))
-
-
 (defun copy-line-to-other-window ()
   "Copy contents from a buffer to the other window, line by
 line."
   (interactive)
   (let ((content (filter-buffer-substring (progn (forward-line 0) (point))
-                                         (progn (forward-line 1) (point)))))
+                                          (progn (forward-line 1) (point)))))
     (other-window 1)
     (insert content)
     (other-window -1)))
-
-;;; if we want to show the same buffer left and right, call these
-(defun same-buffers (&optional arg)
-  (interactive "P")
-  (if arg
-      ;; copy buffer in inactive window to active window
-      (set-window-buffer (get-mru-window) (window-buffer (get-lru-window)))
-      ;; copy buffer in active window to inactive window
-      (set-window-buffer (get-lru-window) (window-buffer (get-mru-window)))))
 
 (defun search-on-line (word)
   ;; assume we are at the end of the line
@@ -49,79 +25,13 @@ line."
     (prog1 (<= point (point))
       (goto-char point))))
 
-;; neat little tip from Howard Abrams
-(defun transpose-words--at-eol (arg)
-  "Transpose last two words when at end of line"
-  (if (looking-at "$")
-      (backward-word 1)))
 
-(advice-add 'transpose-words :before 'transpose-words--at-eol)
-
-;; jump to next/previous occurence of symbol at point
-(defun jump-next-word-occurence (&optional count)
-  (interactive "p")
-  (let* ((target-symbol (symbol-at-point))
-         (target (symbol-name target-symbol))
-         (pos (point)))
-    (when (and target-symbol
-               (not (in-string-p))
-               (looking-at-p "\\s_\\|\\sw") ;; Symbol characters
-               )
-      ;; move forward to end of symbol
-      (forward-symbol 1)
-      (let ((advance (- (point) pos))
-            (case-fold-search nil))
-        (if (minusp count) (forward-symbol -1))
-        (setq regexp (concat "\\_<" (regexp-quote target) "\\_>"))
-        (search-forward-regexp regexp nil t (or count 1))
-        (if (minusp count) (forward-symbol 1))
-        ;; move backward again
-        (backward-char advance)))))
-
-(defun jump-prev-word-occurence (&optional count)
-  (interactive "p")
-  (jump-next-word-occurence (if count (- count) -1)))
-
-;; prompt for name and create appropriate new yasnippet
-(defun yas-create-snippet (snippet-name snippet-abbrev)
-  (interactive
-   (list (read-string "Snippet name: ")
-         (read-string "Snippet abbrev: ")))
-  (let ((snippet-filename (concat (first yas-snippet-dirs)
-                                  "/"
-                                  (downcase (symbol-name major-mode))
-                                  "/"
-                                  snippet-name
-                                  ".yasnippet")))
-    (find-file snippet-filename)
-    (insert "# -*- mode: snippet -*-
-# name: " snippet-name "
-# key: " snippet-abbrev "
-# --
-")
-    (not-modified)))
-
-;; searching and downloading torrents
-(defun search-torrent (query-string)
-  (interactive "sTorrent search string: ")
-  (w3m-browse-url (format "https://www.torrentz.com/search?q=%s"
-                          (url-encode-url query-string))))
-
-(defun extract-magnet-uri ()
-  (interactive)
-  (unless (string-match "\\`about://source/" w3m-current-url)
-    (w3m-view-source))
-  (beginning-of-buffer)
-  (search-forward-regexp "\"\\(magnet:[^\"]*\\)\"")
-  (let ((magnet (match-string 1)))
-    (w3m-view-source)
-    (message "MAGNET: %s" magnet)
-    magnet))
-
-(defun open-magnet-uri/transmission ()
-  (interactive)
-  (start-process "transmission" nil
-                 "/usr/bin/transmission-gtk"
-                 (extract-magnet-uri)))
+(defun beginning-of-word ()
+  ;; todo not working yet
+  (save-excursion
+    (cond ((looking-at "[:space:]") nil)
+          ((progn (backward-char)
+                  (looking-at "[:space:]")) t)
+          (t nil))))
 
 (provide 'cnf-functions)

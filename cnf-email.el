@@ -2,7 +2,7 @@
 (require 'gnus)
 (require 'message)
 (require 'smtpmail)
-(require 'bbdb)
+(use-package 'bbdb :ensure t)
 (require 'bbdb-gnus)
 
 ;; use the local exim server to send mail
@@ -214,21 +214,18 @@
   (interactive)
   (delete-other-windows))
 
-(eval-after-load 'gnus-sum
-  '(progn
-    (define-key gnus-summary-mode-map (kbd "v") 'gnus-summary-show-only-summary)
-    (define-key gnus-summary-mode-map (kbd "o") 'gwene-summary-open-full)))
+(after-load 'gnus-sum
+  (define-key gnus-summary-mode-map (kbd "v") 'gnus-summary-show-only-summary)
+  (define-key gnus-summary-mode-map (kbd "o") 'gwene-summary-open-full))
 
-(eval-after-load 'gnus-art
-  '(progn
-    (define-key gnus-article-mode-map (kbd "v") 'gnus-article-show-only-summary)
-    (define-key gnus-article-mode-map (kbd "o") 'gwene-article-open-full)))
+(after-load 'gnus-art
+  (define-key gnus-article-mode-map (kbd "v") 'gnus-article-show-only-summary)
+  (define-key gnus-article-mode-map (kbd "o") 'gwene-article-open-full))
 
-;; todo keybindings seem to be overwritten
-;; todo show date in gnus summary
+;; TODO keybindings seem to be overwritten
+;; TODO show date in gnus summary
 
 ;; insert all email addresses for one alias
-
 (defun bbdb-goto-next-record (n)
   "Move point to the beginning of the next BBDB record.
 With prefix N move forward N records. If there is no next record,
@@ -271,3 +268,5 @@ addresses with that alias to the recipient list."
         (insert "    " addr)))))
 
 (define-key message-mode-map (kbd "C-c g") 'message-insert-group)
+
+(provide 'cnf-email)

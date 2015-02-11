@@ -1,108 +1,23 @@
 (when (version<= emacs-major-version "24")
   (error "This emacs is too old for this config."))
 
+;;(server-start)
+
 (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
+
 (require 'cnf-utils)
 (require 'cnf-package)
+
+(require 'cnf-environment)
 (require 'cnf-base)
+(require 'cnf-navigation)
+(require 'cnf-editing)
+(require 'cnf-spelling)
 
-;; (load-theme 'anti-zenburn t)
+(require 'cnf-snippets)
 
-
-(add-hook 'js-mode-hook 'js2-minor-mode)
-(remove-hook 'text-mode-hook 'turn-on-flyspell)
-
-;; ibuffer
-(add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root)
-(after-load 'ibuffer
-    (require 'ibuffer-vc))
-
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-
-;; disable some unwanted stuff from the starter kit
-
-;; general settings
-(column-number-mode t)
-(setq initial-scratch-message    nil
-      woman-use-own-frame        nil
-      make-backup-files          nil
-      ps-print-color-p           'black-white
-      uniquify-buffer-name-style 'post-forward
-      c-default-style            "k&r" ; C indentation style
-      whitespace-line-column     80
-      whitespace-style           '(face trailing tabs lines-tail empty indentation))
-
-(setq-default indent-tabs-mode nil)
-
-;; spellchecking
-(setq ispell-program-name "aspell"
-      ispell-extra-args '("--sug-mode=ultra"))
-
-;; don't flyspell automatically
-(remove-hook 'text-mode-hook 'turn-on-flyspell)
-
-;; use english in commit messages
-(defun use-english-dictionary ()
-  (interactive)
-  (ispell-change-dictionary "en_GB"))
-
-(add-hook 'magit-log-edit-mode-hook 'use-english-dictionary)
-
-;; use visual line instead of auto-fill
-(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
-(remove-hook 'text-mode-hook 'turn-on-auto-fill)
-
-;; disable hl-line-mode
-(remove-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
-
-;; browser
-(setq browse-url-generic-program   "xdg-open"
-      browse-url-chromium-program  "google-chrome"
-      browse-url-browser-function  'browse-url-firefox
-      w3m-use-cookies              t
-      w3m-pop-up-windows           t
-      w3m-use-tab                  nil)
-
-;; docview
-(setq doc-view-continuous t)
-
-;; projects
-(setq ecb-source-path
-      '(("~/bin" "config")
-        ("~/texmf/tex/latex/olaf" "texmf")
-        ("~/Projekte/ol-utils" "ol-utils")
-        ("~/Projekte/math-utils" "math-utils")
-        ("~/Projekte/continued-fractions" "continued-fractions")
-        ("~/Projekte/web-document-gallery" "web-document")
-        ("~/Studium/MasterArbeit" "master")))
-
-;; eshell
-(setenv "EDITOR" "emacsclient")
-(add-to-list 'exec-path (expand-file-name "~/bin"))
-(setenv "PATH" (concat (getenv "PATH") ":" (expand-file-name "~/bin")))
-(setq-default eshell-path-env (getenv "PATH"))
-(setq cd-path (list "./"
-                    "../"
-                    (expand-file-name "~/Projekte")
-                    (expand-file-name "~/Perfezionamento/projects")))
-
-;; snippets
-(setq yas-snippet-dirs '("~/.emacs.d/snippets"))
-(yas-global-mode 1)
-(add-to-list 'auto-mode-alist '("\\.yasnippet$" . snippet-mode))
-
-;; use nxml for html editing
-(add-to-list 'auto-mode-alist '("\\.html$" . nxml-mode))
-(add-to-list 'auto-mode-alist '("\\.htm$" . nxml-mode))
-
-;; prettify xml code
-(defun prettify-xml ()
-  (interactive)
-  (replace-string "><" ">
-<")
-  (indent-region (point-min) (point-max)))
-
-
+(require 'cnf-prog)
+(require 'cnf-lisp)
 (dolist (cnf '("functions"
                "lisp"
                "python"
@@ -116,8 +31,6 @@
                ))
   (load (concatenate 'string "~/.emacs.d/cnf-" cnf)))
 
-;;; fix for using tramp::sudo
-(eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -148,10 +61,4 @@
  ;; If there is more than one, they won't work right.
  )
 
-(server-start)
-
-(setq desktop-path '("~/.emacs.d/sessions/")
-      desktop-restore-frames t)
-(make-directory (car desktop-path) t)
-(desktop-save-mode 1)
 

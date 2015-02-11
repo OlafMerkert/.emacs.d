@@ -1,59 +1,39 @@
-;; TODO replace starter-kit with own customisations
-(use-package 'starter-kit :ensure t)
-(use-package 'starter-kit-lisp :ensure t)
-(use-package 'starter-kit-eshell :ensure t)
-(use-package 'starter-kit-js :ensure t)
-(use-package 'starter-kit-bindings :ensure t)
+;; enable some commands
+(put 'downcase-region   'disabled nil)
+(put 'upcase-region     'disabled nil)
+(put 'capitalize-region 'disabled nil)
+(put 'narrow-to-region  'disabled nil)
 
-(use-package 'ido-vertical-mode
+;; TODO replace starter-kit with own customisations
+(use-package starter-kit :ensure t)
+(use-package starter-kit-lisp :ensure t)
+(use-package starter-kit-eshell :ensure t)
+(use-package starter-kit-js :ensure t)
+(use-package starter-kit-bindings :ensure t)
+;; disable hl-line-mode
+(remove-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
+
+(column-number-mode t) ; show line and column in modeline
+(setq initial-scratch-message    nil
+      woman-use-own-frame        nil
+      make-backup-files          nil
+      ps-print-color-p           'black-white
+      uniquify-buffer-name-style 'post-forward)
+
+(use-package ido :ensure t)
+
+(use-package ido-vertical-mode
     :ensure t
     :init (ido-vertical-mode 1))
 
-(use-package 'expand-region
-    :ensure t
-    :disabled t
-    :bind ("C-M-o" . er/expand-region))
+(use-package hydra :ensure t)
 
-(use-package 'ace-jump-mode
+(use-package ibuffer-vc
+    :commands ibuffer-vc-set-filter-groups-by-vc-root
     :ensure t
-    :bind ("C-j" . ace-jump-mode))
+    :init (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
 
-(use-package 'iy-go-to-char
-    :ensure t
-    :bind (("M-j"  . iy-go-to-char)
-           ("M-J"  . iy-go-to-char-backward)))
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
-(use-package 'mark-more-like-this
-    :ensure t
-    :bind ("C-M-m" . mark-more-like-this))
-
-(use-package 'multiple-cursors
-    :ensure t
-    :bind (("C-&" . mc/edit-lines)
-           ("C->" . mc/mark-next-like-this)
-           ("C-<" . mc/mark-previous-like-this)
-           ("C-c C-<" . mc/mark-all-like-this)
-           ("C-*" . mc/mark-all-like-this-dwim)))
-
-(use-package 'iedit
-    :commands iedit-mode
-    :ensure t
-    :bind (("C-;" . iedit-dwim)))
-
-(defun iedit-dwim (arg)
-  "Starts iedit but uses `narrow-to-defun' to limit its scope."
-  (interactive "P")
-  (if arg
-      (iedit-mode)
-      (save-excursion
-        (save-restriction
-          (widen)
-          ;; this function determines the scope of `iedit-start'.
-          (narrow-to-defun)
-          (if iedit-mode
-              (iedit-done)
-              ;; `current-word' can of course be replaced by other
-              ;; functions.
-              (iedit-start (current-word)))))))
 
 (provide 'cnf-base)
