@@ -169,4 +169,9 @@
    ("s" sync-personal-information "sync")
    ("A" org-agenda "agenda menu")))
 
+(after-load 'org
+    (fullframe org-agenda org-agenda-quit)
+  (fullframe org-agenda-list org-agenda-quit)
+  (fullframe org-todo-list org-agenda-quit))
+
 (provide 'cnf-org)

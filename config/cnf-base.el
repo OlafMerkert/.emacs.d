@@ -5,6 +5,7 @@
 (put 'narrow-to-region  'disabled nil)
 
 (use-package dash :ensure t)
+(use-package fullframe :ensure t)
 
 ;; TODO replace starter-kit with own customisations
 (use-package starter-kit :ensure t)
