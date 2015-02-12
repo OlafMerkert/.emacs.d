@@ -63,11 +63,11 @@
   (add-hook 'htmlize-after-hook 'htmlize-turn-on-modes))
 
 ;; setup org-ref
-;; (use-package helm-bibtex :ensure t)
+(use-package helm-bibtex :ensure t)
 
-;; (let ((org-ref-file "~/.emacs.d/addons/org-ref/org-ref.org"))
-;;   (when (file-exists-p org-ref-file)
-;;     (org-babel-load-file org-ref-file t)))
+(let ((org-ref-file "~/.emacs.d/addons/org-ref/org-ref.org"))
+  (when (file-exists-p org-ref-file)
+    (org-babel-load-file org-ref-file t)))
 
 (setq reftex-default-bibliography '("~/Perfezionamento/topics/topics.bib")
       org-ref-default-bibliography reftex-default-bibliography
