@@ -11,6 +11,8 @@
        (switch-to-buffer it)
        (gnus)))
 
+(fullframe gnus gnus-group-exit)
+
 (global-set-key (kbd "<f8>") 'open-gnus)
 
 ;; use the local exim server to send mail
