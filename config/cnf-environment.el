@@ -13,6 +13,8 @@
     (setenv "SHELL" "/bin/bash"))
 
 ;; projects
+(use-package ecb :disabled t)
+
 (setq ecb-source-path
       '(("~/bin" "config")
         ("~/texmf/tex/latex/olaf" "texmf")

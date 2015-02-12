@@ -25,7 +25,6 @@ line."
     (prog1 (<= point (point))
       (goto-char point))))
 
-
 (defun beginning-of-word ()
   ;; todo not working yet
   (save-excursion

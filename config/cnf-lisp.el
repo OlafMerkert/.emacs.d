@@ -1,8 +1,8 @@
 (defun insert-provide ()
   (interactive)
-  (insert "(provide '" (file-name-base (buffer-file-name)) ")"))
-
-(global-set-key (kbd "<f12> p") 'insert-provide)
+  (save-excursion
+    (goto-char (point-max))
+    (insert "(provide '" (file-name-base (buffer-file-name)) ")\n")))
 
 ;; get slime from quicklisp
 (defvar ql-slime-helper "~/.quicklisp/slime-helper.el")
@@ -29,12 +29,10 @@
 (defun slime-sl2z ()
   (interactive)
   ;; setup translators
-  (setq slime-to-lisp-filename-function
-        (lambda (file-name)
-          (subseq file-name (length "/ssh:olaf@sl2z.de:")))
-        slime-from-lisp-filename-function
-        (lambda (file-name)
-          (concat "/ssh:olaf@sl2z.de:" file-name)))
+  (let* ((prefix "/ssh:olaf@sl2z.de:")
+         (len (length prefix)))
+    (setq slime-to-lisp-filename-function   (lambda (file-name) (subseq file-name len))
+          slime-from-lisp-filename-function (lambda (file-name) (concat prefix file-name))))
   ;; connect to slime on server
   (slime-connect "127.0.0.1" 4005))
 
@@ -64,6 +62,8 @@
       (if arg ; connect to remote swank on server
           (slime-sl2z)
           (slime-local))))
+
+(global-set-key (kbd "<f9>") 'slime-selector-or-start)
 
 (defun extract-last-sexp ()
   (let ((opoint (point)))
@@ -176,13 +176,6 @@
   (add-hook mode (lambda () (paredit-mode 1))))
 
 ;; adjustments to indentation
-(defun flatten (x)
-  (cond ((null x) nil)
-        ((atom x)
-         (list x))
-        (t (append (flatten (car x))
-                   (flatten (cdr x))))))
-
 (defmacro copy-cl-indentation (&rest mapping)
     `(setf ,@(mapcar (lambda (x) `(get ',x 'common-lisp-indent-function))
                    (flatten mapping))))
@@ -231,6 +224,5 @@
 
 ;; open .sexp files with common-lisp-mode
 (add-to-list 'auto-mode-alist '("\\.sexp$" . common-lisp-mode))
-
 
 (provide 'cnf-lisp)

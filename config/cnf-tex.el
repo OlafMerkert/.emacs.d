@@ -1,5 +1,7 @@
 ;; Emacs TeX configuration
-(load "tex-site.el" nil t t)
+(use-package tex-site
+    :ensure auctex
+    :defer t)
 
 (setq LaTeX-item-indent 0
       TeX-newline-function 'reindent-then-newline-and-indent
@@ -15,6 +17,9 @@
 ;; enable reftex
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (setq reftex-plug-into-AUCTeX t)
+
+(after-load 'bibtex
+    (define-key bibtex-mode-map (kbd "C-j") 'bibtex-next-field))
 
 ;; setup preview-LaTeX
 (setf preview-scale-function 1.1)
@@ -203,9 +208,17 @@
   (define-key TeX-mode-map (kbd "C-c C-4") 'tex-dollars-to-round)
   (define-key TeX-mode-map (kbd "C-c (")   'tex-round-add-leftright)
   (define-key TeX-mode-map (kbd "C-c $")   'tex-math-to-equation)
-
   (define-key TeX-mode-map (kbd "C-,")     'tex-goto-prev-backslash)
   (define-key TeX-mode-map (kbd "C-.")     'tex-goto-next-backslash)
   (define-key TeX-mode-map (kbd "C-M-p")   'tex-goto-prev-dollar)
   (define-key TeX-mode-map (kbd "C-M-n")   'tex-goto-next-dollar)
-  (define-key TeX-mode-map (kbd "M-p")     'preview-at-point))
+  (define-key TeX-mode-map (kbd "M-p")     'preview-at-point)
+  ;; don't use regexps in tex mode (because of $)
+  (define-key TeX-mode-map (kbd "C-s")     'isearch-forward)
+  (define-key TeX-mode-map (kbd "C-r")     'isearch-backward)
+  (define-key TeX-mode-map (kbd "M-%")     'query-replace)
+  (define-key TeX-mode-map (kbd "C-M-s")   'isearch-forward-regexp)
+  (define-key TeX-mode-map (kbd "C-M-r")   'isearch-backward-regexp)
+  (define-key TeX-mode-map (kbd "C-M-%")   'query-replace-regexp))
+
+(provide 'cnf-tex)

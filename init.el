@@ -1,64 +1,55 @@
 (when (version<= emacs-major-version "24")
   (error "This emacs is too old for this config."))
 
-;;(server-start)
+;; (require 'server)
+;; (unless (server-running-p)
+;;   (server-start))
 
 (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
 
 (require 'cnf-utils)
+;; (require 'cnf-functions)
 (require 'cnf-package)
 
 (require 'cnf-environment)
+(require 'cnf-personal)
 (require 'cnf-base)
+
 (require 'cnf-navigation)
+(require 'cnf-selection)
 (require 'cnf-editing)
+
+;; helpers
 (require 'cnf-spelling)
-
 (require 'cnf-snippets)
+(require 'cnf-vc)
 
+;; writing and programming
 (require 'cnf-prog)
 (require 'cnf-lisp)
-(dolist (cnf '("functions"
-               "lisp"
-               "python"
-               "tex"
-               "bindings"
-               "personal"
-               "email"
-               "org"
-               "colours"
-               ;; "smartparens"
-               ))
-  (load (concatenate 'string "~/.emacs.d/cnf-" cnf)))
+(require 'cnf-python)
+(require 'cnf-tex)
+(require 'cnf-text)
+(require 'cnf-xhtml)
 
+;; smaller apps
+(require 'cnf-browse)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-files
-   (quote
-    ("~/Perfezionamento/thesis/continued-fractions-computations.sage.org" "~/Personal/bookmarks.org" "~/Personal/spiele.org" "~/Personal/sns.org" "~/Personal/notizen.org" "~/Personal/privat.org" "~/Perfezionamento/thesis/phd-thesis.en.org")))
- '(safe-local-variable-values
-   (quote
-    ((ispell-dictionary . "de_DE")
-     (ispell-dictionary . "it")
-     (Syntax . ANSI-Common-Lisp)
-     (Syntax . COMMON-LISP)
-     (Base . 10)
-     (Syntax . Common-Lisp)
-     (ispell-dictionary . "de")
-     (ispell-dictionary . "en_GB")
-     (ispell-dictionary . "english")
-     (whitespace-line-column . 80)
-     (lexical-binding . t)
-     (org-babel-python-command . "sage -python")))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;; org and email
+(require 'cnf-email)
+(require 'cnf-org)
+(require 'cnf-org-export)
+(require 'cnf-org-babel)
+(require 'cnf-org-protocol)
 
+;; final tweaks
 
+(require 'cnf-colours)
+(require 'cnf-session)
+
+(require 'cnf-spelling)
+
+;; move customisation into separate file
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (file-exists-p custom-file)
+  (load custom-file))

@@ -10,20 +10,4 @@
 
 (require 'use-package)
 
-
-(defvar my-packages
-  '(
-    auctex
-    ecb
-    org
-    ipython
-    mark-multiple
-    elpy
-    bbdb
-    dash
-    helm
-    )
-  "my default selection of packages, to be automatically
-  installed at launch.")
-
 (provide 'cnf-package)

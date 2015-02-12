@@ -1,7 +1,10 @@
 ;;; customisations for python programming
-(elpy-enable)
+(use-package elpy
+    :ensure t
+    :init (elpy-enable))
 ;; (elpy-clean-modeline)
 
+(use-package ipython :disabled t)
 ;; (remove-hook 'python-mode-hook 'esk-paredit-nonlisp)
 
 (define-key python-mode-map (kbd "<return>") 'newline-and-indent)

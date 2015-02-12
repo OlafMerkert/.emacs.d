@@ -5,6 +5,8 @@
 (use-package 'bbdb :ensure t)
 (require 'bbdb-gnus)
 
+(global-set-key (kbd "<f8>") 'gnus)
+
 ;; use the local exim server to send mail
 ;; (setq send-mail-function 'sendmail-send-it
 ;; message-send-mail-function 'sendmail-send-it)
@@ -220,7 +222,8 @@
 
 (after-load 'gnus-art
   (define-key gnus-article-mode-map (kbd "v") 'gnus-article-show-only-summary)
-  (define-key gnus-article-mode-map (kbd "o") 'gwene-article-open-full))
+  (define-key gnus-article-mode-map (kbd "o") 'gwene-article-open-full)
+  (define-key gnus-article-mode-map (kbd "C-c C-s") 'gnus-article-save-part))
 
 ;; TODO keybindings seem to be overwritten
 ;; TODO show date in gnus summary
@@ -267,6 +270,7 @@ addresses with that alias to the recipient list."
         (newline)
         (insert "    " addr)))))
 
+(global-set-key (kbd "C-c g") nil)
 (define-key message-mode-map (kbd "C-c g") 'message-insert-group)
 
 (provide 'cnf-email)

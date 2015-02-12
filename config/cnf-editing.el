@@ -52,5 +52,13 @@ instance in TeX."
 
 (advice-add 'transpose-words :before 'transpose-words--at-eol)
 
+(defhydra editing-actions (global-map "<f12>" :color blue)
+  "editing actions"
+  ("h" hl-line-mode "highlight current line")
+  ("l" linum-mode "toggle line numbers")
+  ("b" same-buffers "same buffers")
+  ("g" find-grep "find")
+  ("w" whitespace-cleanup "clean whitespace")
+  ("p" insert-provide "insert provide"))
 
 (provide 'cnf-editing)

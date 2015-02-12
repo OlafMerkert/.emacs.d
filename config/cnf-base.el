@@ -4,6 +4,8 @@
 (put 'capitalize-region 'disabled nil)
 (put 'narrow-to-region  'disabled nil)
 
+(use-package dash :ensure t)
+
 ;; TODO replace starter-kit with own customisations
 (use-package starter-kit :ensure t)
 (use-package starter-kit-lisp :ensure t)
@@ -26,6 +28,8 @@
     :ensure t
     :init (ido-vertical-mode 1))
 
+(use-package helm :ensure t)
+
 (use-package hydra :ensure t)
 
 (use-package ibuffer-vc
@@ -35,5 +39,9 @@
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+;;; some keybindings
+(global-set-key (kbd "S-<return>") 'split-line)
+(global-set-key (kbd "C-x M-o")    'other-frame)
+(global-set-key (kbd "C-x c")      'comment-dwim)
 
 (provide 'cnf-base)
