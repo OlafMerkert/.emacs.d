@@ -15,4 +15,8 @@
         (t (append (flatten (car x))
                    (flatten (cdr x))))))
 
+(defmacro aif (test then &optional else)
+  `(let ((it ,test))
+     (if it ,then ,else)))
+
 (provide 'cnf-utils)

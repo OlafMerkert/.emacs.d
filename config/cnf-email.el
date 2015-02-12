@@ -5,7 +5,13 @@
 (use-package bbdb :ensure t)
 (require 'bbdb-gnus)
 
-(global-set-key (kbd "<f8>") 'gnus)
+(defun open-gnus ()
+  (interactive)
+  (aif (gnus-buffer-exists-p "*Group*")
+       (switch-to-buffer it)
+       (gnus)))
+
+(global-set-key (kbd "<f8>") 'open-gnus)
 
 ;; use the local exim server to send mail
 ;; (setq send-mail-function 'sendmail-send-it
