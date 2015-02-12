@@ -1,9 +1,9 @@
 (when (version<= emacs-version "24")
   (error "This emacs is too old for this config."))
 
-;; (require 'server)
-;; (unless (server-running-p)
-;;   (server-start))
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 
 (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
 
@@ -44,11 +44,9 @@
 (require 'cnf-org-protocol)
 
 ;; final tweaks
-
 (require 'cnf-colours)
 (require 'cnf-session)
 
-(require 'cnf-spelling)
 
 ;; move customisation into separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
