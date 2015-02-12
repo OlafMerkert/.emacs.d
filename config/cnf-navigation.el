@@ -7,15 +7,44 @@
     :bind (("M-j"  . iy-go-to-char)
            ("M-J"  . iy-go-to-char-backward)))
 
-(require 'windmove)
-(global-set-key (vector '(shift left)) 'windmove-left)
-(global-set-key (vector '(shift right)) 'windmove-right)
-(global-set-key (vector '(shift up)) 'windmove-up)
-(global-set-key (vector '(shift down)) 'windmove-down)
+
+(use-package key-chord
+    :ensure t
+    :disabled t
+    :init (key-chord-mode 1))
 
 (use-package ace-window
     :ensure t
     :bind ("C-x o" . ace-window))
+
+(require 'windmove)
+
+(defun split-window-automatically (&optional size)
+  "split window horizontally or vertically, depending on how much
+horizontal space is available."
+  (interactive "P")
+  (if (< 140 (window-width))
+      (split-window-horizontally size)
+      (split-window-vertically size)))
+
+(global-set-key
+ (kbd "C-o")
+ (defhydra window-manager ()
+   "window"
+   ("b" ido-switch-buffer)
+   ("h" windmove-left)
+   ("j" windmove-down)
+   ("k" windmove-up)
+   ("l" windmove-right)
+   ("o" ace-window)
+   ("a" ace-window :color blue)
+   ("f" other-frame :color blue)
+   ("s" split-window-automatically)
+   ("0" delete-window)
+   ("1" delete-other-windows)
+   ("2" split-window-vertically)
+   ("3" split-window-horizontally)
+   ("=" balance-windows)))
 
 ;;; if we want to show the same buffer left and right, call these
 (defun same-buffers (&optional arg)
