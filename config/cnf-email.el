@@ -2,7 +2,7 @@
 (require 'gnus)
 (require 'message)
 (require 'smtpmail)
-(use-package 'bbdb :ensure t)
+(use-package bbdb :ensure t)
 (require 'bbdb-gnus)
 
 (global-set-key (kbd "<f8>") 'gnus)

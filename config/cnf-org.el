@@ -1,5 +1,6 @@
-(use-package 'org
-    :ensure t)
+(use-package org
+    :ensure t
+    :pin gnu)
 
 (require 'org-capture)
 (require 'org-protocol)

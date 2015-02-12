@@ -8,3 +8,5 @@
 (setq tramp-default-method "ssh"
       tramp-default-user "root"
       tramp-default-host "localhost")
+
+(provide 'cnf-personal)

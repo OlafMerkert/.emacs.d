@@ -1,4 +1,4 @@
-(when (version<= emacs-major-version "24")
+(when (version<= emacs-version "24")
   (error "This emacs is too old for this config."))
 
 ;; (require 'server)
@@ -7,6 +7,7 @@
 
 (add-to-list 'load-path (expand-file-name "config" user-emacs-directory))
 
+(require 'cl)
 (require 'cnf-utils)
 ;; (require 'cnf-functions)
 (require 'cnf-package)
