@@ -11,14 +11,11 @@
 
 (after-load 'org
     (define-key org-mode-map (kbd "<f2>") 'insert-greek-letter)
-  (define-key org-mode-map (kbd "<f11> n") 'name-to-bbdb-link)
-  (define-key org-mode-map (kbd "<f11> t") 'org-toggle-timestamp-type)
   (define-key org-mode-map (kbd "C-c C-v k") 'org-babel-remove-result)
   (define-key org-mode-map (kbd "C-;") 'tex-goto-prev-dollar)
   (define-key org-mode-map (kbd "C-'") 'tex-goto-next-dollar)
   (define-key org-mode-map (kbd "M-;") 'tex-goto-prev-backslash)
-  (define-key org-mode-map (kbd "M-'") 'tex-goto-next-backslash)
-  (define-key org-mode-map (kbd "<f5>") 'org-mark-ring-goto))
+  (define-key org-mode-map (kbd "M-'") 'tex-goto-next-backslash))
 
 (setq org-deadline-warning-days 5
       org-completion-use-ido t)
@@ -160,6 +157,7 @@
  (kbd "<f11>")
  (defhydra org-actions (:color blue)
    "org"
+   ("p" org-mark-ring-goto "pop")
    ("a" org-agenda-list "agenda")
    ("t" org-todo-list "todos")
    ("c" org-capture "capture")

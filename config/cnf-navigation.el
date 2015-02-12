@@ -28,7 +28,7 @@ horizontal space is available."
       (split-window-vertically size)))
 
 (global-set-key
- (kbd "C-o")
+ (kbd "<f5>")
  (defhydra window-manager ()
    "window"
    ("b" ido-switch-buffer)
