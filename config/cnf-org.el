@@ -156,15 +156,19 @@
       (goto-char begin)
       (insert "\\text{ "))))
 
-(defhydra org-actions (global-map "<f11>" :color blue)
-  "org actions"
-  ("a" org-agenda "agenda")
-  ("c" org-capture "capture")
-  ("l" org-store-link "store link")
-  ("u" browse-url-at-point "browse url")
-  ("t" org-toggle-timestamp-type "toggle timestamp active")
-  ("n" name-to-bbdb-link "name as link")
-  ("b" bbdb "search bbdb")
-  ("s" sync-personal-information "sync org files"))
+(global-set-key
+ (kbd "<f11>")
+ (defhydra org-actions (:color blue)
+   "org"
+   ("a" org-agenda-list "agenda")
+   ("t" org-todo-list "todos")
+   ("c" org-capture "capture")
+   ("l" org-store-link "link")
+   ("u" browse-url-at-point "browse")
+   ("[" org-toggle-timestamp-type "timestamp")
+   ("n" name-to-bbdb-link "name-link")
+   ("b" bbdb "bbdb")
+   ("s" sync-personal-information "sync")
+   ("A" org-agenda "agenda menu")))
 
 (provide 'cnf-org)
