@@ -49,19 +49,30 @@
           (lambda () (slime-repl-set-package "OL-USER"))
           t)
 
-(defun slime-local-alt ()
-  (interactive)
+(defun slime-local-sbcl ()
+  (slime-local 'sbcl))
+
+(defun slime-local-ccl ()
   (slime-local 'ccl))
 
+(defun slime-local-clisp ()
+  (slime-local 'clisp))
 
-(defun slime-selector-or-start (arg)
-  (interactive "P")
+(defhydra slime-start (:color blue)
+  "slime"
+  ("d" slime-local "default")
+  ("s" slime-local-sbcl "sbcl")
+  ("r" slime-sl2z "remote")
+  ("c" slime-local-ccl "ccl")
+  ;; ("C" slime-local-clisp "clisp")
+  )
+
+(defun slime-selector-or-start ()
+  (interactive)
   (if (and (fboundp 'slime-connected-p)
            (slime-connected-p))
       (slime-selector)
-      (if arg ; connect to remote swank on server
-          (slime-sl2z)
-          (slime-local))))
+      (slime-start/body)))
 
 (global-set-key (kbd "<f9>") 'slime-selector-or-start)
 
