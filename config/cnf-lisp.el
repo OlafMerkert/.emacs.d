@@ -158,6 +158,10 @@
       lisp-lambda-list-keyword-alignment t
       lisp-indent-maximum-backtracking 7)
 
+(use-package paredit
+    :ensure t
+    :init (diminish 'paredit-mode))
+
 (after-load 'paredit
   (define-key paredit-mode-map (kbd "C-M-<backspace>") 'backward-kill-sexp))
 
