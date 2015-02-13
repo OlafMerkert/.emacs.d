@@ -163,7 +163,8 @@
     :init (diminish 'paredit-mode))
 
 (after-load 'paredit
-  (define-key paredit-mode-map (kbd "C-M-<backspace>") 'backward-kill-sexp))
+  (define-key paredit-mode-map (kbd "C-M-<backspace>") 'backward-kill-sexp)
+  (define-key paredit-mode-map (kbd "C-j") nil))
 
 (after-load 'slime
   (define-key slime-mode-map      (kbd "TAB")             'slime-indent-and-complete-symbol)
@@ -178,6 +179,7 @@
   (define-key slime-mode-map      (kbd "C-c C-<return>")  'slime-macroexpand-1-inplace)
   )
 
+(define-key emacs-lisp-mode-map (kbd "C-c RET") 'pp-macroexpand-last-sexp)
 
 (dolist (mode-map (list lisp-mode-map
                         emacs-lisp-mode-map))
