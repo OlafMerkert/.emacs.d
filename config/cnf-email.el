@@ -1,5 +1,6 @@
 ;; gnus configuration
 (require 'gnus)
+(require 'gnus-win)
 (require 'message)
 (require 'smtpmail)
 (use-package bbdb :ensure t)
