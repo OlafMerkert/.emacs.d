@@ -8,11 +8,15 @@
 ;; gnus window configuration
 (setq gnus-use-full-window t)
 
-(defvar vertical-gnus-buffer-configuration gnus-buffer-configuration)
-(defpar horizontal-gnus-buffer-configuration
-    (sublis '((vertical . horizontal)
-              (0.25 . 0.5))
-            vertical-gnus-buffer-configuration))
+(defvar vertical-gnus-buffer-configuration)
+(defvar horizontal-gnus-buffer-configuration)
+
+(after-load 'gnus-win
+  (setq vertical-gnus-buffer-configuration gnus-buffer-configuration
+        horizontal-gnus-buffer-configuration
+        (sublis '((vertical . horizontal)
+                  (0.25 . 0.5))
+                vertical-gnus-buffer-configuration)))
 
 (defun open-gnus ()
   (interactive)
