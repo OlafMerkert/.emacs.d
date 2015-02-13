@@ -1,7 +1,7 @@
 (setq ispell-program-name "aspell"
       ispell-extra-args '("--sug-mode=ultra"))
 
-(setq-default ispell-dictionary "de")
+(setq-default ispell-dictionary "de_DE")
 
 (remove-hook 'text-mode-hook 'turn-on-flyspell)
 

@@ -2,6 +2,8 @@
     :ensure t
     :bind ("C-j" . ace-jump-mode))
 
+(add-to-list 'clean-local-keybindings "C-j")
+
 (use-package iy-go-to-char
     :ensure t
     :bind (("M-j"  . iy-go-to-char)

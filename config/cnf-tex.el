@@ -18,8 +18,8 @@
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (setq reftex-plug-into-AUCTeX t)
 
-(after-load 'bibtex
-    (define-key bibtex-mode-map (kbd "C-j") 'bibtex-next-field))
+;; (after-load 'bibtex
+;;     (define-key bibtex-mode-map (kbd "C-j") 'bibtex-next-field))
 
 ;; setup preview-LaTeX
 (setf preview-scale-function 1.1)

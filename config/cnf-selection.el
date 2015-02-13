@@ -1,7 +1,7 @@
 (use-package expand-region
     :ensure t
-    :disabled t
-    :bind ("C-M-o" . er/expand-region))
+    :bind ("C-M-o" . er/expand-region)
+    :init (add-to-list 'clean-local-keybindings "C-M-o"))
 
 (use-package mark-more-like-this
     :ensure t
