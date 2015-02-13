@@ -4,6 +4,14 @@
     `(eval-after-load ,feature
        '(progn ,@body)))
 
+(put 'after-load 'lisp-indent-function 1)
+
+(font-lock-add-keywords
+ 'emacs-lisp-mode
+ '(("(\\(after-load\\)\\_>[ \t']*\\(\\(?:\\sw\\|\\s_\\)+\\)?"
+    (1 font-lock-keyword-face)
+    (2 font-lock-constant-face nil t))))
+
 (defmacro defpar (var value)
   `(progn (defvar ,var)
           (setf ,var ,value)))
@@ -24,7 +32,7 @@
 
 (defun clean-local-keybindings-hook ()
   (dolist (key clean-local-keybindings)
-    (local-set-key (kdb key) nil)))
+    (local-set-key (kbd key) nil)))
 
 (add-hook 'after-change-major-mode-hook 'clean-local-keybindings-hook)
 

@@ -10,7 +10,7 @@
    (concat org-directory "/" filebase ".org"))
 
 (after-load 'org
-    (define-key org-mode-map (kbd "<f2>") 'insert-greek-letter)
+  (define-key org-mode-map (kbd "<f2>") 'insert-greek-letter)
   (define-key org-mode-map (kbd "C-c C-v k") 'org-babel-remove-result)
   (define-key org-mode-map (kbd "C-;") 'tex-goto-prev-dollar)
   (define-key org-mode-map (kbd "C-'") 'tex-goto-next-dollar)
@@ -170,7 +170,7 @@
    ("A" org-agenda "agenda menu")))
 
 (after-load 'org
-    (fullframe org-agenda org-agenda-quit)
+  (fullframe org-agenda org-agenda-quit)
   (fullframe org-agenda-list org-agenda-quit)
   (fullframe org-todo-list org-agenda-quit))
 

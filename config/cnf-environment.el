@@ -10,7 +10,7 @@
 
 ;;; fix for using tramp::sudo
 (after-load 'tramp
-    (setenv "SHELL" "/bin/bash"))
+  (setenv "SHELL" "/bin/bash"))
 
 ;; projects
 (use-package ecb :disabled t)

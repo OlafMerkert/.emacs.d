@@ -18,17 +18,17 @@
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (setq reftex-plug-into-AUCTeX t)
 
-;; (after-load 'bibtex
-;;     (define-key bibtex-mode-map (kbd "C-j") 'bibtex-next-field))
+;; (after-load 'bibtex (define-key bibtex-mode-map (kbd "C-j")
+;;     'bibtex-next-field))
 
 ;; setup preview-LaTeX
 (setf preview-scale-function 1.1)
 
 ;; generate pdf file name
 (after-load 'tex
-    (add-to-list 'TeX-expand-list
-     '("%P" file "pdf" t)
-     t))
+  (add-to-list 'TeX-expand-list
+               '("%P" file "pdf" t)
+               t))
 
 (setq TeX-view-program-list
       '(("Okular" ("okular --unique"

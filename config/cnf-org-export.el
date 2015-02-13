@@ -5,11 +5,11 @@
 (setq org-export-allow-bind-keywords t)
 
 (after-load 'ox-latex
-    ;; make sure shell-escape is turned on (I need it for \gitversioninfo)
-    (setq org-latex-pdf-process
-     '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-       "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-       "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+  ;; make sure shell-escape is turned on (I need it for \gitversioninfo)
+  (setq org-latex-pdf-process
+        '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
   ;; enable koma script
   (add-to-list 'org-latex-classes
                '("scrartcl"
@@ -68,6 +68,10 @@
 (let ((org-ref-file "~/.emacs.d/addons/org-ref/org-ref.org"))
   (when (file-exists-p org-ref-file)
     (org-babel-load-file org-ref-file t)))
+
+;; (let ((org-ref-file "~/.emacs.d/addons/org-ref/doi-utils.org"))
+;;   (when (file-exists-p org-ref-file)
+;;     (org-babel-load-file org-ref-file t)))
 
 (setq reftex-default-bibliography '("~/Perfezionamento/topics/topics.bib")
       org-ref-default-bibliography reftex-default-bibliography

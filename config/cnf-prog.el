@@ -12,6 +12,6 @@
 (use-package lua-mode :ensure t :commands lua-mode)
 
 (after-load 'c-mode
-    (define-key c-mode-map  (kbd "<return>") 'reindent-then-newline-and-indent))
+  (define-key c-mode-map  (kbd "<return>") 'reindent-then-newline-and-indent))
 
 (provide 'cnf-prog)
