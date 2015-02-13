@@ -16,6 +16,12 @@
   `(progn (defvar ,var)
           (setf ,var ,value)))
 
+(font-lock-add-keywords
+ 'emacs-lisp-mode
+ '(("(\\(defpar\\)\\_>[ \t\n]*\\(\\(?:\\sw\\|\\s_\\)+\\)?"
+    (1 font-lock-keyword-face)
+    (2 font-lock-variable-name-face nil t))))
+
 (defun flatten (x)
   (cond ((null x) nil)
         ((atom x)
