@@ -65,13 +65,11 @@
 ;; setup org-ref
 (use-package helm-bibtex :ensure t)
 
-(let ((org-ref-file "~/.emacs.d/addons/org-ref/org-ref.org"))
-  (when (file-exists-p org-ref-file)
-    (org-babel-load-file org-ref-file t)))
-
-;; (let ((org-ref-file "~/.emacs.d/addons/org-ref/doi-utils.org"))
-;;   (when (file-exists-p org-ref-file)
-;;     (org-babel-load-file org-ref-file t)))
+;; it is more convenient to tangle the files manually for now
+(add-to-list 'load-path (expand-file-name "addons/org-ref" user-emacs-directory))
+(require 'org-ref)
+(require 'doi-utils)
+(require 'jmax-bibtex)
 
 (setq reftex-default-bibliography '("~/Perfezionamento/topics/topics.bib")
       org-ref-default-bibliography reftex-default-bibliography
