@@ -36,9 +36,13 @@
 (use-package ibuffer-vc
     :commands ibuffer-vc-set-filter-groups-by-vc-root
     :ensure t
-    :init (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
+    :init (progn
+            (setq ibuffer-use-other-window t
+                  ibuffer-default-shrink-to-minimum-size t
+                  ibuffer-default-directory "~")
+            (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root)))
 
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-x C-b") (lambda () (interactive) (ibuffer t "*Buffer List*")))
 
 ;;; some keybindings
 (global-set-key (kbd "S-<return>") 'split-line)

@@ -5,13 +5,27 @@
 (use-package bbdb :ensure t)
 (require 'bbdb-gnus)
 
+;; gnus window configuration
+(setq gnus-use-full-window t)
+
+(defvar vertical-gnus-buffer-configuration gnus-buffer-configuration)
+(defpar horizontal-gnus-buffer-configuration
+    (sublis '((vertical . horizontal)
+              (0.25 . 0.5))
+            vertical-gnus-buffer-configuration))
+
 (defun open-gnus ()
   (interactive)
+  (setf gnus-buffer-configuration
+        (if (< 140 (frame-width))
+            ;; wide-screen layout
+            horizontal-gnus-buffer-configuration
+            vertical-gnus-buffer-configuration))
   (aif (gnus-buffer-exists-p "*Group*")
        (switch-to-buffer it)
        (gnus)))
 
-(fullframe gnus gnus-group-exit)
+;; (fullframe gnus gnus-group-exit)
 
 (global-set-key (kbd "<f8>") 'open-gnus)
 
