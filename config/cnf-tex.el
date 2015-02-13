@@ -21,6 +21,18 @@
 ;; (after-load 'bibtex (define-key bibtex-mode-map (kbd "C-j")
 ;;     'bibtex-next-field))
 
+
+
+;; variables that control bibtex key format for auto-generation
+;;  firstauthor-year-title-words
+(setq bibtex-autokey-year-length 4
+      bibtex-autokey-name-year-separator "-"
+      bibtex-autokey-year-title-separator "-"
+      bibtex-autokey-titleword-separator "-"
+      bibtex-autokey-titlewords 2
+      bibtex-autokey-titlewords-stretch 1
+      bibtex-autokey-titleword-length 5)
+
 ;; setup preview-LaTeX
 (setf preview-scale-function 1.1)
 
