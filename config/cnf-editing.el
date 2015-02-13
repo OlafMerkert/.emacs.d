@@ -7,9 +7,7 @@
            ("C-*" . mc/mark-all-like-this-dwim)))
 
 (use-package iedit
-    :commands iedit-mode
-    :ensure t
-    :bind (("C-;" . iedit-dwim)))
+    :ensure t)
 
 (defun iedit-dwim (arg)
   "Starts iedit but uses `narrow-to-defun' to limit its scope."
@@ -26,6 +24,9 @@
               ;; `current-word' can of course be replaced by other
               ;; functions.
               (iedit-start (current-word)))))))
+
+(define-key prog-mode-map (kbd "C-;") 'iedit-dwim)
+(define-key lisp-mode-map (kbd "C-;") 'iedit-dwim)
 
 ;; aligning
 (defun align-regexp-all (beg end regexp)
