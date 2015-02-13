@@ -11,4 +11,8 @@
                     :background "gray90"
                     :box '(:line-width 1 :style released-button))
 
+(set-face-attribute 'region
+                    nil
+                    :background "azure2")
+
 (provide 'cnf-colours)
