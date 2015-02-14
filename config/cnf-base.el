@@ -39,7 +39,7 @@
     :init (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
 
 (setq ibuffer-use-other-window t
-      ibuffer-default-shrink-to-minimum-size t
+      ibuffer-default-shrink-to-minimum-size nil
       ibuffer-default-directory "~")
 (global-set-key (kbd "C-x C-b") (lambda () (interactive) (ibuffer t "*Buffer List*")))
 

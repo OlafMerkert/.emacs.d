@@ -4,6 +4,11 @@
          (uri (org-protocol-sanitize-uri (car splitparts))))
     (w3m-browse-url uri)))
 
+(add-to-list 'org-protocol-protocol-alist
+             '("Open in w3m"
+               :protocol "w3m"
+               :function org-protocol-open-in-w3m))
+
 (defun download-with-youtube-dl (uri &rest args)
   (let ((default-directory "~/Downloads/"))
     (async-shell-command
@@ -22,10 +27,6 @@
   (let ((browse-url-browser-function 'download-with-youtube-dl))
     (org-open-at-point)))
 
-(add-to-list 'org-protocol-protocol-alist
-             '("Open in w3m"
-               :protocol "w3m"
-               :function org-protocol-open-in-w3m))
 
 (add-to-list 'org-protocol-protocol-alist
              '("Download with youtube-dl"
@@ -38,5 +39,16 @@
     (funcall f)))
 
 (advice-add 'org-label-store-link :around 'org-label-store-link--test-mode)
+
+(defun org-copy-selection (fname)
+  (let ((selection-string (car (org-protocol-split-data fname t org-protocol-data-separator))))
+    (kill-new selection-string)
+    (message "Pushed to kill-ring: %s" selection-string)
+    nil))
+
+(add-to-list 'org-protocol-protocol-alist
+             '("Copy Selection"
+               :protocol "cpsel"
+               :function org-copy-selection))
 
 (provide 'cnf-org-protocol)

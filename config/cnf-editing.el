@@ -25,8 +25,8 @@
               ;; functions.
               (iedit-start (current-word)))))))
 
-(define-key prog-mode-map (kbd "C-;") 'iedit-dwim)
-(define-key lisp-mode-map (kbd "C-;") 'iedit-dwim)
+(define-key prog-mode-map (kbd "C-;") 'iedit-mode)
+(define-key lisp-mode-map (kbd "C-;") 'iedit-mode)
 
 ;; aligning
 (defun align-regexp-all (beg end regexp)

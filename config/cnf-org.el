@@ -169,6 +169,9 @@
    ("s" sync-personal-information "sync")
    ("A" org-agenda "agenda menu")))
 
+;; configure latex preview
+(setq org-latex-create-formula-image-program 'dvipng)
+
 (after-load 'org
   (fullframe org-agenda org-agenda-quit)
   (fullframe org-agenda-list org-agenda-quit)
