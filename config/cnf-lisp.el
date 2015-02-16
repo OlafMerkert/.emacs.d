@@ -11,7 +11,7 @@
   (load ql-slime-helper)
   (slime-setup '(slime-fancy
                  slime-fuzzy
-                 slime-banner 
+                 slime-banner
                  slime-tramp
                  slime-highlight-edits)))
 
@@ -44,27 +44,18 @@
   ;; start slime
   (slime command))
 
-  ;; change default package to ol-user
+;; change default package to ol-user
 (add-hook 'slime-connected-hook
           (lambda () (slime-repl-set-package "OL-USER"))
           t)
 
-(defun slime-local-sbcl ()
-  (slime-local 'sbcl))
-
-(defun slime-local-ccl ()
-  (slime-local 'ccl))
-
-(defun slime-local-clisp ()
-  (slime-local 'clisp))
-
 (defhydra slime-start (:color blue)
   "slime"
   ("d" slime-local "default")
-  ("s" slime-local-sbcl "sbcl")
+  ("s" (lambda () (interactive) (slime-local 'sbcl)) "sbcl")
   ("r" slime-sl2z "remote")
-  ("c" slime-local-ccl "ccl")
-  ;; ("C" slime-local-clisp "clisp")
+  ("z" (lambda () (interactive) (slime-local 'ccl)) "ccl")
+  ;; ("c" (lambda () (interactive) (slime-local 'clisp)) "clisp")
   )
 
 (defun slime-selector-or-start ()
@@ -114,7 +105,7 @@
     (backward-sexp)
     (insert reader-assign)
     (goto-char (+ opoint
-                  (length reader-assign)))) 
+                  (length reader-assign))))
   (just-one-space 1)
   (insert (format "#%d#" arg)))
 
