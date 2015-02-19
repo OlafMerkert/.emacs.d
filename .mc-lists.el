@@ -5,6 +5,7 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        LaTeX-insert-left-brace
         TeX-insert-backslash
         TeX-insert-sub-or-superscript
         ace-jump-mode

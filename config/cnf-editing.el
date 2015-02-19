@@ -31,9 +31,9 @@
 ;; aligning
 (defun align-regexp-all (beg end regexp)
   "Align the current region using an ad-hoc separator read from
-the minibuffer.  Unless a prefix argument is given, alignment
-will be repeated.  This is most useful to align tables, for
-instance in TeX."
+the minibuffer. Unless a prefix argument is given, alignment will
+be repeated. This is most useful to align tables, for instance in
+TeX."
   (interactive
    (list (region-beginning) (region-end)
          (concat "\\(\\s-*\\)"
@@ -62,6 +62,8 @@ instance in TeX."
    ("b" same-buffers "same buffers" :color blue)
    ("g" find-grep "find" :color blue)
    ("w" whitespace-cleanup "clean whitespace" :color blue)
-   ("p" insert-provide "insert provide" :color blue)))
+   ("p" insert-provide "insert provide" :color blue)
+   ("r" org-ref-helm-insert-ref-link "ref" :color blue)
+   ("c" org-ref-helm-insert-cite-link "cite" :color blue)))
 
 (provide 'cnf-editing)
