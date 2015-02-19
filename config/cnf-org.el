@@ -119,6 +119,11 @@
                   )))
         (error "Not in a git project."))))
 
+;; this is required for the above location setter to work properly
+(defun org-capture-remove-exact-location-fix (&optional target)
+  (org-capture-put :exact-position nil))
+(advice-add 'org-capture-set-target-location :after 'org-capture-remove-exact-location-fix)
+
 ;;; setup `org-refile'
 (setq org-refile-targets '((nil . (:maxlevel . 2))))
 
@@ -157,7 +162,7 @@
  (kbd "<f11>")
  (defhydra org-actions (:color blue)
    "org"
-   ("p" org-mark-ring-goto "pop")
+   ("SPC" org-mark-ring-goto "pop")
    ("a" org-agenda-list "agenda")
    ("t" org-todo-list "todos")
    ("c" org-capture "capture")

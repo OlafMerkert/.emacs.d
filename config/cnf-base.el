@@ -34,7 +34,6 @@
 (use-package hydra :ensure t)
 
 (use-package ibuffer-vc
-    :commands ibuffer-vc-set-filter-groups-by-vc-root
     :ensure t
     :init (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
 
