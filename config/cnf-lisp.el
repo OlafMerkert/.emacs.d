@@ -18,11 +18,16 @@
 ;; completion setup
 (setf slime-complete-symbol*-fancy t)
 
+;; on some machines, sbcl or ccl might have been compiled from source
+(defun try-local-path (exec-name)
+  (let ((local-path (concat "/usr/local/bin/" exec-name))
+        (path (concat "/usr/bin/" exec-name)))
+    (if (file-exists-p local-path)
+        local-path path)))
+
 (setq slime-lisp-implementations
-      `((sbcl (,(if (file-exists-p "/usr/local/bin/sbcl")
-                    "/usr/local/bin/sbcl"
-                    "/usr/bin/sbcl")))
-        (ccl ("/usr/local/bin/ccl"))
+      `((sbcl (,(try-local-path "sbcl")))
+        (ccl (,(try-local-path "ccl")))
         (clisp ("/usr/bin/clisp"))
         ))
 
@@ -55,7 +60,7 @@
   ("s" (lambda () (interactive) (slime-local 'sbcl)) "sbcl")
   ("r" slime-sl2z "remote")
   ("z" (lambda () (interactive) (slime-local 'ccl)) "ccl")
-  ;; ("c" (lambda () (interactive) (slime-local 'clisp)) "clisp")
+  ("c" (lambda () (interactive) (slime-local 'clisp)) "clisp")
   )
 
 (defun slime-selector-or-start ()
