@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: clim-quit-command
+# key: clim-quit
+# --
+(define-${1:app}-command (com-quit :name "Quit") ()
+  (frame-exit *application-frame*))
+$0
