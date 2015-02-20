@@ -238,4 +238,33 @@
 ;; open .sexp files with common-lisp-mode
 (add-to-list 'auto-mode-alist '("\\.sexp$" . common-lisp-mode))
 
+(defun clim-command-name (string)
+  (substitute ?\s ?- (capitalize string)))
+
+(defun slime-search-buffer-package-custom ()
+  (let ((case-fold-search t)
+        (regexp (concat "^(\\(cl:\\|common-lisp:\\)?in-package\\>[ \t'#:]*"
+                        "\\([^)]+\\)[ \t]*)")))
+    (save-excursion
+      (when (or (re-search-backward regexp nil t)
+                (re-search-forward regexp nil t))
+        (match-string-no-properties 2)))))
+
+(setf slime-find-buffer-package-function 'slime-search-buffer-package-custom)
+
+(defcustom clim-application 'app
+  "Class Name of the current CLIM application, we also expect a
+  function of the same name which starts the CLIM application."
+  :type 'symbol
+  :risky nil
+  :safe (lambda (val) t))
+
+(defun start-clim-application ()
+  (interactive)
+  (let ((form (concat "(" (slime-current-package) "::" (prin1-to-string clim-application) ")")))
+    (message "Starting CLIM application  %s  ..." form)
+    (slime-interactive-eval form)))
+
+(define-key slime-mode-map (kbd "S-<f9>") 'start-clim-application)
+
 (provide 'cnf-lisp)
