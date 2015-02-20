@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: clim-command
-# key: com
+# key: clim-com
 # --
-(define-${1:app}-command (com-$2 :name "${2:$(capitalize yas-text)}"${3: :menu t}) ($4)
+(define-${1:`clim-application`}-command (com-$2 :name "${2:$(clim-command-name yas-text)}"${3: :menu t}) ($4)
   $0)
