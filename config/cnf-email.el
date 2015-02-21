@@ -192,8 +192,7 @@
       gnus-move-group-prefix-function (lambda (group-name) "nnimap+1und1:Archiv/"))
 
 ;;; bbdb configuration
-
-(bbdb-initialize 'gnus 'message 'w3)
+(bbdb-initialize 'gnus 'message)
 (bbdb-insinuate-message)
 (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
 ;; (bbdb-mua-auto-update-init 'gnus 'message)
