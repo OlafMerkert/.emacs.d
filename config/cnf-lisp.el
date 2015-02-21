@@ -175,7 +175,12 @@
   (define-key slime-mode-map      (kbd "C-c C-<return>")  'slime-macroexpand-1-inplace)
   )
 
-(define-key emacs-lisp-mode-map (kbd "C-c RET") 'pp-macroexpand-last-sexp)
+(define-key emacs-lisp-mode-map (kbd "C-c RET")
+  (lambda (arg)
+    (interactive "P")
+    (save-excursion
+      (forward-sexp)
+      (pp-macroexpand-last-sexp arg))))
 
 (dolist (mode-map (list lisp-mode-map
                         emacs-lisp-mode-map))
