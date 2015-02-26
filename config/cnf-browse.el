@@ -10,6 +10,14 @@
       w3m-pop-up-windows           t
       w3m-use-tab                  nil)
 
+(defun toggle-browser ()
+  (interactive)
+  (setf browse-url-browser-function
+        (if (eq browse-url-browser-function 'w3m-browse-url)
+            'browse-url-firefox
+            'w3m-browse-url))
+  (message "Browse with %s" browse-url-browser-function))
+
 ;; docview
 (setq doc-view-continuous t)
 

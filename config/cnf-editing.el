@@ -64,6 +64,7 @@ TeX."
    ("w" whitespace-cleanup "clean whitespace" :color blue)
    ("p" insert-provide "insert provide" :color blue)
    ("r" org-ref-helm-insert-ref-link "ref" :color blue)
-   ("c" org-ref-helm-insert-cite-link "cite" :color blue)))
+   ("c" org-ref-helm-insert-cite-link "cite" :color blue)
+   ("u" toggle-browser "use w3m")))
 
 (provide 'cnf-editing)
