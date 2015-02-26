@@ -20,6 +20,8 @@
       ("fr" . "french-postfix")
       ("it" . "italian-postfix")))
 
+(make-variable-buffer-local 'default-input-method)
+
 (defun match-input-method-dictionary (dict &optional arg)
   (aif (assoc (subseq dict 0 2) dict-input-methods)
        (setf default-input-method (cdr it))))
