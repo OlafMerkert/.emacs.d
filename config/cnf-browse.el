@@ -5,7 +5,8 @@
 ;; browser
 (setq browse-url-generic-program   "xdg-open"
       browse-url-chromium-program  "google-chrome"
-      browse-url-browser-function  'browse-url-firefox
+      browse-url-browser-function  'browse-url-generic ;browse-url-firefox
+      browse-url-generic-program   "firefox"
       w3m-use-cookies              t
       w3m-pop-up-windows           t
       w3m-use-tab                  nil)
@@ -14,7 +15,7 @@
   (interactive)
   (setf browse-url-browser-function
         (if (eq browse-url-browser-function 'w3m-browse-url)
-            'browse-url-firefox
+            'browse-url-generic
             'w3m-browse-url))
   (message "Browse with %s" browse-url-browser-function))
 
