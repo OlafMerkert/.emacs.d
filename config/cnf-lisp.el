@@ -173,6 +173,7 @@
   (define-key slime-mode-map      (kbd "C-c g")           'defgeneric-next)
   (define-key slime-mode-map      (kbd "C-c #")           'multiply-last-sexp-reader)
   (define-key slime-mode-map      (kbd "C-c C-<return>")  'slime-macroexpand-1-inplace)
+  (define-key slime-repl-mode-map (kbd "C-j") nil)
   )
 
 (define-key emacs-lisp-mode-map (kbd "C-c RET")
