@@ -26,12 +26,12 @@
 ;; variables that control bibtex key format for auto-generation
 ;;  firstauthor-year-title-words
 (setq bibtex-autokey-year-length 4
+      bibtex-autokey-names 2
       bibtex-autokey-name-year-separator "-"
       bibtex-autokey-year-title-separator "-"
       bibtex-autokey-titleword-separator "-"
-      bibtex-autokey-titlewords 2
-      bibtex-autokey-titlewords-stretch 1
-      bibtex-autokey-titleword-length 5)
+      bibtex-autokey-titlewords 3
+      bibtex-autokey-titlewords-stretch 1)
 
 ;; setup preview-LaTeX
 (setf preview-scale-function 1.1)
