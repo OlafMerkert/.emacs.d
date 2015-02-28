@@ -208,6 +208,8 @@
                      (dbind destructuring-bind)
                      )
 
+(put 'defpar 'common-lisp-indent-function '(&rest))
+
 ;;; TODO improve highlighting of important (custom) macros
 ;; (font-lock-add-keywords 'common-lisp-mode
 ;;                         '(("(\\(defmacro!\\)[:space:\n]+\\([^:space:()]+\\)"
