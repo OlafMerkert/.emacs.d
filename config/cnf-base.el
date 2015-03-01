@@ -4,6 +4,9 @@
 (put 'capitalize-region 'disabled nil)
 (put 'narrow-to-region  'disabled nil)
 
+;; repeat last command
+(global-set-key (kbd "C-z") 'repeat)
+
 (use-package dash :ensure t)
 (use-package fullframe :ensure t)
 
