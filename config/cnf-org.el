@@ -125,7 +125,7 @@
 (advice-add 'org-capture-set-target-location :after 'org-capture-remove-exact-location-fix)
 
 ;;; setup `org-refile'
-(setq org-refile-targets '((nil . (:maxlevel . 2))))
+(setq org-refile-targets '((nil . (:maxlevel . 3))))
 
 ;; instruct org to open certain files always with external
 ;; applications
