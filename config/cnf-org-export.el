@@ -73,6 +73,6 @@
 
 (setq reftex-default-bibliography '("~/Perfezionamento/topics/topics.bib")
       org-ref-default-bibliography reftex-default-bibliography
-      org-ref-pdf-directory "~/Perfezionamento/topics/")
+      org-ref-pdf-directory "~/.cache/bibtex-manager/links/")
 
 (provide 'cnf-org-export)
