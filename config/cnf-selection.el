@@ -1,3 +1,5 @@
+(global-set-key (kbd "C-x C-d") 'mark-defun)
+
 (use-package expand-region
     :ensure t
     :bind ("C-M-o" . er/expand-region)
