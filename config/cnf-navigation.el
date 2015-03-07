@@ -9,11 +9,11 @@
     :bind (("M-j"  . iy-go-to-char)
            ("M-J"  . iy-go-to-char-backward)))
 
-
+;; org-ref requires this:
 (use-package key-chord
     :ensure t
-    :disabled t
-    :init (key-chord-mode 1))
+    ;; :init (key-chord-mode 1)
+    )
 
 (use-package ace-window
     :ensure t
