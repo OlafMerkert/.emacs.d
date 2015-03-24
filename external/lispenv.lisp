@@ -1,4 +1,3 @@
-
 ;;; The following lines added by ql:add-to-init-file:
 #-quicklisp
 (let ((quicklisp-init (merge-pathnames ".quicklisp/setup.lisp"
@@ -14,7 +13,7 @@
 
 ;;; always load my favourite utilities, but don't panic if it can't be
 ;;; found. Also change to ol-user directly we are using SBCL
-(handler-case
+#-clisp(handler-case
     (progn
       (ql:quickload :ol-utils)
       #+sbcl (in-package :ol-user))
