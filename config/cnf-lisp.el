@@ -50,16 +50,19 @@
   (slime command))
 
 ;; change default package to ol-user
-(add-hook 'slime-connected-hook
-          (lambda () (slime-repl-set-package "OL-USER"))
-          t)
+;; (add-hook 'slime-connected-hook
+;;           (lambda () (slime-repl-set-package "OL-USER"))
+;;           t)
 
 (defhydra slime-start (:color blue)
   "slime"
   ("d" slime-local "default")
   ("s" (lambda () (interactive) (slime-local 'sbcl)) "sbcl")
   ("r" slime-sl2z "remote")
-  ("z" (lambda () (interactive) (slime-local 'ccl)) "ccl")
+  ("z" (lambda () (interactive)
+          (slime-local 'ccl)
+          (slime-repl-set-package "OL-USER"))
+       "ccl")
   ("c" (lambda () (interactive) (slime-local 'clisp)) "clisp")
   )
 
