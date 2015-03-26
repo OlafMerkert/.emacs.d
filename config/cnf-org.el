@@ -124,6 +124,58 @@
   (org-capture-put :exact-position nil))
 (advice-add 'org-capture-set-target-location :after 'org-capture-remove-exact-location-fix)
 
+;; capture relative filenames
+(defun convert-relative-path (path)
+  (save-match-data
+    (if (string-match (concat "^" (regexp-quote
+                                   (expand-file-name
+                                    (file-name-as-directory
+                                     default-directory))))
+                      (expand-file-name path))
+        ;; We are linking a file with relative path name.
+        (substring (expand-file-name path)
+                   (match-end 0))
+        (abbreviate-file-name (expand-file-name path)))))
+
+(defun org-link-description (link &optional offset)
+  (unless offset (setf offset 0))
+  (let ((c-begin (org-element-property :contents-begin link))
+        (c-end (org-element-property :contents-end link)))
+    (when (and c-begin c-end)
+      (buffer-substring (+ offset c-begin) (+ offset c-end)))))
+
+(defun org-convert-file-links-relative (&optional entire-buffer)
+  (interactive "P")
+  (let ((offset 0))
+    (save-excursion
+      (org-element-map
+          (org-element-parse-buffer 'object (not entire-buffer)) 'link
+        (lambda (link)
+          (when (string= (org-element-property :type link) "file")
+            (let* ((description (org-link-description link offset))
+                   (raw-path (substring (org-element-property :raw-link link) 5))
+                   (new-path (convert-relative-path raw-path))
+                   (begin (+ offset (org-element-property :begin link)))
+                   (end (+ offset (org-element-property :end link))))
+              (unless (string= raw-path new-path)
+                (goto-char begin)
+                (if (looking-at "\\[")
+                    (progn
+                      (delete-char (- end begin))
+                      (insert "[[file:" new-path)
+                      (when description
+                        (insert "][" description))
+                      (insert "]]"))
+                    (progn
+                      (delete-char (- end begin))
+                      (insert "file:" new-path)))
+                (incf offset (- (point) end))))))))))
+
+(defun org-capture-to-relative-file-links (&optional goto keys)
+  (org-convert-file-links-relative nil))
+
+(advice-add 'org-capture :after 'org-capture-to-relative-file-links )
+
 ;;; setup `org-refile'
 (setq org-refile-targets '((nil . (:maxlevel . 3))))
 
