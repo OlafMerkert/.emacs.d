@@ -63,6 +63,9 @@
   (add-hook 'htmlize-after-hook 'htmlize-turn-on-modes))
 
 ;; setup org-ref
+(defun easy-menu-disable-add (function map path item &optional before))
+(advice-add 'easy-menu-add-item :around 'easy-menu-disable-add)
+
 (use-package helm-bibtex :ensure t)
 
 ;; it is more convenient to tangle the files manually for now

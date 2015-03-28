@@ -159,7 +159,7 @@
 
 (use-package paredit
     :ensure t
-    :init (diminish 'paredit-mode))
+    :config (diminish 'paredit-mode))
 
 (after-load 'paredit
   (define-key paredit-mode-map (kbd "C-M-<backspace>") 'backward-kill-sexp)
@@ -199,7 +199,7 @@
 
 ;; adjustments to indentation
 (defmacro copy-cl-indentation (&rest mapping)
-    `(setf ,@(mapcar (lambda (x) `(get ',x 'common-lisp-indent-function))
+  `(setf ,@(mapcar (lambda (x) `(get ',x 'common-lisp-indent-function))
                    (flatten mapping))))
 
 (setf (get 'ew 'common-lisp-indent-function) '(&rest 1)
