@@ -1,5 +1,5 @@
 (setq desktop-path '("~/.emacs.d/sessions/")
-      desktop-restore-frames t)
+      desktop-restore-frames nil)
 
 (make-directory (car desktop-path) t)
 

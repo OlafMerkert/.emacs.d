@@ -8,7 +8,8 @@
     ("~/Perfezionamento/thesis/continued-fractions-computations.sage.org" "~/Personal/bookmarks.org" "~/Personal/spiele.org" "~/Personal/sns.org" "~/Personal/notizen.org" "~/Personal/privat.org" "~/Perfezionamento/thesis/phd-thesis.en.org")))
  '(safe-local-variable-values
    (quote
-    ((ispell-dictionary . "de_DE")
+    ((LocalWords . Pellian)
+     (ispell-dictionary . "de_DE")
      (ispell-dictionary . "it")
      (Syntax . ANSI-Common-Lisp)
      (Syntax . COMMON-LISP)
