@@ -45,6 +45,11 @@
       ibuffer-default-directory "~")
 (global-set-key (kbd "C-x C-b") (lambda () (interactive) (ibuffer t "*Buffer List*")))
 
+;; if we call `ibuffer' from itself, then `ibuffer-quit' does not work
+;; anymore. So just update instead
+(after-load 'ibuffer
+  (define-key ibuffer-mode-map (kbd "C-x C-b") 'ibuffer-update))
+
 ;;; some keybindings
 (global-set-key (kbd "S-<return>") 'split-line)
 (global-set-key (kbd "C-x M-o")    'other-frame)
