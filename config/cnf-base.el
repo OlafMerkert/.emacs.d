@@ -36,13 +36,12 @@
 
 (use-package hydra :ensure t)
 
+(require 'vc)
+
 (use-package ibuffer-vc
     :ensure t
     :init (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root)
     :config (progn
-              (defun ibuffer-vc--deduce-backend (file)
-                "Return the vc backend for FILE, or nil if not under VC supervision."
-                (ignore-errors (vc-backend file)))
               (defun ibuffer-vc-set-filter-groups-by-vc-root ()
                 "Set the current filter groups to filter by vc root dir."
                 (interactive)
@@ -75,6 +74,14 @@
 
 (setq ibuffer-formats
       '((mark modified read-only " "
+         (name 42 42 :left :elide)
+         " "
+         (mode 16 16 :left :elide)
+         " "
+         (size-h 9 -1 :right)
+         " "
+         filename-and-process)
+        (mark modified read-only " "
          (name 42 42 :left :elide)
          " "
          (size-h 9 -1 :right)
