@@ -38,7 +38,21 @@
 
 (use-package ibuffer-vc
     :ensure t
-    :init (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
+    :init (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root)
+    :config (progn
+              (defun ibuffer-vc--deduce-backend (file)
+                "Return the vc backend for FILE, or nil if not under VC supervision."
+                (ignore-errors (vc-backend file)))
+              (defun ibuffer-vc-set-filter-groups-by-vc-root ()
+                "Set the current filter groups to filter by vc root dir."
+                (interactive)
+                (setq ibuffer-filter-groups (ibuffer-vc-generate-filter-groups-by-vc-root))
+                (message "ibuffer-vc: groups set")
+                (let ((ibuf (get-buffer "*Buffer List*")))
+                  (when ibuf
+                    (with-current-buffer ibuf
+                      (pop-to-buffer ibuf)
+                      (ibuffer-update nil t)))))))
 
 (setq ibuffer-use-other-window t
       ibuffer-default-shrink-to-minimum-size nil
@@ -48,7 +62,8 @@
 ;; if we call `ibuffer' from itself, then `ibuffer-quit' does not work
 ;; anymore. So just update instead
 (after-load 'ibuffer
-  (define-key ibuffer-mode-map (kbd "C-x C-b") 'ibuffer-update))
+  (define-key ibuffer-mode-map (kbd "C-x C-b") 'ibuffer-vc-set-filter-groups-by-vc-root)
+  (define-key ibuffer-mode-map (kbd "g") 'ibuffer-vc-set-filter-groups-by-vc-root))
 
 ;;; some keybindings
 (global-set-key (kbd "S-<return>") 'split-line)
