@@ -45,6 +45,14 @@ TeX."
 
 (advice-add 'transpose-words :before 'transpose-words--at-eol)
 
+(defun insert-eqref-link ()
+  (interactive)
+  (let ((pos (point)))
+    (org-ref-helm-insert-ref-link)
+    (save-excursion
+      (goto-char pos)
+      (insert "eq"))))
+
 (global-set-key
  (kbd "<f12>")
  (defhydra editing-actions ()
@@ -56,6 +64,7 @@ TeX."
    ("w" whitespace-cleanup "clean whitespace" :color blue)
    ("p" insert-provide "insert provide" :color blue)
    ("r" org-ref-helm-insert-ref-link "ref" :color blue)
+   ("e" insert-eqref-link "eqref" :color blue)
    ("c" org-ref-helm-insert-cite-link "cite" :color blue)
    ("u" toggle-browser "use w3m")))
 
