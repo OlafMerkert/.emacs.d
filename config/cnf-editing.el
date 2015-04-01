@@ -66,6 +66,7 @@ TeX."
    ("r" org-ref-helm-insert-ref-link "ref" :color blue)
    ("e" insert-eqref-link "eqref" :color blue)
    ("c" org-ref-helm-insert-cite-link "cite" :color blue)
-   ("u" toggle-browser "use w3m")))
+   ("u" toggle-browser "use w3m")
+   ("q" nil "quit")))
 
 (provide 'cnf-editing)
