@@ -36,34 +36,41 @@
 
 (use-package hydra :ensure t)
 
-(require 'vc)
-
 (use-package ibuffer
     :init (setq ibuffer-use-other-window t
                 ibuffer-default-shrink-to-minimum-size nil
                 ibuffer-default-directory "~")
     :commands (ibuffer)
-    :bind ("C-x C-b" . (lambdai (ibuffer t "*Buffer List*"))))
+    :bind ("C-x C-b" . (lambdai (ibuffer t "*Buffer List*")))
+    :config
+    ;; Use human readable Size column instead of original one
+    (define-ibuffer-column size-h (:name "Size" :inline t)
+      (cond ((> (buffer-size) 1000000000) (format "%7.1fG" (/ (buffer-size) 1000000000.0)))
+            ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
+            ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
+            (t (format "%8d" (buffer-size)))))
+    (setq ibuffer-formats
+          '((mark modified read-only " " (name 42 42 :left :elide) " " (mode 16 16 :left :elide) " " (size-h 9 -1 :right) " " filename-and-process)
+            (mark modified read-only " " (name 42 42 :left :elide) " " (size-h 9 -1 :right) " " filename-and-process)
+            (mark modified read-only vc-status-mini " " (name 20 20 :left :elide) " " (size-h 9 -1 :right) " " (mode 16 16 :left :elide) " "
+             filename-and-process)
+            (mark modified read-only vc-status-mini " " (name 20 20 :left :elide) " " (size-h 9 -1 :right) "  " (vc-status 16 16 :left) " " filename-and-process)
+            (mark modified read-only " " (name 30 -1 :left) " " filename-and-process))))
 
 (use-package ibuffer-vc
-    :ensure t
-    :init (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root)
-    :config (progn
-              (defun ibuffer-vc-set-filter-groups-by-vc-root ()
-                "Set the current filter groups to filter by vc root dir."
-                (interactive)
-                (setq ibuffer-filter-groups (ibuffer-vc-generate-filter-groups-by-vc-root))
-                (message "ibuffer-vc: groups set")
-                (let ((ibuf (get-buffer "*Buffer List*")))
-                  (when ibuf
-                    (with-current-buffer ibuf
-                      (pop-to-buffer ibuf)
-                      (ibuffer-update nil t)))))))
-
-(setq ibuffer-use-other-window t
-      ibuffer-default-shrink-to-minimum-size nil
-      ibuffer-default-directory "~")
-(global-set-key (kbd "C-x C-b") (lambda () (interactive) (ibuffer t "*Buffer List*")))
+    :init (progn (require 'vc)
+                 (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
+    :commands (ibuffer-vc-set-filter-groups-by-vc-root)
+    :config (defun ibuffer-vc-set-filter-groups-by-vc-root ()
+              "Set the current filter groups to filter by vc root dir."
+              (interactive)
+              (setq ibuffer-filter-groups (ibuffer-vc-generate-filter-groups-by-vc-root))
+              (message "ibuffer-vc: groups set")
+              (let ((ibuf (get-buffer "*Buffer List*")))
+                (when ibuf
+                  (with-current-buffer ibuf
+                    (pop-to-buffer ibuf)
+                    (ibuffer-update nil t))))))
 
 ;; if we call `ibuffer' from itself, then `ibuffer-quit' does not work
 ;; anymore. So just update instead
@@ -71,49 +78,10 @@
   (define-key ibuffer-mode-map (kbd "C-x C-b") 'ibuffer-vc-set-filter-groups-by-vc-root)
   (define-key ibuffer-mode-map (kbd "g") 'ibuffer-vc-set-filter-groups-by-vc-root))
 
-;; Use human readable Size column instead of original one
-(after-load 'ibuffer
-  (define-ibuffer-column size-h (:name "Size" :inline t)
-    (cond ((> (buffer-size) 1000000000) (format "%7.1fG" (/ (buffer-size) 1000000000.0)))
-          ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
-          ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
-          (t (format "%8d" (buffer-size))))))
 
-(setq ibuffer-formats
-      '((mark modified read-only " "
-         (name 42 42 :left :elide)
-         " "
-         (mode 16 16 :left :elide)
-         " "
-         (size-h 9 -1 :right)
-         " "
-         filename-and-process)
-        (mark modified read-only " "
-         (name 42 42 :left :elide)
-         " "
-         (size-h 9 -1 :right)
-         " "
-         filename-and-process)
-        (mark modified read-only vc-status-mini " "
-         (name 20 20 :left :elide)
-         " "
-         (size-h 9 -1 :right)
-         " "
-         (mode 16 16 :left :elide)
-         " "
-         filename-and-process)
-        (mark modified read-only vc-status-mini " "
-         (name 20 20 :left :elide)
-         " "
-         (size-h 9 -1 :right)
-         "  "
-         (vc-status 16 16 :left)
-         " "
-         filename-and-process)
-        (mark modified read-only " "
-         (name 30 -1 :left)
-         " "
-         filename-and-process)))
+;;; make sure point never goes onto prompt of minibuffer
+(setq minibuffer-prompt-properties
+      '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
 
 ;;; some keybindings
 (global-set-key (kbd "S-<return>") 'split-line)
