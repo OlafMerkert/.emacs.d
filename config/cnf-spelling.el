@@ -30,10 +30,10 @@
  (kbd "C-x M-l")
  (defhydra change-dictionary ()
    "change dictionary"
-   ("d" (lambda () (interactive) (ispell-change-dictionary "de_DE")) "deutsch")
-   ("e" (lambda () (interactive) (ispell-change-dictionary "en_GB")) "english")
-   ("f" (lambda () (interactive) (ispell-change-dictionary "fr_FR")) "français")
-   ("i" (lambda () (interactive) (ispell-change-dictionary "it")) "italiano")
+   ("d" (lambdai (ispell-change-dictionary "de_DE")) "deutsch")
+   ("e" (lambdai (ispell-change-dictionary "en_GB")) "english")
+   ("f" (lambdai (ispell-change-dictionary "fr_FR")) "français")
+   ("i" (lambdai (ispell-change-dictionary "it")) "italiano")
    ("q" nil "quit")))
 
 (provide 'cnf-spelling)

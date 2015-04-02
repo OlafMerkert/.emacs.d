@@ -31,7 +31,7 @@
 (define-key my-keys-minor-mode-map (kbd "C-<return>") 'copy-line-to-other-window)
 
 ;; Move more quickly
-(global-set-key (kbd "C-S-f") (lambda () (interactive) (forward-char 5)))
-(global-set-key (kbd "C-S-b") (lambda () (interactive) (backward-char 5)))
+(global-set-key (kbd "C-S-f") (lambdai (forward-char 5)))
+(global-set-key (kbd "C-S-b") (lambdai (backward-char 5)))
 
 (provide 'cnf-bindings)

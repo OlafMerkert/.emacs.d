@@ -38,6 +38,13 @@
 
 (require 'vc)
 
+(use-package ibuffer
+    :init (setq ibuffer-use-other-window t
+                ibuffer-default-shrink-to-minimum-size nil
+                ibuffer-default-directory "~")
+    :commands (ibuffer)
+    :bind ("C-x C-b" . (lambdai (ibuffer t "*Buffer List*"))))
+
 (use-package ibuffer-vc
     :ensure t
     :init (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root)

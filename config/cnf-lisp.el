@@ -57,13 +57,13 @@
 (defhydra slime-start (:color blue)
   "slime"
   ("d" slime-local "default")
-  ("s" (lambda () (interactive) (slime-local 'sbcl)) "sbcl")
+  ("s" (lambdai (slime-local 'sbcl)) "sbcl")
   ("r" slime-sl2z "remote")
-  ("z" (lambda () (interactive)
+  ("z" (lambdai
           (slime-local 'ccl)
           (slime-repl-set-package "OL-USER"))
        "ccl")
-  ("c" (lambda () (interactive) (slime-local 'clisp)) "clisp")
+  ("c" (lambdai (slime-local 'clisp)) "clisp")
   )
 
 (defun slime-selector-or-start ()

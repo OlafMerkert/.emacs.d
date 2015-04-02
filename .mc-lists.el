@@ -41,6 +41,7 @@
         org-return
         org-self-insert-command
         org-todo
+        org-transpose-words
         paredit-backward
         paredit-backward-kill-word
         paredit-backward-slurp-sexp
