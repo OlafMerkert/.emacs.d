@@ -40,8 +40,11 @@
     :init (setq ibuffer-use-other-window t
                 ibuffer-default-shrink-to-minimum-size nil
                 ibuffer-default-directory "~")
+    (defun ibuffer-buffer-list ()
+      (interactive)
+      (ibuffer t "*Buffer List*"))
     :commands (ibuffer)
-    :bind ("C-x C-b" . (lambdai (ibuffer t "*Buffer List*")))
+    :bind ("C-x C-b" . ibuffer-buffer-list)
     :config
     ;; Use human readable Size column instead of original one
     (define-ibuffer-column size-h (:name "Size" :inline t)
@@ -61,16 +64,17 @@
     :init (progn (require 'vc)
                  (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
     :commands (ibuffer-vc-set-filter-groups-by-vc-root)
-    :config (defun ibuffer-vc-set-filter-groups-by-vc-root ()
-              "Set the current filter groups to filter by vc root dir."
-              (interactive)
-              (setq ibuffer-filter-groups (ibuffer-vc-generate-filter-groups-by-vc-root))
-              (message "ibuffer-vc: groups set")
-              (let ((ibuf (get-buffer "*Buffer List*")))
-                (when ibuf
-                  (with-current-buffer ibuf
-                    (pop-to-buffer ibuf)
-                    (ibuffer-update nil t))))))
+    :config
+    (defun ibuffer-vc-set-filter-groups-by-vc-root ()
+      "Set the current filter groups to filter by vc root dir."
+      (interactive)
+      (setq ibuffer-filter-groups (ibuffer-vc-generate-filter-groups-by-vc-root))
+      (message "ibuffer-vc: groups set")
+      (let ((ibuf (get-buffer "*Buffer List*")))
+        (when ibuf
+          (with-current-buffer ibuf
+            (pop-to-buffer ibuf)
+            (ibuffer-update nil t))))))
 
 ;; if we call `ibuffer' from itself, then `ibuffer-quit' does not work
 ;; anymore. So just update instead
