@@ -30,10 +30,28 @@
  (kbd "C-x M-l")
  (defhydra change-dictionary ()
    "change dictionary"
-   ("d" (lambdai (ispell-change-dictionary "de_DE")) "deutsch")
-   ("e" (lambdai (ispell-change-dictionary "en_GB")) "english")
-   ("f" (lambdai (ispell-change-dictionary "fr_FR")) "français")
-   ("i" (lambdai (ispell-change-dictionary "it")) "italiano")
+   ("d" (ispell-change-dictionary "de_DE") "deutsch")
+   ("e" (ispell-change-dictionary "en_GB") "english")
+   ("f" (ispell-change-dictionary "fr_FR") "français")
+   ("i" (ispell-change-dictionary "it") "italiano")
    ("q" nil "quit")))
+
+(defhydra change-input-method ()
+  "select input method"
+   ("d" (activate-input-method (match-input-method-dictionary "de_DE")) "deutsch")
+   ("e" (activate-input-method (match-input-method-dictionary "en_GB")) "english")
+   ("f" (activate-input-method (match-input-method-dictionary "fr_FR")) "français")
+   ("i" (activate-input-method (match-input-method-dictionary "it")) "italiano")
+   ("q" nil "quit"))
+
+(defun my-toggle-input-method (&optional arg)
+  (interactive "P")
+  (if (and current-input-method (not arg))
+      (deactivate-input-method)
+      (if (or arg (not default-input-method))
+          (change-input-method/body)
+          (activate-input-method default-input-method))))
+
+(global-set-key (kbd "C-\\") 'my-toggle-input-method)
 
 (provide 'cnf-spelling)
