@@ -69,4 +69,22 @@ TeX."
    ("u" toggle-browser "use w3m")
    ("q" nil "quit")))
 
+;;; a variant of `query-replace' which takes current region as
+;;; reference, then asks for replacement and replaces to end of buffer
+(defun region-query-replace (backward)
+  (interactive "P")
+  (barf-if-buffer-read-only)
+  (when mark-active
+    (let* ((from (buffer-substring-no-properties (region-beginning) (region-end)))
+           (to (query-replace-read-to from (concat "Query replace"
+                                                   (if backward " backward" ""))
+                                      nil)))
+      (deactivate-mark)
+      (query-replace from to nil
+                     (if (not backward) (region-beginning) (point-min))
+                     (if backward (region-end) (point-max))
+                     backward))))
+
+(global-set-key (kbd "C-%") 'region-query-replace)
+
 (provide 'cnf-editing)
