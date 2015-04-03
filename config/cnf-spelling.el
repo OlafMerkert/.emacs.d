@@ -28,7 +28,7 @@
 
 (global-set-key
  (kbd "C-x M-l")
- (defhydra change-dictionary ()
+ (defhydra change-dictionary (:color blue)
    "change dictionary"
    ("d" (ispell-change-dictionary "de_DE") "deutsch")
    ("e" (ispell-change-dictionary "en_GB") "english")
@@ -36,7 +36,7 @@
    ("i" (ispell-change-dictionary "it") "italiano")
    ("q" nil "quit")))
 
-(defhydra change-input-method ()
+(defhydra change-input-method (:color blue)
   "select input method"
    ("d" (activate-input-method (match-input-method-dictionary "de_DE")) "deutsch")
    ("e" (activate-input-method (match-input-method-dictionary "en_GB")) "english")
