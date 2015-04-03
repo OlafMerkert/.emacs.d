@@ -186,6 +186,8 @@
       (forward-sexp)
       (pp-macroexpand-last-sexp arg))))
 
+(define-key emacs-lisp-mode-map (kbd "C-c C-t") 'trace-function)
+
 (dolist (mode-map (list lisp-mode-map
                         emacs-lisp-mode-map))
   (define-key mode-map       (kbd "C-2")   'multiply-last-sexp-2)
