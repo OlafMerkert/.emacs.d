@@ -34,10 +34,8 @@
 (defun slime-sl2z ()
   (interactive)
   ;; setup translators
-  (let* ((prefix "/ssh:olaf@sl2z.de:")
-         (len (length prefix)))
-    (setq slime-to-lisp-filename-function   (lambda (file-name) (subseq file-name len))
-          slime-from-lisp-filename-function (lambda (file-name) (concat prefix file-name))))
+  (setq slime-to-lisp-filename-function   (lambda (file-name) (subseq file-name 18))
+        slime-from-lisp-filename-function (lambda (file-name) (concat "/ssh:olaf@sl2z.de:" file-name)))
   ;; connect to slime on server
   (slime-connect "127.0.0.1" 4005))
 
