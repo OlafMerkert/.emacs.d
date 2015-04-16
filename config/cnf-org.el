@@ -181,8 +181,12 @@
 
 ;; instruct org to open certain files always with external
 ;; applications
+(setq my-video-viewer "vlc %s")
+
 (add-to-list 'org-file-apps '("nb" . "mathematica -sl %s") t)
 (add-to-list 'org-file-apps '("pdf" . "evince %s"))
+(add-to-list 'org-file-apps `("mp4" . ,my-video-viewer))
+(add-to-list 'org-file-apps `("avi" . ,my-video-viewer))
 
 ;; open html exports in browser instead of Emacs (we want to look at
 ;; them, not edit them.
