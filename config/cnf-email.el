@@ -248,7 +248,8 @@
   (define-key gnus-summary-mode-map (kbd "v") 'gnus-summary-show-only-summary)
   (define-key gnus-summary-mode-map (kbd "o") 'gwene-summary-open-full)
   (define-key gnus-summary-mode-map (kbd "r") 'gnus-summary-wide-reply)
-  (define-key gnus-summary-mode-map (kbd "R") 'gnus-summary-wide-reply-with-original))
+  (define-key gnus-summary-mode-map (kbd "R") 'gnus-summary-wide-reply-with-original)
+  (define-key gnus-summary-mode-map (kbd "u") 'gnus-summary-put-mark-as-unread))
 
 (after-load 'gnus-art
   (define-key gnus-article-mode-map (kbd "v") 'gnus-article-show-only-summary)
