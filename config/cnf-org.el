@@ -57,7 +57,8 @@
 
 ;;; configure org capture
 (let ((my-todo-template "* TODO %?%i\n  %a")
-      (my-simple-todo-template "* TODO %?"))
+      (my-simple-todo-template "* TODO %?")
+      (my-note-template "* %?%i\n  %a"))
   (setq  org-capture-templates
          `(("t" "Todo" entry
                 (file+headline "" "Tasks")
@@ -65,6 +66,9 @@
            ("T" "Todo (noref)" entry
                 (file+headline "" "Tasks")
                 ,my-simple-todo-template)
+           ("n" "Note" entry
+                (file+headline "" "Notes")
+                ,my-note-template)
            ("s" "SNS Todo" entry
                 (file+headline ,(org-path "sns") "Tasks")
                 ,my-todo-template)
