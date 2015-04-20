@@ -307,4 +307,17 @@ addresses with that alias to the recipient list."
 (global-set-key (kbd "C-c g") nil)
 (define-key message-mode-map (kbd "C-c g") 'message-insert-group)
 
+;; make `mml-attach-file' ask fewer questions
+(defun mail-attach-file/automatic (file &optional inline)
+  (interactive
+   (list (mml-minibuffer-read-file "Attach file: ")
+         current-prefix-arg))
+  (let* ((type (or (mm-default-file-encoding file)
+                   "application/octet-stream"))
+         (description nil)
+         (disposition (if inline "inline" "attachment")))
+    (mml-attach-file file type description disposition)))
+
+(define-key message-mode-map (kbd "C-c C-a") 'mail-attach-file/automatic)
+
 (provide 'cnf-email)
