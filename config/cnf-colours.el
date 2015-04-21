@@ -1,3 +1,7 @@
+;; get rid of white background
+(set-background-color "oldlace")
+(add-to-list 'default-frame-alist '(background-color . "oldlace"))
+
 ;; use more prominent colours for the modeline of the active buffer
 (set-face-attribute 'mode-line
                     nil 
