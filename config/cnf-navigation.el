@@ -86,4 +86,17 @@ horizontal space is available."
 (global-set-key (kbd "C-S-n") 'jump-next-word-occurence)
 (global-set-key (kbd "C-S-p") 'jump-prev-word-occurence)
 
+;; adapted from http://emacs.stackexchange.com/questions/10359/delete-portion-of-isearch-string-that-does-not-match-or-last-char-if-complete-m
+(defun isearch-delete-failed-or-char ()
+  "Delete the failed portion of the search string, or the last char if successful."
+  (interactive)
+  (with-isearch-suspended
+      (setq isearch-new-string
+            (substring
+             isearch-string 0 (or (isearch-fail-pos) (1- (length isearch-string))))
+            isearch-new-message
+            (mapconcat 'isearch-text-char-description isearch-new-string ""))))
+
+(define-key isearch-mode-map (kbd "<backspace>") 'isearch-delete-failed-or-char)
+
 (provide 'cnf-navigation)
