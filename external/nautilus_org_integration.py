@@ -43,6 +43,16 @@ class ColumnExtension(GObject.GObject, Nautilus.MenuProvider):
                        uri_quote(uri),
                        name])])
 
+    def org_send_mail(self, menu, file):
+        name = file.get_name()
+        uri = clean_uri(file.get_uri())
+        subprocess.call(
+            ["/usr/bin/emacsclient",
+             "/".join(["org-protocol:/",
+                       "email:/",
+                       uri_quote(uri),
+                       name])])
+
     def get_file_items(self, window, files):
         if len(files) != 1:
             return
@@ -57,6 +67,12 @@ class ColumnExtension(GObject.GObject, Nautilus.MenuProvider):
             label="Org Store Link ...",
             tip="Store file as org-link"
         )
+        item_email = Nautilus.MenuItem(
+            name="org_email::org_menu",
+            label="Org Email ...",
+            tip="Send file by email"
+        )
         item_capture.connect('activate', self.org_capture, file)
         item_store_link.connect('activate', self.org_store_link, file)
-        return [item_capture, item_store_link]
+        item_email.connect('activate', self.org_send_mail, file)
+        return [item_capture, item_store_link, item_email]

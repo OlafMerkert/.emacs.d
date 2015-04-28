@@ -51,4 +51,32 @@
                :protocol "cpsel"
                :function org-copy-selection))
 
+;; sending urls or files by e-mail
+(defun last1 (list)
+  (car (last list)))
+
+(defun org-protocol-send-email (fname)
+  (let* ((splitparts (org-protocol-split-data fname t org-protocol-data-separator))
+         (uri (org-protocol-sanitize-uri (car splitparts)))
+         (title (cadr splitparts))
+         (local (string= "file:" (substring uri 0 5))))
+    (when local
+      (setf uri (substring uri 5)))
+    ;; generate a title for local files
+    (unless (and title (< 0 (length title)) local)
+      (setf title (last1 (split-string uri "/+"))))
+    (compose-mail "" title)
+    ;; write link or add attachment
+    (save-excursion
+      (end-of-buffer)
+      (insert "\n")
+      (if local
+         (mail-attach-file/automatic uri)
+         (insert uri "\n")))))
+
+(add-to-list 'org-protocol-protocol-alist
+             '("Send link/file by email"
+               :protocol "email"
+               :function org-protocol-send-email))
+
 (provide 'cnf-org-protocol)

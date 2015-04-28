@@ -146,6 +146,7 @@
 (add-hook 'gnus-summary-mode-hook 'adjust-summary-line-format)
 
 ;; todo use gnus for compose-mail
+(setq mail-user-agent 'gnus-user-agent)
 
 ;; enable topic mode
 (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
