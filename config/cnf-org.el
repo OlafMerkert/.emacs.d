@@ -15,7 +15,8 @@
   (define-key org-mode-map (kbd "C-;") 'tex-goto-prev-dollar)
   (define-key org-mode-map (kbd "C-'") 'tex-goto-next-dollar)
   (define-key org-mode-map (kbd "M-;") 'tex-goto-prev-backslash)
-  (define-key org-mode-map (kbd "M-'") 'tex-goto-next-backslash))
+  (define-key org-mode-map (kbd "M-'") 'tex-goto-next-backslash)
+  (define-key org-mode-map (kbd "C-_") 'org-table-insert-hline))
 
 (setq org-deadline-warning-days 5
       org-completion-use-ido t)
