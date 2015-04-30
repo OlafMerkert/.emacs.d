@@ -63,7 +63,7 @@
     (when local
       (setf uri (substring uri 5)))
     ;; generate a title for local files
-    (unless (and title (< 0 (length title)) local)
+    (when (and title (= 0 (length title)) local)
       (setf title (last1 (split-string uri "/+"))))
     (compose-mail "" title)
     ;; write link or add attachment
