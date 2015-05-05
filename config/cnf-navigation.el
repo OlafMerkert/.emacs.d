@@ -93,10 +93,14 @@ horizontal space is available."
   (with-isearch-suspended
       (setq isearch-new-string
             (substring
-             isearch-string 0 (or (isearch-fail-pos) (1- (length isearch-string))))
+             isearch-string 0 (or (isearch-fail-pos) (max 0 (1- (length isearch-string)))))
             isearch-new-message
-            (mapconcat 'isearch-text-char-description isearch-new-string ""))))
+            (mapconcat 'isearch-text-char-description isearch-new-string ""))
+    ;; FIX if the search-string becomes empty, the suspended macro
+    ;; falls back to search history, so it becomes impossible to
+    ;; change the first char.
+   ))
 
-(define-key isearch-mode-map (kbd "<backspace>") 'isearch-delete-failed-or-char)
+;; (define-key isearch-mode-map (kbd "<backspace>") 'isearch-delete-char)
 
 (provide 'cnf-navigation)

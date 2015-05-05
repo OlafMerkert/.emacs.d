@@ -69,7 +69,7 @@
     ;; write link or add attachment
     (save-excursion
       (end-of-buffer)
-      (insert "\n")
+      ;; (insert "\n")
       (if local
          (mail-attach-file/automatic uri)
          (insert uri "\n")))))
