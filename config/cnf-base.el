@@ -18,6 +18,12 @@
 (use-package starter-kit-bindings :ensure t)
 ;; disable hl-line-mode
 (remove-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
+;; remove filename completion
+(after-load 'hippie-exp
+  (dolist (f '(try-complete-file-name-partially
+               try-complete-file-name))
+    (setq hippie-expand-try-functions-list
+          (delete f hippie-expand-try-functions-list))))
 
 (column-number-mode t) ; show line and column in modeline
 (setq initial-scratch-message    nil
