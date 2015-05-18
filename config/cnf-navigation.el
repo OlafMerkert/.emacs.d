@@ -103,4 +103,7 @@ horizontal space is available."
 
 ;; (define-key isearch-mode-map (kbd "<backspace>") 'isearch-delete-char)
 
+;; make M-v go precisely where we started from with C-v
+(setq scroll-preserve-screen-position 'always)
+
 (provide 'cnf-navigation)
