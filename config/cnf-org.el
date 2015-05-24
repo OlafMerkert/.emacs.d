@@ -219,6 +219,10 @@
       (goto-char begin)
       (insert "\\text{ "))))
 
+(defun my-org-export ()
+  (interactive)
+  (org-export-dispatch 4))
+
 (global-set-key
  (kbd "<f11>")
  (defhydra org-actions (:color blue)
@@ -233,7 +237,8 @@
    ("n" name-to-bbdb-link "name-link")
    ("b" bbdb "bbdb")
    ("s" sync-personal-information "sync")
-   ("A" org-agenda "agenda menu")))
+   ("A" org-agenda "agenda menu")
+   ("e" my-org-export "export")))
 
 ;; configure latex preview
 (setq org-latex-create-formula-image-program 'dvipng)
