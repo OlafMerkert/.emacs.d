@@ -52,16 +52,26 @@
 ;;           (lambda () (slime-repl-set-package "OL-USER"))
 ;;           t)
 
+(defun slime-sbcl ()
+  (interactive)
+  (slime-local 'sbcl))
+
+(defun slime-ccl ()
+  (interactive)
+  (slime-local 'ccl)
+  (slime-repl-set-package "OL-USER"))
+
+(defun slime-clisp ()
+  (interactive)
+  (slime-local 'clisp))
+
 (defhydra slime-start (:color blue)
   "slime"
   ("d" slime-local "default")
-  ("s" (lambdai (slime-local 'sbcl)) "sbcl")
+  ("s" (slime-sbcl) "sbcl")
   ("r" slime-sl2z "remote")
-  ("z" (lambdai
-          (slime-local 'ccl)
-          (slime-repl-set-package "OL-USER"))
-       "ccl")
-  ("c" (lambdai (slime-local 'clisp)) "clisp")
+  ("z" (slime-ccl) "ccl")
+  ("c" (slime-clisp) "clisp")
   )
 
 (defun slime-selector-or-start ()
