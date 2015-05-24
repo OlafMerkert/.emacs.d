@@ -42,7 +42,7 @@
 
 (add-hook 'after-change-major-mode-hook 'clean-local-keybindings-hook)
 
-(defmacro lambdai ( &rest body)
+(defmacro lambdai (&rest body)
   `(lambda () (interactive) ,@body))
 
 (provide 'cnf-utils)
