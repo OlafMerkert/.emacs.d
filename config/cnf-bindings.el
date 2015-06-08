@@ -34,4 +34,8 @@
 (global-set-key (kbd "C-S-f") (lambdai (forward-char 5)))
 (global-set-key (kbd "C-S-b") (lambdai (backward-char 5)))
 
+(global-set-key (kbd "M-=") 'count-words)
+
+(global-set-key (kbd "C-x M-f") 'find-file-in-project)
+
 (provide 'cnf-bindings)
