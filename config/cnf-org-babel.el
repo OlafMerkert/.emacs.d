@@ -5,11 +5,13 @@
  'org-babel-load-languages
  '((emacs-lisp . t)
    (lisp . t)
-   (python . t)))
+   (python . t)
+   (sh . t)))
 
 (defun babel-language-p (language)
-  (find language org-babel-load-languages :test 'string-equal
-        :key (lambda (x) (symbol-name (car x)))))
+  (and (not (string-equal language "sh"))
+       (find language org-babel-load-languages :test 'string-equal
+             :key (lambda (x) (symbol-name (car x))))))
 
 (setq org-confirm-babel-evaluate
       (lambda (language body) (not (babel-language-p language)))
@@ -32,5 +34,6 @@
 ;; note that this also removes blank lines in strings, where they could
 ;; be wanted. But for now, it is a decent workaround.
 
+(setf org-babel-sh-command "sh")
 
 (provide 'cnf-org-babel)
