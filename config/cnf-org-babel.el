@@ -36,4 +36,13 @@
 
 (setf org-babel-sh-command "sh")
 
+;; evaluating source blocks from org-src mode
+(defun org-edit-src-evaluate-code-block ()
+  (interactive)
+  (org-src-in-org-buffer
+   (org-babel-execute-maybe)))
+
+(define-key org-src-mode-map (kbd "C-c C-c") 'org-edit-src-evaluate-code-block)
+
+
 (provide 'cnf-org-babel)
