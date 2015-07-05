@@ -50,6 +50,7 @@
         paredit-doublequote
         paredit-forward
         paredit-forward-delete
+        paredit-forward-down
         paredit-forward-kill-word
         paredit-forward-slurp-sexp
         paredit-forward-up
@@ -65,6 +66,8 @@
         transpose-sexps
         transpose-words
         wdired-downcase-word
+        whole-line-or-region-kill-ring-save
+        whole-line-or-region-yank
         yas-expand
         ))
 
