@@ -78,4 +78,18 @@
       org-ref-default-bibliography reftex-default-bibliography
       org-ref-pdf-directory "~/.cache/bibtex-manager/links/")
 
+;; highlighting of source blocks in LaTeX with listings
+(add-to-list 'org-latex-packages-alist '("" "listings"))
+(add-to-list 'org-latex-packages-alist '("" "olbase"))
+
+(setq org-latex-listings t) ; maybe enable only per file?
+(setq org-latex-listings-options '(("basicstyle" "\\ttfamily\\color{almost-black}")
+                                   ("keywordstyle" "\\bfseries\\color{black}")
+                                   ("identifierstyle" "")
+                                   ("commentstyle" "\\color{gray}")
+                                   ("stringstyle" "")
+                                   ("breaklines" "true")
+                                   ("columns" "fullflexible")
+                                   ("frame" "single")))
+
 (provide 'cnf-org-export)
