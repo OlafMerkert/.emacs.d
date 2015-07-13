@@ -98,4 +98,11 @@
 (global-set-key (kbd "C-x M-o")    'other-frame)
 (global-set-key (kbd "C-x c")      'comment-dwim)
 
+;; removing all output from comint buffers
+(defun comint-flush-buffer ()
+  "Clear the current comint-buffer."
+  (interactive)
+  (let ((comint-buffer-maximum-size 0))
+    (comint-truncate-buffer )))
+
 (provide 'cnf-base)
