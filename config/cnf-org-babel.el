@@ -44,5 +44,14 @@
 
 (define-key org-src-mode-map (kbd "C-c C-c") 'org-edit-src-evaluate-code-block)
 
+;; removing superfluous prompts in output
+(defun strip-python-shell-prompt (string)
+  (let ((regexp (concat "^\\(" python-shell-prompt-regexp "\\|"
+                        python-shell-prompt-block-regexp "\\)*")))
+    (if (string-match regexp string)
+        (substring string (match-end 0))
+        string)))
+
+(advice-add 'org-babel-trim :filter-return 'strip-python-shell-prompt)
 
 (provide 'cnf-org-babel)
