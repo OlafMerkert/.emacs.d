@@ -42,6 +42,7 @@
         org-self-insert-command
         org-todo
         org-transpose-words
+        org-yank
         paredit-backward
         paredit-backward-kill-word
         paredit-backward-slurp-sexp
@@ -78,6 +79,7 @@
         iedit-mode
         isearch-delete-char
         isearch-other-control-char
+        org-ctrl-c-ctrl-c
         slime-compile-defun
         slime-selector-or-start
         ))
