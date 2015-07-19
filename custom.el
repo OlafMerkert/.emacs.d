@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    (quote
-    ("~/Perfezionamento/thesis/continued-fractions-computations.sage.org" "~/Personal/bookmarks.org" "~/Personal/spiele.org" "~/Personal/sns.org" "~/Personal/notizen.org" "~/Personal/privat.org" "~/Perfezionamento/thesis/phd-thesis.en.org")))
+    ("~/SelbstStudium/Grundlagen der Technischen Informatik/grundlagen-ti.org" "~/Perfezionamento/projects/giochi-poncelet/poncelet-weierstrass-section.sage.org" "~/Perfezionamento/thesis/continued-fractions-computations.sage.org" "~/Personal/bookmarks.org" "~/Personal/spiele.org" "~/Personal/sns.org" "~/Personal/notizen.org" "~/Personal/privat.org" "~/Perfezionamento/thesis/phd-thesis.en.org")))
  '(safe-local-variable-values
    (quote
     ((org-startup-with-beamer-mode . t)
