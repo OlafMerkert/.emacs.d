@@ -105,4 +105,6 @@
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer )))
 
+(define-key comint-mode-map (kbd "C-c M-o") 'comint-flush-buffer)
+
 (provide 'cnf-base)
