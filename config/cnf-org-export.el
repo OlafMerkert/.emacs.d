@@ -92,4 +92,28 @@
                                    ("columns" "fullflexible")
                                    ("frame" "single")))
 
+;; fix export of heading references with spaces
+(defun hex-char-p (c)
+  (cond ((<= ?0 c ?9) (- c ?0))
+        ((<= ?A c ?E) (+ (- c ?A) 10))))
+
+(defun url-decode-string (string)
+  (let ((p (position ?% string)))
+    (cond ((or (not p) (< (length string) 3)) string)
+          ((and (hex-char-p (aref string (+ p 1)))
+                (hex-char-p (aref string (+ p 2))))
+           (concat (substring string 0 p)
+                   (char-to-string (+ (* 16 (hex-char-p (aref string (+ p 1))))
+                                      (hex-char-p (aref string (+ p 2)))))
+                   (url-decode-string (substring string (+ p 3)))))
+          (t (concat (substring string 0 (+ p 1))
+                     (url-decode-string (substring string (+ p 1))))))))
+
+(defun org-export-resolve-fuzzy-link--decode (next link info)
+  (let ((raw-path (org-element-property :path link)))
+    (org-element-put-property link :path (url-decode-string raw-path))
+    (funcall next link info)))
+
+(advice-add 'org-export-resolve-fuzzy-link :around 'org-export-resolve-fuzzy-link--decode)
+
 (provide 'cnf-org-export)
