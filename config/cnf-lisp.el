@@ -1,18 +1,50 @@
+
+;; enable some hooks
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
+(add-hook 'emacs-lisp-mode-hook 'esk-remove-elc-on-save)
+
+(defun esk-remove-elc-on-save ()
+    "If you're saving an elisp file, likely the .elc is no longer valid."
+    (make-local-variable 'after-save-hook)
+    (add-hook 'after-save-hook
+              (lambda ()
+                (if (file-exists-p (concat buffer-file-name "c"))
+                    (delete-file (concat buffer-file-name "c"))))))
+
+;; turn everything for prog-mode on as well
+(defun esk-prog-mode-hook ()
+  (run-hooks 'prog-mode-hook))
+
+(add-hook 'emacs-lisp-mode-hook 'esk-prog-mode-hook)
+
+(define-key read-expression-map (kbd "TAB") 'lisp-complete-symbol)
+(define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
+
+
 (defun insert-provide ()
   (interactive)
   (save-excursion
     (goto-char (point-max))
     (insert "(provide '" (file-name-base (buffer-file-name)) ")\n")))
 
-;; pretty lambda
+;; pretty lambda and function
 (defun esk-pretty-lambdas ()
   (font-lock-add-keywords
    nil `(("(?\\(lambda\\>\\)"
           (0 (progn (compose-region (match-beginning 1) (match-end 1)
                                     ,(make-char 'greek-iso8859-7 107))
                     nil))))))
-
 (add-hook 'prog-mode-hook 'esk-pretty-lambdas)
+
+(defun esk-pretty-fn ()
+    (font-lock-add-keywords nil `(("(\\(\\<fn\\>\\)"
+                                   (0 (progn (compose-region (match-beginning 1)
+                                                             (match-end 1)
+                                                             "\u0192"
+                                                             'decompose-region)))))))
+(add-hook 'clojure-mode-hook 'esk-pretty-fn)
+(add-hook 'clojurescript-mode-hook 'esk-pretty-fn)
 
 ;; get slime from quicklisp
 (defvar ql-slime-helper "~/.quicklisp/slime-helper.el")

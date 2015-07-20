@@ -23,4 +23,20 @@
                     nil
                     :weight 'normal)
 
+;; highlighting of parenthesis in a subdued colour
+(defface esk-paren-face
+    '((((class color) (background dark))
+       (:foreground "grey50"))
+      (((class color) (background light))
+       (:foreground "grey55")))
+    "Face used to dim parentheses."
+    :group 'starter-kit-faces)
+
+(dolist (mode '(scheme emacs-lisp lisp clojure clojurescript))
+    (when (> (display-color-cells) 8)
+      (font-lock-add-keywords (intern (concat (symbol-name mode) "-mode"))
+                              '(("(\\|)" . 'esk-paren-face))))
+    (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
+              'paredit-mode))
+
 (provide 'cnf-colours)
