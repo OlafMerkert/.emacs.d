@@ -10,9 +10,6 @@
 (use-package dash :ensure t)
 (use-package fullframe :ensure t)
 
-;; TODO replace starter-kit with own customisations
-;; (use-package starter-kit-bindings :ensure t)
-
 ;; disable hl-line-mode
 (remove-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
 ;; remove filename completion

@@ -35,7 +35,9 @@ horizontal space is available."
  (defhydra window-manager ()
    "window"
    ("b" ido-switch-buffer "sw buf")
+   ("B" ido-switch-buffer-other-window)
    ("f" ido-find-file "open file")
+   ("F" ido-find-file-other-window)
    ("h" windmove-left "<")
    ("j" windmove-down "\/")
    ("k" windmove-up "^")
@@ -48,7 +50,8 @@ horizontal space is available."
    ("1" delete-other-windows "del other")
    ("2" split-window-vertically "split vert")
    ("3" split-window-horizontally "split horiz")
-   ("=" balance-windows "balance")))
+   ("=" balance-windows "balance")
+   ("y" bury-buffer "bury")))
 
 ;;; if we want to show the same buffer left and right, call these
 (defun same-buffers (&optional arg)
@@ -103,6 +106,12 @@ horizontal space is available."
    ))
 
 ;; (define-key isearch-mode-map (kbd "<backspace>") 'isearch-delete-char)
+
+;; Activate occur easily inside isearch
+(define-key isearch-mode-map (kbd "C-o")
+  (lambda () (interactive)
+     (let ((case-fold-search isearch-case-fold-search))
+       (occur (if isearch-regexp isearch-string (regexp-quote isearch-string))))))
 
 ;; make M-v go precisely where we started from with C-v
 (setq scroll-preserve-screen-position 'always)

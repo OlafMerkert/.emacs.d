@@ -1,3 +1,19 @@
+;; Use regex searches by default.
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "M-%") 'query-replace-regexp)
+(global-set-key (kbd "C-M-s") 'isearch-forward)
+(global-set-key (kbd "C-M-r") 'isearch-backward)
+(global-set-key (kbd "C-M-%") 'query-replace)
+
+(global-set-key (kbd "M-/") 'hippie-expand)
+
+(global-set-key (kbd "C-x C-r") 'revert-buffer)
+
+(global-set-key (kbd "C-x C-i") 'imenu)
+(global-set-key (kbd "C-x m") 'eshell)
+(global-set-key (kbd "C-x M") 'shell)
+
 ;; rebound movement keys
 (defvar my-keys-minor-mode-map (make-sparse-keymap)
   "Personal customisation of keybindings.")
@@ -31,13 +47,15 @@
 (define-key my-keys-minor-mode-map (kbd "C-<return>") 'copy-line-to-other-window)
 
 ;; Move more quickly
-(global-set-key (kbd "C-S-f") (lambdai (forward-char 5)))
-(global-set-key (kbd "C-S-b") (lambdai (backward-char 5)))
+;; (global-set-key (kbd "C-S-f") (lambdai (forward-char 5)))
+;; (global-set-key (kbd "C-S-b") (lambdai (backward-char 5)))
 
 (global-set-key (kbd "M-=") 'count-words)
 
 (global-set-key (kbd "C-x M-f") 'find-file-in-project)
 
 (global-set-key (kbd "C-x TAB") 'indent-rigidly)
+
+(define-key 'help-command "a" 'apropos) ; don't just search for commands
 
 (provide 'cnf-bindings)
