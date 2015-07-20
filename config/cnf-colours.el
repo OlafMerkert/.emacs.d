@@ -19,4 +19,8 @@
                     nil
                     :background "azure2")
 
+(set-face-attribute 'magit-diff-file-heading
+                    nil
+                    :weight 'normal)
+
 (provide 'cnf-colours)
