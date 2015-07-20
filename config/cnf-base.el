@@ -11,7 +11,6 @@
 (use-package fullframe :ensure t)
 
 ;; TODO replace starter-kit with own customisations
-;; (use-package starter-kit-eshell :ensure t)
 ;; (use-package starter-kit-js :ensure t)
 ;; (use-package starter-kit-bindings :ensure t)
 

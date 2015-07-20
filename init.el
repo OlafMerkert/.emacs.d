@@ -36,6 +36,7 @@
 
 ;; smaller apps
 (require 'cnf-browse)
+(require 'cnf-eshell)
 
 ;; org and email
 (require 'cnf-email)
