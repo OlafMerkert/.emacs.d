@@ -1,3 +1,4 @@
+
 (use-package ace-jump-mode
     :ensure t
     :bind ("C-j" . ace-jump-mode))
@@ -105,5 +106,17 @@ horizontal space is available."
 
 ;; make M-v go precisely where we started from with C-v
 (setq scroll-preserve-screen-position 'always)
+
+;; record position in files
+(defun esk-turn-on-save-place-mode ()
+  (require 'saveplace)
+  (setq save-place t))
+
+(add-hook 'prog-mode-hook 'esk-turn-on-save-place-mode)
+
+;; find files at point
+(require 'ffap)
+(defvar ffap-c-commment-regexp "^/\\*+"
+  "Matches an opening C-style comment, like \"/***\".")
 
 (provide 'cnf-navigation)

@@ -11,6 +11,7 @@
 (require 'cnf-utils)
 ;; (require 'cnf-functions)
 (require 'cnf-package)
+(require 'cnf-base-settings)
 
 (require 'cnf-environment)
 (require 'cnf-personal)

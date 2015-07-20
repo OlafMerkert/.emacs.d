@@ -4,6 +4,16 @@
     (goto-char (point-max))
     (insert "(provide '" (file-name-base (buffer-file-name)) ")\n")))
 
+;; pretty lambda
+(defun esk-pretty-lambdas ()
+  (font-lock-add-keywords
+   nil `(("(?\\(lambda\\>\\)"
+          (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                    ,(make-char 'greek-iso8859-7 107))
+                    nil))))))
+
+(add-hook 'prog-mode-hook 'esk-pretty-lambdas)
+
 ;; get slime from quicklisp
 (defvar ql-slime-helper "~/.quicklisp/slime-helper.el")
 

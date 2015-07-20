@@ -11,16 +11,18 @@
 (use-package fullframe :ensure t)
 
 ;; TODO replace starter-kit with own customisations
-(use-package starter-kit :ensure t)
-(use-package starter-kit-lisp :ensure t)
-(use-package starter-kit-eshell :ensure t)
-(use-package starter-kit-js :ensure t)
-(use-package starter-kit-bindings :ensure t)
+;; (use-package starter-kit-lisp :ensure t)
+;; (use-package starter-kit-eshell :ensure t)
+;; (use-package starter-kit-js :ensure t)
+;; (use-package starter-kit-bindings :ensure t)
+
 ;; disable hl-line-mode
 (remove-hook 'prog-mode-hook 'esk-turn-on-hl-line-mode)
 ;; remove filename completion
 (after-load 'hippie-exp
-  (dolist (f '(try-complete-file-name-partially
+  (dolist (f '(try-expand-line
+               try-expand-list
+               try-complete-file-name-partially
                try-complete-file-name))
     (setq hippie-expand-try-functions-list
           (delete f hippie-expand-try-functions-list))))
@@ -29,10 +31,25 @@
 (setq initial-scratch-message    nil
       woman-use-own-frame        nil
       make-backup-files          nil
-      ps-print-color-p           'black-white
-      uniquify-buffer-name-style 'post-forward)
+      ps-print-color-p           'black-white)
 
-(use-package ido :ensure t)
+;; present files with same names in a nice way
+(require 'uniquify)
+(setq uniquify-buffer-name-style) 'post-forward
+
+(use-package ido
+    :ensure t
+    :config (setq ido-enable-prefix nil
+                  ido-enable-flex-matching t
+                  ido-auto-merge-work-directories-length nil
+                  ido-create-new-buffer 'always
+                  ido-use-filename-at-point 'guess
+                  ido-use-virtual-buffers t)
+    :init (ido-mode t))
+
+(use-package ido-ubiquitous
+    :ensure t
+    :init (ido-ubiquitous-mode))
 
 (use-package ido-vertical-mode
     :ensure t

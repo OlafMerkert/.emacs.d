@@ -3,8 +3,6 @@
 
 (setq-default ispell-dictionary "de_DE")
 
-(remove-hook 'text-mode-hook 'turn-on-flyspell)
-
 ;; use english in commit messages
 (defun use-english-dictionary ()
   (interactive)
