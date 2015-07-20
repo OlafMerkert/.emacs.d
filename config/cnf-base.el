@@ -66,28 +66,18 @@
             (mark modified read-only vc-status-mini " " (name 20 20 :left :elide) " " (size-h 9 -1 :right) "  " (vc-status 16 16 :left) " " filename-and-process)
             (mark modified read-only " " (name 30 -1 :left) " " filename-and-process))))
 
-(use-package ibuffer-vc
-    :init (progn (require 'vc)
-                 (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
-    :commands (ibuffer-vc-set-filter-groups-by-vc-root)
-    :config
-    (defun ibuffer-vc-set-filter-groups-by-vc-root ()
-      "Set the current filter groups to filter by vc root dir."
-      (interactive)
-      (setq ibuffer-filter-groups (ibuffer-vc-generate-filter-groups-by-vc-root))
-      (message "ibuffer-vc: groups set")
-      (let ((ibuf (get-buffer "*Buffer List*")))
-        (when ibuf
-          (with-current-buffer ibuf
-            (pop-to-buffer ibuf)
-            (ibuffer-update nil t))))))
-
 ;; if we call `ibuffer' from itself, then `ibuffer-quit' does not work
 ;; anymore. So just update instead
 (after-load 'ibuffer
-  (define-key ibuffer-mode-map (kbd "C-x C-b") 'ibuffer-vc-set-filter-groups-by-vc-root)
-  (define-key ibuffer-mode-map (kbd "g") 'ibuffer-vc-set-filter-groups-by-vc-root))
+  (define-key ibuffer-mode-map (kbd "C-x C-b") 'ibuffer-update)
+  (define-key ibuffer-mode-map (kbd "g") 'ibuffer-update))
 
+;; make sure *scratch* returns nil under `ibuffer-vc-root'
+;; (defun ibuffer-vc-root--exclude-scratch (next buf)
+;;   (unless (string= "*scratch*" (buffer-name buf))
+;;     (funcall next buf)))
+
+;; (advice-add 'ibuffer-vc-root :around 'ibuffer-vc-root--exclude-scratch)
 
 ;;; make sure point never goes onto prompt of minibuffer
 (setq minibuffer-prompt-properties
