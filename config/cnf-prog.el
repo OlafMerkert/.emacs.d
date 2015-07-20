@@ -9,6 +9,17 @@
     :commands js2-minor-mode
     :init (add-hook 'js-mode-hook 'js2-minor-mode))
 
+(setq js-indent 4)
+
+(defun esk-pretty-function ()
+  (font-lock-add-keywords nil `(("(\\(function *\\)"
+                                 (0 (progn (compose-region (match-beginning 1)
+                                                           (match-end 1)
+                                                           "\u0192"
+                                                           'decompose-region)))))))
+
+(add-hook 'js-mode 'esk-pretty-function)
+
 (use-package lua-mode :ensure t :commands lua-mode)
 
 (after-load 'c-mode
