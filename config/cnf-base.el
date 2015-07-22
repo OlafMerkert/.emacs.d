@@ -106,6 +106,8 @@
     (interactive)
     (let ((comint-buffer-maximum-size 0))
       (comint-truncate-buffer )))
-  (define-key comint-mode-map (kbd "C-c M-o") 'comint-flush-buffer))
+  (define-key comint-mode-map (kbd "C-c M-o") 'comint-flush-buffer)
+
+  (add-to-list 'comint-output-filter-functions 'comint-watch-for-password-prompt))
 
 (provide 'cnf-base)
