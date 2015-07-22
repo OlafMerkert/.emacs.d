@@ -46,6 +46,7 @@
 (require 'cnf-org-protocol)
 
 ;; final tweaks
+(require 'cnf-bindings)
 (require 'cnf-colours)
 (require 'cnf-session)
 

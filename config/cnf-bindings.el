@@ -19,7 +19,7 @@
   "Personal customisation of keybindings.")
 (define-minor-mode my-keys-minor-mode
     "A minor mode with adjusted keybindings."
-  t " K" 'my-keys-minor-mode-map)
+  nil " K" 'my-keys-minor-mode-map)
 
 ;; disable in minibuffer
 (add-hook 'minibuffer-setup-hook
@@ -42,9 +42,9 @@
                         ((not prec-b) t)
                         (t (> prec-a prec-b))))))))
 
-(advice-add 'load :after 'load--give-my-keybindings-priority)
+;;(advice-add 'load :after 'load--give-my-keybindings-priority)
 
-(define-key my-keys-minor-mode-map (kbd "C-<return>") 'copy-line-to-other-window)
+;; (define-key my-keys-minor-mode-map (kbd "C-<return>") 'copy-line-to-other-window)
 
 ;; Move more quickly
 ;; (global-set-key (kbd "C-S-f") (lambdai (forward-char 5)))
