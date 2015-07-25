@@ -53,8 +53,8 @@
                                 " at "
                                 (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))))
         (message "Commited changes to personal data.")))
-    (magit-pull)
-    (unless pull-only (magit-push))))
+    (magit-pull "origin" "master")
+    (unless pull-only (magit-push "master" "origin"))))
 
 ;;; configure org capture
 (let ((my-todo-template "* TODO %?%i\n  %a")
