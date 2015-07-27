@@ -52,4 +52,14 @@
 
 (global-set-key (kbd "C-\\") 'my-toggle-input-method)
 
+;; enable flyspell for various modes, and program default languages
+(dolist (mode-hook '(message-mode-hook git-commit-mode-hook))
+  (add-hook mode-hook 'flyspell-mode))
+
+(defun use-en-dictionary ()
+  (ispell-change-dictionary "en_GB"))
+
+(dolist (mode-hook '(git-commit-mode-hook))
+  (add-hook mode-hook 'use-en-dictionary))
+
 (provide 'cnf-spelling)
