@@ -11,8 +11,7 @@
     :init
     (progn
       (require 'vc)
-      (define-key ibuffer-mode-map (kbd "C-x C-b") 'ibuffer-vc-set-filter-groups-by-vc-root)
-      (define-key ibuffer-mode-map (kbd "g") 'ibuffer-vc-set-filter-groups-by-vc-root))
+      (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root))
     :commands (ibuffer-vc-set-filter-groups-by-vc-root)
     :config
     (progn
@@ -26,6 +25,7 @@
             (with-current-buffer ibuf
               (pop-to-buffer ibuf)
               (ibuffer-update nil t)))))
-      (add-hook 'ibuffer-hook 'ibuffer-vc-set-filter-groups-by-vc-root)))
+      (define-key ibuffer-mode-map (kbd "C-x C-b") 'ibuffer-vc-set-filter-groups-by-vc-root)
+      (define-key ibuffer-mode-map (kbd "g") 'ibuffer-vc-set-filter-groups-by-vc-root)))
 
 (provide 'cnf-vc)
