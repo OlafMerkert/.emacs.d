@@ -1,7 +1,9 @@
+(use-package elisp-slime-nav
+    :ensure t
+    :init (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode))
 
 ;; enable some hooks
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-(add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
 (add-hook 'emacs-lisp-mode-hook 'esk-remove-elc-on-save)
 
 (defun esk-remove-elc-on-save ()

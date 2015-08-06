@@ -128,4 +128,6 @@ horizontal space is available."
 (defvar ffap-c-commment-regexp "^/\\*+"
   "Matches an opening C-style comment, like \"/***\".")
 
+(use-package find-file-in-project :ensure t)
+
 (provide 'cnf-navigation)

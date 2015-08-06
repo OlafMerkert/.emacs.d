@@ -14,9 +14,12 @@
   )
 
 ;; smarter M-x
-(setq smex-save-file (concat user-emacs-directory ".smex-items"))
-(smex-initialize)
-(global-set-key (kbd "M-x") 'smex)
+(use-package smex
+    :ensure t
+    :config (progn
+              (setq smex-save-file (concat user-emacs-directory ".smex-items"))
+              (smex-initialize)
+              (global-set-key (kbd "M-x") 'smex)))
 
 (setq visible-bell t
       inhibit-startup-message t
@@ -47,5 +50,7 @@
 (after-load 'grep
   (when (boundp 'grep-find-ignored-files)
     (add-to-list 'grep-find-ignored-files "*.class")))
+
+(use-package idle-highlight-mode :ensure t)
 
 (provide 'cnf-base-settings)
