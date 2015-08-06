@@ -3,11 +3,8 @@
     :bind ("<f6>" . magit-status)
     :config
     ;; do not ask if commit summary is too long
-    (setf git-commit-finish-query-functions nil))
-
-(after-load 'magit
-  ;; (fullframe magit-status magit-mode-quit-window)
-  )
+    (setf git-commit-finish-query-functions nil
+          magit-push-always-verify nil))
 
 (use-package ibuffer-vc
     :disabled t
