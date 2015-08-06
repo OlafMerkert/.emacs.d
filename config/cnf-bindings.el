@@ -58,4 +58,12 @@
 
 (define-key 'help-command "a" 'apropos) ; don't just search for commands
 
+(use-package 2048-game
+    :commands '2048-game
+    :init (progn
+            (define-key 2048-mode-map (kbd "h") '2048-left)
+            (define-key 2048-mode-map (kbd "j") '2048-down)
+            (define-key 2048-mode-map (kbd "k") '2048-up)
+            (define-key 2048-mode-map (kbd "l") '2048-right)))
+
 (provide 'cnf-bindings)
