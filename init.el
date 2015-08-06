@@ -14,7 +14,9 @@
 (require 'cnf-base-settings)
 
 (require 'cnf-environment)
-(require 'cnf-personal)
+;; only set personal stuff if the current user name matches
+(when (equal "olaf" (user-login-name))
+  (require 'cnf-personal))
 (require 'cnf-base)
 
 (require 'cnf-navigation)
