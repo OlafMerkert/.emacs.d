@@ -37,6 +37,7 @@
 
 ;; magit requires a trailing slash for the directory path!
 (defpar personal-information-dir "~/Personal/")
+(defpar personal-information-remote "sl2z")
 
 (defun sync-personal-information (&optional pull-only)
   ;; if prefix argument is given, only pull info
@@ -53,8 +54,8 @@
                                 " at "
                                 (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))))
         (message "Commited changes to personal data.")))
-    (magit-pull "origin" "master")
-    (unless pull-only (magit-push "master" "origin"))))
+    (magit-pull personal-information-remote "master")
+    (unless pull-only (magit-push "master" personal-information-remote))))
 
 ;;; configure org capture
 (let ((my-todo-template "* TODO %?%i\n  %a")
