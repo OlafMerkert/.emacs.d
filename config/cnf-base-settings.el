@@ -4,10 +4,8 @@
 
 ;; Turn off graphical distraction
 (when window-system
-  (dolist (mode '(tooltip-mode mouse-wheel-mode blink-cursor-mode))
+  (dolist (mode '(tooltip-mode mouse-wheel-mode blink-cursor-mode scroll-bar-mode))
     (when (fboundp mode) (funcall mode -1)))
-  ;; but we like scroll bars
-  (scroll-bar-mode +1)
   (setq frame-title-format "%b  [emacs]"
         ;;'(buffer-file-name "GNU Emacs: %f" "GNU Emacs: %b")
         )
