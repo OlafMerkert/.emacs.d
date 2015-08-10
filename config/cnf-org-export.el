@@ -65,14 +65,17 @@
 (use-package helm-bibtex :ensure t)
 
 ;; it is more convenient to tangle the files manually for now
-(add-to-list 'load-path (expand-file-name "addons/org-ref" user-emacs-directory))
-(require 'org-ref)
-(require 'doi-utils)
-(require 'jmax-bibtex)
+(let ((path (expand-file-name "addons/org-ref" user-emacs-directory)))
+  (when (file-exists-p path)
+    (add-to-list 'load-path path)
+    (require 'org-ref)
+    (require 'doi-utils)
+    (require 'jmax-bibtex)))
 
-(setq reftex-default-bibliography '("~/Perfezionamento/topics/topics.bib")
-      org-ref-default-bibliography reftex-default-bibliography
-      org-ref-pdf-directory "~/.cache/bibtex-manager/links/")
+(after-load 'org-ref
+  (setq reftex-default-bibliography '("~/Perfezionamento/topics/topics.bib")
+        org-ref-default-bibliography reftex-default-bibliography
+        org-ref-pdf-directory "~/.cache/bibtex-manager/links/"))
 
 ;; highlighting of source blocks in LaTeX with listings
 (add-to-list 'org-latex-packages-alist '("" "listings"))
