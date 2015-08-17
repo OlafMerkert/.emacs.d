@@ -29,7 +29,7 @@
 
 ;; present files with same names in a nice way
 (require 'uniquify)
-(setq uniquify-buffer-name-style) 'post-forward
+(setq uniquify-buffer-name-style 'post-forward)
 
 (use-package ido
     :ensure t
