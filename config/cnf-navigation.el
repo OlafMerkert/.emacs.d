@@ -1,9 +1,12 @@
-
-(use-package ace-jump-mode
-    :ensure t
-    :bind ("C-j" . ace-jump-mode))
-
 (add-to-list 'clean-local-keybindings "C-j")
+
+(use-package avy
+    :ensure t
+    :config (setf avy-keys
+                  '(?a ?s ?d ?f ?j ?k ?l  ?g ?h ?q ?w ?e ?r ?t ?y ?u ?i ?o ?p ?z ?x ?c ?v ?b ?n ?m))
+    :bind (("M-g g" . avy-goto-line)
+           ("M-g M-g" . avy-goto-line)
+           ("C-j" . avy-goto-word-1)))
 
 (use-package iy-go-to-char
     :ensure t
