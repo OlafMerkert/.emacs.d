@@ -10,6 +10,7 @@
                :function org-protocol-open-in-w3m))
 
 (defun download-with-youtube-dl (uri &rest args)
+  (interactive (list (read-string "Youtube uri: ")))
   (let ((default-directory "~/Downloads/"))
     (async-shell-command
      (concat "youtube-dl '"
