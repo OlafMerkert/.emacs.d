@@ -246,18 +246,20 @@
   (delete-other-windows))
 
 (after-load 'gnus-sum
-  (define-key gnus-summary-mode-map (kbd "v") 'gnus-summary-show-only-summary)
-  (define-key gnus-summary-mode-map (kbd "o") 'gwene-summary-open-full)
-  (define-key gnus-summary-mode-map (kbd "r") 'gnus-summary-wide-reply)
-  (define-key gnus-summary-mode-map (kbd "R") 'gnus-summary-wide-reply-with-original)
-  (define-key gnus-summary-mode-map (kbd "u") 'gnus-summary-put-mark-as-unread))
+  (bind-keys :map gnus-summary-mode-map
+             ("v" . gnus-summary-show-only-summary)
+             ("o" . gwene-summary-open-full)
+             ("r" . gnus-summary-wide-reply)
+             ("R" . gnus-summary-wide-reply-with-original)
+             ("u" . gnus-summary-put-mark-as-unread)))
 
 (after-load 'gnus-art
-  (define-key gnus-article-mode-map (kbd "v") 'gnus-article-show-only-summary)
-  (define-key gnus-article-mode-map (kbd "o") 'gwene-article-open-full)
-  (define-key gnus-article-mode-map (kbd "C-c C-s") 'gnus-article-save-part)
-  (define-key gnus-article-mode-map (kbd "r") 'gnus-article-wide-reply-with-original)
-  (define-key gnus-article-mode-map (kbd "R") 'gnus-article-wide-reply-with-original))
+  (bind-keys :map gnus-article-mode-map
+             ("v" . gnus-article-show-only-summary)
+             ("o" . gwene-article-open-full)
+             ("C-c C-s" . gnus-article-save-part)
+             ("r" . gnus-article-wide-reply-with-original)
+             ("R" . gnus-article-wide-reply-with-original)))
 
 
 ;; TODO keybindings seem to be overwritten

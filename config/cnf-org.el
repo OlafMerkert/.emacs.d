@@ -1,6 +1,14 @@
 (use-package org
     :ensure t
-    :pin gnu)
+    :pin gnu
+    :bind (:map org-mode-map
+             ("<f2>" . insert-greek-letter)
+             ("C-c C-v k" . org-babel-remove-result)
+             ("C-;" . tex-goto-prev-dollar)
+             ("C-'" . tex-goto-next-dollar)
+             ("M-;" . tex-goto-prev-backslash)
+             ("M-'" . tex-goto-next-backslash)
+             ("C-_" . org-table-insert-hline)))
 
 (require 'org-capture)
 (require 'org-protocol)
@@ -8,15 +16,6 @@
 
 (defun org-path (filebase)
    (concat org-directory "/" filebase ".org"))
-
-(after-load 'org
-  (define-key org-mode-map (kbd "<f2>") 'insert-greek-letter)
-  (define-key org-mode-map (kbd "C-c C-v k") 'org-babel-remove-result)
-  (define-key org-mode-map (kbd "C-;") 'tex-goto-prev-dollar)
-  (define-key org-mode-map (kbd "C-'") 'tex-goto-next-dollar)
-  (define-key org-mode-map (kbd "M-;") 'tex-goto-prev-backslash)
-  (define-key org-mode-map (kbd "M-'") 'tex-goto-next-backslash)
-  (define-key org-mode-map (kbd "C-_") 'org-table-insert-hline))
 
 (setq org-deadline-warning-days 5
       org-completion-use-ido t)
