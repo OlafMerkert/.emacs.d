@@ -7,6 +7,7 @@
           magit-push-always-verify nil))
 
 (use-package ibuffer-vc
+    :demand t
     :init
     (progn
       (require 'vc)
