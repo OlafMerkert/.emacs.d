@@ -1,6 +1,7 @@
 (use-package org
     :ensure t
     :pin gnu
+    :demand t
     :bind (:map org-mode-map
              ("<f2>" . insert-greek-letter)
              ("C-c C-v k" . org-babel-remove-result)

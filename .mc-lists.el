@@ -37,6 +37,7 @@
         org-delete-char
         org-end-of-line
         org-force-self-insert
+        org-kill-line
         org-metaright
         org-return
         org-self-insert-command

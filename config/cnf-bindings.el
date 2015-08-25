@@ -60,7 +60,8 @@
 
 (use-package 2048-game
     :commands '2048-game
-    :bind (:map  2048-mode-map
+    :config
+    (bind-keys :map  2048-mode-map
               ("h" . 2048-left)
               ("j" . 2048-down)
               ("k" . 2048-up)
