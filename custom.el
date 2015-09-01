@@ -1,3 +1,7 @@
+(setf org-mobile-files
+      '("~/Personal/bookmarks.org" "~/Personal/spiele.org" "~/Personal/sns.org" "~/Personal/notizen.org" "~/Personal/privat.org" "~/SelbstStudium/Grundlagen der Technischen Informatik/grundlagen-ti.org"))
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

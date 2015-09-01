@@ -46,6 +46,7 @@
 (require 'cnf-org-export)
 (require 'cnf-org-babel)
 (require 'cnf-org-protocol)
+(require 'cnf-mobile)
 
 ;; final tweaks
 (require 'cnf-bindings)
