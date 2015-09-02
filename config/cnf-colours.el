@@ -2,14 +2,32 @@
 (set-background-color "oldlace")
 (add-to-list 'default-frame-alist '(background-color . "oldlace"))
 
-(defhydra font-family-selector (global-map "<f1>")
-  "font"
-  ("q" nil "quit")
-  ("a" (lambda () (interactive) (set-frame-font "Hack-10" nil t)) "Hack")
-  ("h" (lambda () (interactive) (set-frame-font "Hermit-10" nil t)) "Hermit")
-  ("p" (lambda () (interactive) (set-frame-font "PT Mono-11" nil t)) "PT Mono")
-  ("d" (lambda () (interactive) (set-frame-font "Deja Vu Sans Mono-10" nil t)) "Deja Vu Sans Mono")
-  ("s" (lambda () (interactive) (set-frame-font "Source Code Pro-11" nil t)) "Source Code Pro"))
+(defmacro def-font-selector (&rest fonts)
+  `(defhydra font-family-selector (global-map "<f1>")
+     "font"
+     ("q" nil "quit")
+     ,@(mapcar (lambda (font)
+                 (destructuring-bind (key name &optional size) font
+                     (unless size
+                       (setf size 10))
+                   `(,key (lambda () (interactive) (set-frame-font ,(format "%s-%s" name size) nil t)) ,name)))
+               fonts)))
+
+(def-font-selector
+  ("a" "Hack" 10)
+  ("h" "Hermit" 10)
+  ("p" "PT Mono" 11)
+  ("d" "Deja Vu Sans Mono" 10)
+  ("s" "Source Code Pro Light" 11)
+  ("S" "Source Sans Pro" 11)
+  ("o" "Droid Sans Mono")
+  ("i" "Inconsolata" 12)
+  ("t" "Terminus" 12)
+  ("l" "Liberation Mono")
+  ("u" "LucidaTypewriter")
+  ("m" "Monaco")
+  ("n" "Nimbus Mono")
+  ("g" "GentiumAlt" 12))
 
 ;; use more prominent colours for the modeline of the active buffer
 (set-face-attribute 'mode-line
