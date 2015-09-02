@@ -247,9 +247,13 @@
   (define-key mode-map       (kbd "C-4")   'multiply-last-sexp-4)
   (define-key mode-map       (kbd "C-c f") 'defun-this-symbol))
 
+(defun turn-on-paredit ()
+  (paredit-mode 1)) 
+
 (dolist (mode '(lisp-mode-hook
+                emacs-lisp-mode-hook
                 slime-repl-mode-hook))
-  (add-hook mode (lambda () (paredit-mode 1))))
+  (add-hook mode 'turn-on-paredit))
 
 ;; adjustments to indentation
 (defmacro copy-cl-indentation (&rest mapping)
