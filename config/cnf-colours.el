@@ -2,6 +2,15 @@
 (set-background-color "oldlace")
 (add-to-list 'default-frame-alist '(background-color . "oldlace"))
 
+(defhydra font-family-selector (global-map "<f1>")
+  "font"
+  ("q" nil "quit")
+  ("a" (lambda () (interactive) (set-frame-font "Hack-10" nil t)) "Hack")
+  ("h" (lambda () (interactive) (set-frame-font "Hermit-10" nil t)) "Hermit")
+  ("p" (lambda () (interactive) (set-frame-font "PT Mono-11" nil t)) "PT Mono")
+  ("d" (lambda () (interactive) (set-frame-font "Deja Vu Sans Mono-10" nil t)) "Deja Vu Sans Mono")
+  ("s" (lambda () (interactive) (set-frame-font "Source Code Pro-11" nil t)) "Source Code Pro"))
+
 ;; use more prominent colours for the modeline of the active buffer
 (set-face-attribute 'mode-line
                     nil 
