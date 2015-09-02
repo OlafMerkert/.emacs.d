@@ -54,7 +54,7 @@
   (set (make-local-variable 'comment-auto-fill-only-comments) t)
   (auto-fill-mode t))
 
-(add-hook 'prog-mode-hook 'esk-local-comment-auto-fill)
+;; (add-hook 'prog-mode-hook 'esk-local-comment-auto-fill)
 
 (defun esk-add-watchwords ()
   (font-lock-add-keywords
