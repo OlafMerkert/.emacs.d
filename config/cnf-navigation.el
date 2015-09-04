@@ -133,4 +133,10 @@ horizontal space is available."
 
 (use-package find-file-in-project :ensure t)
 
+(use-package page-break-lines
+    :ensure t
+    :init (add-hook 'prog-mode-hook 'page-break-lines-mode)
+    ;; TODO find a better replacement for this
+    :config (setf page-break-lines-char ?_))
+
 (provide 'cnf-navigation)
