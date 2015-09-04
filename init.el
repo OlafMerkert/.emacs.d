@@ -30,6 +30,7 @@
 
 ;; writing and programming
 (require 'cnf-prog)
+(require 'cnf-smartparens)
 (require 'cnf-lisp)
 (require 'cnf-python)
 (require 'cnf-tex)

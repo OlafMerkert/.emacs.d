@@ -70,3 +70,5 @@
 ;; but for other programming modes it should be useful:
 (add-hook 'python-mode-hook 'smartparens-mode)
 (add-hook 'js-mode-hook 'smartparens-mode)
+
+(provide 'cnf-smartparens)
