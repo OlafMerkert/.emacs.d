@@ -34,9 +34,49 @@
 ;; return and pass removes one level, while double blank lines reset
 ;; indentation to 0
 
-(setq python-shell-interpreter "python"
-      python-shell-interpreter-args "-i")
-(setq org-babel-python-command "python")
+(defun string-join (sep lst)
+  (cond ((null lst) nil)
+        ((null (cdr lst)) (car lst))
+        (t (string-join sep (cons (concat (car lst) sep (cadr lst))
+                                  (cddr lst))))))
+
+(defun set-interpreter-python (cmd &rest args)
+  (setq python-shell-interpreter cmd
+        python-shell-interpreter-args (string-join " " args)
+        org-babel-python-command (string-join " " (cons cmd args))
+        python-shell-buffer-name cmd))
+
+
+(defun set-interpreter-python3 ()
+  (interactive)
+  (set-interpreter-python "python" "-i"))
+
+(defun set-interpreter-python2 ()
+  (interactive)
+  (set-interpreter-python "python2" "-i"))
+
+(defun set-interpreter-sage ()
+  (interactive)
+  (set-interpreter-python "sage" "-python -i"))
+
+(set-interpreter-python3)
+
+(defvar sage nil)
+(make-variable-buffer-local 'sage)
+
+(defun turn-on-sage ()
+  (when sage
+    (make-local-variable 'python-shell-interpreter)
+    (make-local-variable 'python-shell-interpreter-args)
+    (make-local-variable 'org-babel-python-command)
+    (make-local-variable 'python-shell-buffer-name)
+    (message "Use sage as python interpreter for this buffer.")
+    (set-interpreter-sage)))
+
+(add-hook 'hack-local-variables-hook 'turn-on-sage)
+
+;; TODO create a function for adding to path
+(setenv "PYTHONPATH" "/home/olaf/Projekte/olsage:")
 
 (defun elpy-shell-send-line ()
   "Send the current line to the Python shell. "
