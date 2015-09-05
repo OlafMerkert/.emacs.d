@@ -25,9 +25,10 @@
   ("t" "Terminus" 12)
   ("l" "Liberation Mono")
   ("u" "LucidaTypewriter")
-  ("m" "Monaco")
+  ("m" "Monaco" 11)
   ("n" "Nimbus Mono")
-  ("g" "GentiumAlt" 12))
+  ("g" "GentiumAlt" 12)
+  ("e" "Envy Code R" 12))
 
 ;; use more prominent colours for the modeline of the active buffer
 (set-face-attribute 'mode-line
