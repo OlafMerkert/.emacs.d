@@ -61,7 +61,19 @@
       sp-autoinsert-if-followed-by-word t)
 
 (setq-default sp-autoskip-opening-pair nil
-              sp-autoskip-closing-pair 'always-end)
+              sp-autoskip-closing-pair 'always)
+
+;; make backspace kill indentation as well in python-mode
+(defun sp-python-indent-dedent-line-backspace (arg)
+  "De-indent current line.
+Argument ARG is passed to `backward-delete-char-untabify' when
+point is not in between the indentation."
+  (interactive "*p")
+  (unless (and (eq major-mode 'python-mode)
+               (python-indent-dedent-line))
+    (sp-backward-delete-char arg)))
+
+(define-key smartparens-mode-map (kbd "DEL") 'sp-python-indent-dedent-line-backspace)
 
 
 ;; I do not want to use smartparens for lisp modes, because it simply
