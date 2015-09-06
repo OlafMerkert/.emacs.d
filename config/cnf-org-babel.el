@@ -54,4 +54,16 @@
 
 (advice-add 'org-babel-trim :filter-return 'strip-python-shell-prompt)
 
+;; figure out if we are using sage
+(defmacro org-src-value-in-org-buffer (&rest body)
+  `(save-window-excursion
+    (switch-to-buffer (marker-buffer org-edit-src-beg-marker))
+    ,@body))
+
+(defun org-src-turn-on-sage ()
+  (when (setf sage (org-src-value-in-org-buffer sage))
+    (turn-on-sage)))
+
+(add-hook 'org-src-mode-hook 'org-src-turn-on-sage)
+
 (provide 'cnf-org-babel)
