@@ -218,6 +218,34 @@
 (setq bbdb-north-american-phone-numbers-p nil
       bbdb-phone-style nil)
 
+;; setup bbdb layouts
+(setf bbdb-layout-alist
+      '((one-line
+         (order . (mail phone notes))
+         (name-end  . 24)
+         (toggle    . t))
+        (multi-line
+         (order . (mail mail-alias phone t))
+         (omit . (creation-date timestamp
+                  name-format name-face
+                  bbdb-id
+                  asynk:bbdbgoogleprivate:gc
+                  ))
+         (toggle . t)
+         (indentation . 21))
+        (pop-up-multi-line  (omit . (creation-date timestamp
+                                     name-format name-face))
+         (indentation . 21))
+        (full-multi-line (indentation . 21))))
+
+(defun bbdb-search/wrap (f &rest args)
+  (let ((bbdb-xfield-label-list (remove 'asynk:bbdbgoogleprivate:gc bbdb-xfield-label-list)))
+    (message "calling bbdb-search")
+    (apply f args)))
+
+(advice-add 'bbdb-search :around 'bbdb-search/wrap)
+
+
 ;;; rss feed commands
 (defun gwene-article-open-full ()
   (interactive)
