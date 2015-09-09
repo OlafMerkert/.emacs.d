@@ -238,12 +238,15 @@
          (indentation . 21))
         (full-multi-line (indentation . 21))))
 
+
 (defun bbdb-search/wrap (f &rest args)
-  (let ((bbdb-xfield-label-list (remove 'asynk:bbdbgoogleprivate:gc bbdb-xfield-label-list)))
+  (let ((bbdb-xfield-label-list
+         (remove 'asynk:bbdbgoogleprivate:gc bbdb-xfield-label-list)))
     (message "calling bbdb-search")
     (apply f args)))
 
-(advice-add 'bbdb-search :around 'bbdb-search/wrap)
+(dolist (bbdb-fun '(bbdb bbdb-search-xfields))
+ (advice-add bbdb-fun :around 'bbdb-search/wrap))
 
 
 ;;; rss feed commands
