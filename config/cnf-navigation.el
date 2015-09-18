@@ -139,4 +139,17 @@ horizontal space is available."
     ;; TODO find a better replacement for this
     :config (setf page-break-lines-char ?_))
 
+;; when moving to next page, move page start to first line
+(defun recenter-page (&rest args)
+  (recenter 0))
+
+(advice-add 'forward-page :after 'recenter-page)
+(advice-add 'backward-page :after 'recenter-page)
+
+;; from http://endlessparentheses.com/improving-page-navigation.html#comment-2254443893
+(defhydra hydra-page-break (global-map "C-x")
+  "page breaks"
+  ("[" backward-page "back")
+  ("]" forward-page "forward"))
+
 (provide 'cnf-navigation)
