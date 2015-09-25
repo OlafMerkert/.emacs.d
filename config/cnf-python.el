@@ -117,8 +117,14 @@
 
 (defun py-remove-debug-statements ()
   (interactive)
-  (let ((re "^\s*print \"debug.*$"))
+  (let ((re "^\s*print[ (]\"debug.*$"))
     (delete-matching-lines re (region-beginning) (region-end))))
+
+(defun sage-var-transform (assignment-string)
+  (let ((variable-names (s-split " *, *" (s-trim assignment-string) t)))
+    (if (<= (length variable-names) 1)
+        (concat "\"" (or (car variable-names) "") "\"")
+        (concat "[\"" (s-join "\", \"" variable-names) "\"]"))))
 
 
 (provide 'cnf-python)
