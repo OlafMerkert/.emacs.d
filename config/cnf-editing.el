@@ -67,6 +67,7 @@ TeX."
    ("e" insert-eqref-link "eqref" :color blue)
    ("c" org-ref-helm-insert-cite-link "cite" :color blue)
    ("u" toggle-browser "use w3m")
+   ("s" flyspell-buffer "spellcheck" :color blue)
    ("q" nil "quit")))
 
 ;;; a variant of `query-replace' which takes current region as
