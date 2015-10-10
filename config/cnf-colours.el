@@ -74,7 +74,19 @@
                (variable-name . "DodgerBlue3")
                (string . "midnight blue")
                (comment . "LightSteelBlue4")
-               (type . "blue"))
+               (type . "DodgerBlue4"))
+
+(set-face-attribute 'font-lock-function-name-face
+                    nil
+                    :weight 'bold)
+
+(set-face-attribute 'font-lock-variable-name-face
+                    nil
+                    :weight 'bold)
+
+(set-face-attribute 'font-lock-type-face
+                    nil
+                    :weight 'bold)
 
 ;; org colours
 (set-fg-colors "org-" ""
@@ -83,6 +95,8 @@
                (level-3 . "dodger blue")
                (level-4 . "sky blue")
                (level-5 . "blue3"))
+
+(set-face-attribute 'org-level-2 nil :weight 'normal)
 
 ;; highlighting of parenthesis in a subdued colour
 (defface esk-paren-face
