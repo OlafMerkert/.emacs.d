@@ -91,12 +91,13 @@
 ;; org colours
 (set-fg-colors "org-" ""
                (level-1 . "royal blue")
-               (level-2 . "steel blue")
-               (level-3 . "dodger blue")
-               (level-4 . "sky blue")
-               (level-5 . "blue3"))
+               (level-2 . "blue2")
+               (level-3 . "dodgerblue3")
+               (level-4 . "steel blue")
+               (level-5 . "skyblue3"))
 
 (set-face-attribute 'org-level-2 nil :weight 'normal)
+(set-face-attribute 'org-level-5 nil :weight 'normal)
 
 ;; highlighting of parenthesis in a subdued colour
 (defface esk-paren-face
