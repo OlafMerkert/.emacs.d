@@ -43,9 +43,7 @@
                     :background "gray90"
                     :box '(:line-width 1 :style released-button))
 
-(set-face-attribute 'region
-                    nil
-                    :background "LightSteelBlue1")
+(set-face-attribute 'region nil :background "antiquewhite2")
 
 (set-face-attribute 'magit-diff-file-heading
                     nil
@@ -60,44 +58,33 @@
   `(progn
      ,@(mapcar
         (lambda (c)
-          `(set-face-attribute ',(symb pre (symbol-name (car c)) post)
+          `(set-face-attribute ',(symb pre (symbol-name (first c)) post)
                                nil
-                               :foreground ,(cdr c)))
+                               :foreground ,(second c)
+                               ,@ (if (third c) `(:weight ',(third c)))))
         conses)))
+
+234
 
 ;; programming colours
 (set-fg-colors "font-lock-" "-face"
-               (builtin . "midnight blue")
-               (constant . "midnight blue")
-               (keyword . "blue")
-               (function-name . "DodgerBlue2")
-               (variable-name . "DodgerBlue3")
-               (string . "midnight blue")
-               (comment . "LightSteelBlue4")
-               (type . "DodgerBlue4"))
-
-(set-face-attribute 'font-lock-function-name-face
-                    nil
-                    :weight 'bold)
-
-(set-face-attribute 'font-lock-variable-name-face
-                    nil
-                    :weight 'bold)
-
-(set-face-attribute 'font-lock-type-face
-                    nil
-                    :weight 'bold)
+               (builtin        "royalblue3")
+               (constant       "midnightblue")
+               (keyword        "dodgerblue")
+               (string         "royalblue2")
+               (type           "blue3"  bold)
+               (function-name  "blue"  bold)
+               (variable-name  "darkblue"  normal  )
+               (comment        "steelblue4"))
 
 ;; org colours
 (set-fg-colors "org-" ""
-               (level-1 . "royal blue")
-               (level-2 . "blue2")
-               (level-3 . "dodgerblue3")
-               (level-4 . "steel blue")
-               (level-5 . "skyblue3"))
-
-(set-face-attribute 'org-level-2 nil :weight 'normal)
-(set-face-attribute 'org-level-5 nil :weight 'normal)
+               (level-1  "blue2" bold)
+               (level-2  "orange3" normal)
+               (level-3  "blue4" normal)
+               (level-4  "goldenrod3" normal)
+               (level-5  "dodgerblue3" normal)
+               (level-6  "gold3" normal))
 
 ;; highlighting of parenthesis in a subdued colour
 (defface esk-paren-face
