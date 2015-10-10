@@ -100,6 +100,10 @@
       (font-lock-add-keywords (intern (concat (symbol-name mode) "-mode"))
                               '(("(\\|)" . 'esk-paren-face)))))
 
-
+(use-package highlight-numbers
+    :ensure t
+    :diminish highlight-numbers-mode
+    :init (add-hook 'prog-mode-hook 'highlight-numbers-mode)
+    :config (set-face-attribute 'highlight-numbers-number nil :foreground "maroon"))
 
 (provide 'cnf-colours)
