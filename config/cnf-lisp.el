@@ -278,6 +278,11 @@
                            (2 font-lock-function-name-face)))
                         t)
 
+(font-lock-add-keywords 'lisp-mode
+                        '(("(\\(awhen\\|aif\\|aprog1\\|alambda\\|acond\\)[ \n]+"
+                           (1 font-lock-keyword-face)))
+                        t)
+
 ;; for hu.dwim.def
 (let ((file "~/.quicklisp/dists/quicklisp/software/hu.dwim.def-20140713-darcs/emacs/hu.dwim.def.el"))
   (if (file-exists-p file) (load-file file)))

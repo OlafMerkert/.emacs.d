@@ -75,7 +75,8 @@
                (type           "blue3"  bold)
                (function-name  "blue"  bold)
                (variable-name  "darkblue"  normal  )
-               (comment        "steelblue4"))
+               (comment        "steelblue4")
+               (warning        "tomato"))
 
 ;; org colours
 (set-fg-colors "org-" ""
