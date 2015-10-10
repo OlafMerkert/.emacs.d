@@ -1,6 +1,6 @@
 ;; get rid of white background
-(set-background-color "oldlace")
-(add-to-list 'default-frame-alist '(background-color . "oldlace"))
+(set-background-color "ghost white")
+(add-to-list 'default-frame-alist '(background-color . "ghost white"))
 
 (defmacro def-font-selector (&rest fonts)
   `(defhydra font-family-selector (global-map "<f1>")
@@ -45,11 +45,44 @@
 
 (set-face-attribute 'region
                     nil
-                    :background "azure2")
+                    :background "LightSteelBlue1")
 
 (set-face-attribute 'magit-diff-file-heading
                     nil
                     :weight 'normal)
+
+(global-set-key (kbd "C-x f") (lambda () (interactive)
+                                 (let ((face (face-at-point)))
+                                   ;; (kill-new face)
+                                   (message "%s" face))))
+
+(defmacro set-fg-colors (pre post &rest conses)
+  `(progn
+     ,@(mapcar
+        (lambda (c)
+          `(set-face-attribute ',(symb pre (symbol-name (car c)) post)
+                               nil
+                               :foreground ,(cdr c)))
+        conses)))
+
+;; programming colours
+(set-fg-colors "font-lock-" "-face"
+               (builtin . "midnight blue")
+               (constant . "midnight blue")
+               (keyword . "blue")
+               (function-name . "DodgerBlue2")
+               (variable-name . "DodgerBlue3")
+               (string . "midnight blue")
+               (comment . "LightSteelBlue4")
+               (type . "blue"))
+
+;; org colours
+(set-fg-colors "org-" ""
+               (level-1 . "royal blue")
+               (level-2 . "steel blue")
+               (level-3 . "dodger blue")
+               (level-4 . "sky blue")
+               (level-5 . "blue3"))
 
 ;; highlighting of parenthesis in a subdued colour
 (defface esk-paren-face
@@ -64,5 +97,7 @@
     (when (> (display-color-cells) 8)
       (font-lock-add-keywords (intern (concat (symbol-name mode) "-mode"))
                               '(("(\\|)" . 'esk-paren-face)))))
+
+
 
 (provide 'cnf-colours)
