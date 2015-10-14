@@ -43,6 +43,7 @@
    (org-babel-execute-maybe)))
 
 (define-key org-src-mode-map (kbd "C-c C-c") 'org-edit-src-evaluate-code-block)
+(define-key org-src-mode-map (kbd "<f1>") 'org-edit-src-exit)
 
 ;; removing superfluous prompts in output
 (defun strip-python-shell-prompt (string)
