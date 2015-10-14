@@ -1,7 +1,6 @@
 ;; Emacs TeX configuration
 (use-package tex-site
-    :ensure auctex
-    :defer t)
+    :ensure auctex)
 
 (setq LaTeX-item-indent 0
       TeX-newline-function 'reindent-then-newline-and-indent

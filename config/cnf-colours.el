@@ -87,6 +87,10 @@
                (level-5  "dodgerblue3" normal)
                (level-6  "gold3" normal))
 
+(after-load 'font-latex
+  (set-fg-colors "font-" "-face"
+                 (latex-math "maroon")))
+
 ;; highlighting of parenthesis in a subdued colour
 (defface esk-paren-face
     '((((class color) (background dark))
