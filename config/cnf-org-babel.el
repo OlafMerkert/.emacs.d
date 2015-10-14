@@ -39,7 +39,8 @@
 ;; evaluating source blocks from org-src mode
 (defun org-edit-src-evaluate-code-block ()
   (interactive)
-  (org-src-in-org-buffer
+  (org-edit-src-save)
+  (org-src-value-in-org-buffer
    (org-babel-execute-maybe)))
 
 (define-key org-src-mode-map (kbd "C-c C-c") 'org-edit-src-evaluate-code-block)
@@ -57,9 +58,11 @@
 
 ;; figure out if we are using sage
 (defmacro org-src-value-in-org-buffer (&rest body)
-  `(save-window-excursion
-    (switch-to-buffer (marker-buffer org-src--beg-marker))
-    ,@body))
+  `(let ((beg org-src--beg-marker))
+     (with-current-buffer (marker-buffer beg)
+       (save-excursion
+         (goto-char beg)
+         ,@body))))
 
 (defun org-src-turn-on-sage ()
   (when (setf sage (org-src-value-in-org-buffer sage))
