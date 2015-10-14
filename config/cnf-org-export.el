@@ -115,4 +115,16 @@
 
 (advice-add 'org-export-resolve-fuzzy-link :around 'org-export-resolve-fuzzy-link--decode)
 
+;; downcase names of special blocks in LaTeX
+(defpar LaTeX-downcase-special-blocks-list
+        '("thm" "rem" "proof" "prop" "lemma" "defi" "cor"))
+
+(defun org-latex-special-block-downcase (special-block contents info)
+  (let* ((type (downcase (org-element-property :type special-block)))
+         (dc-type (find type LaTeX-downcase-special-blocks-list :test 'string=)))
+    (when dc-type
+      (org-element-put-property special-block :type type))))
+
+(advice-add 'org-latex-special-block :before 'org-latex-special-block-downcase)
+
 (provide 'cnf-org-export)
