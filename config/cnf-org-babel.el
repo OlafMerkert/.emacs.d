@@ -58,7 +58,7 @@
 ;; figure out if we are using sage
 (defmacro org-src-value-in-org-buffer (&rest body)
   `(save-window-excursion
-    (switch-to-buffer (marker-buffer org-edit-src-beg-marker))
+    (switch-to-buffer (marker-buffer org-src--beg-marker))
     ,@body))
 
 (defun org-src-turn-on-sage ()
