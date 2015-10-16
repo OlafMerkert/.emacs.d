@@ -76,7 +76,7 @@
 (add-hook 'hack-local-variables-hook 'turn-on-sage)
 
 ;; TODO create a function for adding to path
-(setenv "PYTHONPATH" "/home/olaf/Projekte/olsage:")
+(setenv "PYTHONPATH" "/home/olaf/Projekte/olsage:/home/olaf/Perfezionamento/thesis")
 
 (defun elpy-shell-send-line ()
   "Send the current line to the Python shell. "
