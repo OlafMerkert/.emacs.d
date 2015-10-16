@@ -84,9 +84,9 @@
 (setq org-latex-listings t) ; maybe enable only per file?
 (setq org-latex-listings-options '(("basicstyle" "\\ttfamily\\color{almost-black}")
                                    ("keywordstyle" "\\bfseries\\color{black}")
-                                   ("identifierstyle" "")
+                                   ("identifierstyle" "{}")
                                    ("commentstyle" "\\color{gray}")
-                                   ("stringstyle" "")
+                                   ("stringstyle" "{}")
                                    ("breaklines" "true")
                                    ("columns" "fullflexible")
                                    ("frame" "single")))
