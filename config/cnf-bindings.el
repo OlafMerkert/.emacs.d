@@ -62,11 +62,9 @@
     :commands '2048-game
     :config
     (bind-keys :map  2048-mode-map
-              ("h" . 2048-left)
-              ("j" . 2048-down)
-              ("k" . 2048-up)
-              ("l" . 2048-right)))
-
-(global-set-key (kbd "<key-4660>") (lambda () (interactive)))
+               ("h" . 2048-left)
+               ("j" . 2048-down)
+               ("k" . 2048-up)
+               ("l" . 2048-right)))
 
 (provide 'cnf-bindings)
