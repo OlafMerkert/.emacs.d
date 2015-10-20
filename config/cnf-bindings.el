@@ -67,4 +67,6 @@
               ("k" . 2048-up)
               ("l" . 2048-right)))
 
+(global-set-key (kbd "<key-4660>") (lambda () (interactive)))
+
 (provide 'cnf-bindings)
