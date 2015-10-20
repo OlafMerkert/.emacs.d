@@ -4,7 +4,6 @@
     :demand t
     :bind (:map org-mode-map
                 ("<f2>" . insert-greek-letter)
-                ("<f1>" . org-edit-special)
                 ("C-c C-v k" . org-babel-remove-result)
                 ("C-;" . tex-goto-prev-dollar)
                 ("C-'" . tex-goto-next-dollar)

@@ -63,7 +63,9 @@
         slime-export-symbol-at-point
         slime-space
         smex
+        sp-backward-slurp-sexp
         sp-delete-char
+        sp-python-indent-dedent-line-backspace
         transpose-sexps
         transpose-words
         wdired-downcase-word

@@ -37,14 +37,43 @@
 (setf org-babel-sh-command "sh")
 
 ;; evaluating source blocks from org-src mode
+(defmacro org-src-value-in-org-buffer (&rest body)
+  `(let ((beg org-src--beg-marker))
+     (with-current-buffer (marker-buffer beg)
+       (save-excursion
+         (goto-char beg)
+         ,@body))))
+
 (defun org-edit-src-evaluate-code-block ()
   (interactive)
   (org-edit-src-save)
   (org-src-value-in-org-buffer
    (org-babel-execute-maybe)))
 
-(define-key org-src-mode-map (kbd "C-c C-c") 'org-edit-src-evaluate-code-block)
-(define-key org-src-mode-map (kbd "<f1>") 'org-edit-src-exit)
+(defhydra org-f1 (org-mode-map "<f1>")
+  "Various actions related to org-babel"
+  ("x" org-ctrl-c-ctrl-c "eXec")
+  ("X" org-babel-execute-subtree "eXec subtree")
+  ("e" org-edit-special "Edit" :color blue)
+  ("a" ob-abort-sage-calculation "Abort calculation" :color blue)
+  ("p" org-babel-previous-src-block "Previous")
+  ("n" org-babel-next-src-block "Next")
+  ("P" org-backward-heading-same-level "Previous heading")
+  ("N" org-forward-heading-same-level "Next heading")
+  ("s" org-babel-demarcate-block "Split" :color blue)
+  ("z" org-babel-switch-to-session "repl" :color blue)
+  ("q" nil "quit"))
+
+(defhydra org-edit-f1 (org-src-mode-map "<f1>")
+  "Various actions related to org-babel"
+  ("x" org-edit-src-evaluate-code-block "eXec")
+  ("e" org-edit-src-exit "close Edit" :color blue)
+  ("a" org-src-abort-sage-calculation "Abort calculation" :color blue)
+  ("q" nil "quit")
+  )
+
+(define-key org-src-mode-map (kbd "<f1>") 'org-edit-src-evaluate-code-block)
+(define-key org-src-mode-map (kbd "S-<f1>") 'org-edit-src-exit)
 
 ;; removing superfluous prompts in output
 (defun strip-python-shell-prompt (string)
@@ -57,16 +86,22 @@
 (advice-add 'org-babel-trim :filter-return 'strip-python-shell-prompt)
 
 ;; figure out if we are using sage
-(defmacro org-src-value-in-org-buffer (&rest body)
-  `(let ((beg org-src--beg-marker))
-     (with-current-buffer (marker-buffer beg)
-       (save-excursion
-         (goto-char beg)
-         ,@body))))
-
 (defun org-src-turn-on-sage ()
   (when (setf sage (org-src-value-in-org-buffer sage))
     (turn-on-sage)))
+
+(defun ob-abort-sage-calculation ()
+  (interactive)
+  (save-window-excursion
+    (org-babel-when-in-src-block
+    (org-babel-switch-to-session)
+    (comint-interrupt-subjob))))
+
+(defun org-src-abort-sage-calculation ()
+  (interactive)
+  (org-src-value-in-org-buffer
+   (ob-abort-sage-calculation)))
+
 
 (add-hook 'org-src-mode-hook 'org-src-turn-on-sage)
 
