@@ -1,6 +1,6 @@
 ;; get rid of white background
-(set-background-color "ghost white")
-(add-to-list 'default-frame-alist '(background-color . "ghost white"))
+(set-background-color "lavender")
+(add-to-list 'default-frame-alist '(background-color . "lavender"))
 
 (defmacro def-font-selector (&rest fonts)
   `(defhydra font-family-selector (global-map "<f1>")
