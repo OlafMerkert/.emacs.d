@@ -77,6 +77,7 @@
 
 ;; TODO create a function for adding to path
 (setenv "PYTHONPATH" "/home/olaf/Projekte/olsage:/home/olaf/Perfezionamento/thesis")
+(setenv "SAGE_PATH" "/home/olaf/Projekte/olsage:/home/olaf/Perfezionamento/thesis")
 
 (defun elpy-shell-send-line ()
   "Send the current line to the Python shell. "
