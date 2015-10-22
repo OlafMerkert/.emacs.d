@@ -72,9 +72,6 @@
   ("q" nil "quit")
   )
 
-(define-key org-src-mode-map (kbd "<f1>") 'org-edit-src-evaluate-code-block)
-(define-key org-src-mode-map (kbd "S-<f1>") 'org-edit-src-exit)
-
 ;; removing superfluous prompts in output
 (defun strip-python-shell-prompt (string)
   (let ((regexp (concat "^\\(" python-shell-prompt-regexp "\\|"
