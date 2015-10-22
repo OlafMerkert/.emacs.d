@@ -6,7 +6,8 @@
  '((emacs-lisp . t)
    (lisp . t)
    (python . t)
-   (sh . t)))
+   (sh . t)
+   (maxima . t)))
 
 (defun babel-language-p (language)
   (and (not (string-equal language "sh"))
