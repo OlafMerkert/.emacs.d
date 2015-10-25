@@ -51,6 +51,11 @@
   (org-src-value-in-org-buffer
    (org-babel-execute-maybe)))
 
+(defun org-src-eval-and-next ()
+  (interactive)
+  (org-ctrl-c-ctrl-c)
+  (org-babel-next-src-block))
+
 (defhydra org-src-actions (org-mode-map "<f5>")
   "src block:"
   ("x" org-ctrl-c-ctrl-c "eXec")
@@ -64,6 +69,7 @@
   ("s" org-babel-demarcate-block "Split")
   ("z" org-babel-switch-to-session "repl" :color blue)
   ("k" org-babel-remove-result "remove result")
+  ("<f5>" org-src-eval-and-next)
   ("q" nil "quit"))
 
 (defhydra org-src-edit-actions (org-src-mode-map "<f5>")
