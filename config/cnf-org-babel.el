@@ -51,27 +51,28 @@
   (org-src-value-in-org-buffer
    (org-babel-execute-maybe)))
 
-(defhydra org-f1 (org-mode-map "<f1>")
-  "Various actions related to org-babel"
+(defhydra org-src-actions (org-mode-map "<f5>")
+  "src block:"
   ("x" org-ctrl-c-ctrl-c "eXec")
   ("X" org-babel-execute-subtree "eXec subtree")
   ("e" org-edit-special "Edit" :color blue)
-  ("a" ob-abort-sage-calculation "Abort calculation" :color blue)
+  ("a" ob-abort-sage-calculation "Abort calculation")
   ("p" org-babel-previous-src-block "Previous")
   ("n" org-babel-next-src-block "Next")
   ("P" org-backward-heading-same-level "Previous heading")
   ("N" org-forward-heading-same-level "Next heading")
-  ("s" org-babel-demarcate-block "Split" :color blue)
+  ("s" org-babel-demarcate-block "Split")
   ("z" org-babel-switch-to-session "repl" :color blue)
+  ("k" org-babel-remove-result "remove result")
   ("q" nil "quit"))
 
-(defhydra org-edit-f1 (org-src-mode-map "<f1>")
-  "Various actions related to org-babel"
+(defhydra org-src-edit-actions (org-src-mode-map "<f5>")
+  "src edit:"
   ("x" org-edit-src-evaluate-code-block "eXec")
   ("e" org-edit-src-exit "close Edit" :color blue)
-  ("a" org-src-abort-sage-calculation "Abort calculation" :color blue)
-  ("q" nil "quit")
-  )
+  ("a" org-src-abort-sage-calculation "Abort calculation")
+  ("k" org-babel-remove-result "remove result")
+  ("q" nil "quit"))
 
 ;; removing superfluous prompts in output
 (defun strip-python-shell-prompt (string)
