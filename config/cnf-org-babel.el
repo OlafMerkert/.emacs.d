@@ -58,23 +58,24 @@
 
 (defhydra org-src-actions (org-mode-map "<f5>")
   "src block:"
-  ("x" org-ctrl-c-ctrl-c "eXec")
-  ("X" org-babel-execute-subtree "eXec subtree")
+  ("r" org-ctrl-c-ctrl-c "eXec")
+  ("s" org-babel-execute-subtree "eXec subtree")
   ("e" org-edit-special "Edit" :color blue)
   ("a" ob-abort-sage-calculation "Abort calculation")
   ("p" org-babel-previous-src-block "Previous")
   ("n" org-babel-next-src-block "Next")
   ("P" org-backward-heading-same-level "Previous heading")
   ("N" org-forward-heading-same-level "Next heading")
-  ("s" org-babel-demarcate-block "Split")
+  ("d" org-babel-demarcate-block "Split")
   ("z" org-babel-switch-to-session "repl" :color blue)
   ("k" org-babel-remove-result "remove result")
-  ("<f5>" org-src-eval-and-next)
+  ("x" org-src-eval-and-next)
   ("q" nil "quit"))
 
 (defhydra org-src-edit-actions (org-src-mode-map "<f5>")
   "src edit:"
-  ("x" org-edit-src-evaluate-code-block "eXec")
+  ("r" org-edit-src-evaluate-code-block "eXec")
+  ;; TODO exit, eval and next
   ("e" org-edit-src-exit "close Edit" :color blue)
   ("a" org-src-abort-sage-calculation "Abort calculation")
   ("k" org-babel-remove-result "remove result")
