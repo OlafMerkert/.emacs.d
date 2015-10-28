@@ -29,7 +29,8 @@
      (ispell-dictionary . "english")
      (whitespace-line-column . 80)
      (lexical-binding . t)
-     (org-babel-python-command . "sage -python")))))
+     (org-babel-python-command . "sage -python")
+     (org-latex-title-command . "")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
