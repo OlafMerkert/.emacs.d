@@ -38,6 +38,7 @@ horizontal space is available."
   ("b" ido-switch-buffer "switch buffer")
   ("B" ido-switch-buffer-other-window "switch other buffer")
   ("C-f" ido-find-file "open file")
+  ("k" ido-kill-buffer "kill buffer")
   ;; ("F" ido-find-file-other-window)
   ("<left>" windmove-left "<")
   ("<down>" windmove-down "v")
