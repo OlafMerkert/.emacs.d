@@ -23,6 +23,9 @@
 
 (setq org-src-fontify-natively t)
 
+;; don't introduce indentation everywhere
+(setq org-adapt-indentation nil)
+
 (setq org-directory "~/Personal"
       org-default-notes-file (org-path "notizen"))
 
