@@ -56,6 +56,17 @@
   (org-ctrl-c-ctrl-c)
   (org-babel-next-src-block))
 
+;;; a function to paste the contents of current code block into other
+;;; buffer. Essentially, this is a universal poor man's session
+;;; support.
+(defun org-src-block-append-other-buffer ()
+  (interactive)
+  (org-babel-when-in-src-block
+   (let ((contents (org-element-property :value (org-element-at-point))))
+     (other-window 1)
+     (end-of-buffer)
+     (insert contents))))
+
 (defhydra org-src-actions (org-mode-map "<f5>")
   "src block:"
   ("r" org-ctrl-c-ctrl-c "eXec")
@@ -70,6 +81,7 @@
   ("z" org-babel-switch-to-session "repl" :color blue)
   ("k" org-babel-remove-result "remove result")
   ("x" org-src-eval-and-next)
+  ("o" org-src-block-append-other-buffer "append other buffer" )
   ("q" nil "quit"))
 
 (defhydra org-src-edit-actions (org-src-mode-map "<f5>")
