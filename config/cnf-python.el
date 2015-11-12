@@ -1,7 +1,8 @@
 ;;; customisations for python programming
 (use-package elpy
     :ensure t
-    :init (elpy-enable))
+    :init (elpy-enable)
+    :config (setf python-check-command "flake8-python2"))
 ;; (elpy-clean-modeline)
 
 (use-package ipython :disabled t)
@@ -49,15 +50,18 @@
 
 (defun set-interpreter-python3 ()
   (interactive)
-  (set-interpreter-python "python" "-i"))
+  (set-interpreter-python "python" "-i")
+  (setf python-check-command "flake8"))
 
 (defun set-interpreter-python2 ()
   (interactive)
-  (set-interpreter-python "python2" "-i"))
+  (set-interpreter-python "python2" "-i")
+  (setf python-check-command "flake8-python2"))
 
 (defun set-interpreter-sage ()
   (interactive)
-  (set-interpreter-python "sage" "-python -i"))
+  (set-interpreter-python "sage" "-python -i")
+  (setf python-check-command "flake8-python2"))
 
 (set-interpreter-python3)
 
@@ -70,6 +74,7 @@
     (make-local-variable 'python-shell-interpreter-args)
     (make-local-variable 'org-babel-python-command)
     (make-local-variable 'python-shell-buffer-name)
+    (make-local-variable 'python-check-command)
     (message "Use sage as python interpreter for this buffer.")
     (set-interpreter-sage)))
 
