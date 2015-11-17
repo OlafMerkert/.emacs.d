@@ -84,6 +84,12 @@
 (setenv "PYTHONPATH" "/home/olaf/Projekte/olsage:/home/olaf/Perfezionamento/thesis")
 (setenv "SAGE_PATH" "/home/olaf/Projekte/olsage:/home/olaf/Perfezionamento/thesis")
 
+(defun sage-var-index-transform ()
+  (interactive)
+  (save-excursion
+    (mark-sexp)
+    (replace-regexp "\\([qb]\\)\\([0-9]+\\)" "\\1[\\2]" nil (region-beginning) (region-end))))
+
 (defun elpy-shell-send-line ()
   "Send the current line to the Python shell. "
   (interactive)
