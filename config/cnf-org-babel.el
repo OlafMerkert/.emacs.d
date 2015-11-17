@@ -67,9 +67,14 @@
      (end-of-buffer)
      (insert contents))))
 
+(defun org-edit-src-exit-and-eval ()
+  (interactive)
+  (org-edit-src-exit)
+  (org-babel-execute-maybe))
+
 (defhydra org-src-actions (org-mode-map "<f5>")
   "src block:"
-  ("r" org-ctrl-c-ctrl-c "eXec")
+  ("r" org-babel-execute-maybe "eXec")
   ("s" org-babel-execute-subtree "eXec subtree")
   ("e" org-edit-special "Edit" :color blue)
   ("a" ob-abort-sage-calculation "Abort calculation")
@@ -89,6 +94,7 @@
   ("r" org-edit-src-evaluate-code-block "eXec")
   ;; TODO exit, eval and next
   ("e" org-edit-src-exit "close Edit" :color blue)
+  ("x" org-edit-src-exit-and-eval "close and eval" :color blue)
   ("a" org-src-abort-sage-calculation "Abort calculation")
   ("k" org-babel-remove-result "remove result")
   ("q" nil "quit"))
