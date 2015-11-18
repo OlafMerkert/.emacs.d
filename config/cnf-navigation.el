@@ -44,7 +44,7 @@ horizontal space is available."
   ("<down>" windmove-down "v")
   ("<up>" windmove-up "^")
   ("<right>" windmove-right ">")
-  ("o" ace-window "other")
+  ("o" ace-window "other" :color blue)
   ;; ("f" other-frame :color blue)
   ;; ("s" split-window-automatically "split")
   ("0" delete-window "del win")
