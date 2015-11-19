@@ -65,6 +65,7 @@
         smex
         sp-backward-slurp-sexp
         sp-delete-char
+        sp-kill-word
         sp-python-indent-dedent-line-backspace
         transpose-sexps
         transpose-words
