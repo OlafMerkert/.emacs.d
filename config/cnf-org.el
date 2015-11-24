@@ -24,7 +24,22 @@
 (setq org-src-fontify-natively t)
 
 ;; don't introduce indentation everywhere
-(setq org-adapt-indentation nil)
+(setq org-adapt-indentation nil
+      org-startup-indented t)
+
+(diminish 'org-indent-mode)
+
+;; customise bullets and ellipsis
+(setq org-ellipsis " ⚬⚬⚬")
+
+(use-package org-bullets
+    :ensure t
+    :commands org-bullets-mode
+    :init
+    (defun turn-on-org-bullets ()
+      (org-bullets-mode +1))
+    (add-hook 'org-mode-hook 'turn-on-org-bullets)
+    :config (setq org-bullets-bullet-list '("◉")))
 
 (setq org-directory "~/Personal"
       org-default-notes-file (org-path "notizen"))
