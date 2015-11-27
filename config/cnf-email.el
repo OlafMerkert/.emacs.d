@@ -22,7 +22,7 @@
 (defun open-gnus ()
   (interactive)
   (setf gnus-buffer-configuration
-        (if (< 140 (frame-width))
+        (if (< 150 (frame-width))
             ;; wide-screen layout
             horizontal-gnus-buffer-configuration
             vertical-gnus-buffer-configuration))
