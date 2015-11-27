@@ -7,6 +7,9 @@
 ;; repeat last command
 (global-set-key (kbd "C-z") 'repeat)
 
+;; show unfinished keystrokes immediately
+(setq echo-keystrokes 0.1)
+
 (use-package dash :ensure t)
 (use-package fullframe :ensure t)
 
