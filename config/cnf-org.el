@@ -27,7 +27,7 @@
 (setq org-adapt-indentation nil
       org-startup-indented t)
 
-(diminish 'org-indent-mode)
+(after-load 'org-indent (diminish 'org-indent-mode))
 
 ;; customise bullets and ellipsis
 (setq org-ellipsis " ⚬⚬⚬")
