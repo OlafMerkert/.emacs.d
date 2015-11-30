@@ -50,7 +50,7 @@
 
 (defun set-interpreter-python3 ()
   (interactive)
-  (set-interpreter-python "python" "-i")
+  (set-interpreter-python "python3" "-i")
   (setf python-check-command "flake8"))
 
 (defun set-interpreter-python2 ()
