@@ -2,21 +2,27 @@
 (set-background-color "lavender")
 (add-to-list 'default-frame-alist '(background-color . "lavender"))
 
+(defun font-select (name &optional size)
+  (interactive "sFont name: ")
+  (unless size
+    (setf size 12))
+  (set-frame-font (format "%s-%s" name size) nil t))
+
+;; (font-select "Times New Roman" 13)
+
 (defmacro def-font-selector (&rest fonts)
   `(defhydra font-family-selector (global-map "<f1>")
      "font"
      ("q" nil "quit")
      ,@(mapcar (lambda (font)
                  (destructuring-bind (key name &optional size) font
-                     (unless size
-                       (setf size 10))
-                   `(,key (lambda () (interactive) (set-frame-font ,(format "%s-%s" name size) nil t)) ,name)))
+                   `(,key (lambda () (interactive) (font-select ,name ,size)) ,name)))
                fonts)))
 
 (def-font-selector
   ("a" "Hack" 10)
   ("h" "Hermit" 10)
-  ("p" "PT Mono" 11)
+  ("p" "PT Mono" 10)
   ("d" "Deja Vu Sans Mono" 10)
   ("s" "Source Code Pro Light" 11)
   ("S" "Source Sans Pro" 11)
@@ -28,7 +34,10 @@
   ("m" "Monaco" 11)
   ("n" "Nimbus Mono")
   ("g" "GentiumAlt" 12)
-  ("e" "Envy Code R" 12))
+  ("e" "Envy Code R" 12)
+  ("c" "Comic Sans MS" 12)
+  ("P" "Palladio URW" 12)
+  ("T" "Times New Roman" 13))
 
 ;; use more prominent colours for the modeline of the active buffer
 (set-face-attribute 'mode-line
@@ -61,10 +70,8 @@
           `(set-face-attribute ',(symb pre (symbol-name (first c)) post)
                                nil
                                :foreground ,(second c)
-                               ,@ (if (third c) `(:weight ',(third c)))))
+                               ,@(cddr c)))
         conses)))
-
-234
 
 ;; programming colours
 (set-fg-colors "font-lock-" "-face"
@@ -72,20 +79,20 @@
                (constant       "midnightblue")
                (keyword        "dodgerblue")
                (string         "royalblue2")
-               (type           "blue3"  bold)
-               (function-name  "blue"  bold)
-               (variable-name  "darkblue"  normal  )
+               (type           "blue3")
+               (function-name  "blue" :underline nil :weight 'semi-bold :slant 'normal)
+               (variable-name  "darkblue" :underline nil :weight 'normal :slant 'normal)
                (comment        "steelblue4")
                (warning        "tomato"))
 
 ;; org colours
 (set-fg-colors "org-" ""
-               (level-1  "blue2" bold)
-               (level-2  "orange3" normal)
-               (level-3  "blue4" normal)
-               (level-4  "goldenrod3" normal)
-               (level-5  "dodgerblue3" normal)
-               (level-6  "gold3" normal))
+               (level-1  "blue2" :weight 'bold)
+               (level-2  "orange3" :weight 'normal)
+               (level-3  "blue4" :weight 'normal)
+               (level-4  "goldenrod3" :weight 'normal)
+               (level-5  "dodgerblue3" :weight 'normal)
+               (level-6  "gold3" :weight 'normal))
 
 (after-load 'font-latex
   (set-fg-colors "font-" "-face"
