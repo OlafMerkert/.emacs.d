@@ -28,7 +28,12 @@
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+  ;; without this, ref and eqref links as provided by org-ref are
+  ;; useless. Moreover, we want labels to appear at the top.
+  (setq org-latex-prefer-user-labels t
+        org-latex-caption-above '(table special-block)))
 
 ;; turn emacs highlighting into html code
 (use-package htmlize
