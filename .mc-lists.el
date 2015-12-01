@@ -56,6 +56,7 @@
         paredit-forward-up
         paredit-kill
         paredit-open-round
+        paredit-semicolon
         paredit-splice-sexp
         paredit-splice-sexp-killing-backward
         reindent-then-newline-and-indent

@@ -98,6 +98,10 @@
   (set-fg-colors "font-" "-face"
                  (latex-math "maroon")))
 
+(after-load 'git-commit
+  (set-fg-colors "git-commit-" ""
+                 (summary "blue" :weight 'semi-bold)))
+
 ;; highlighting of parenthesis in a subdued colour
 (defface esk-paren-face
     '((((class color) (background dark))
