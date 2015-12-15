@@ -59,6 +59,7 @@
         paredit-semicolon
         paredit-splice-sexp
         paredit-splice-sexp-killing-backward
+        paredit-splice-sexp-killing-forward
         reindent-then-newline-and-indent
         slime-autodoc-space
         slime-export-symbol-at-point
@@ -68,6 +69,7 @@
         sp-delete-char
         sp-kill-word
         sp-python-indent-dedent-line-backspace
+        tex-goto-prev-dollar
         transpose-sexps
         transpose-words
         wdired-downcase-word
