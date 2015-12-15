@@ -1,3 +1,21 @@
+
+;; don't open files with some endings
+(mapc (lambda (x)
+        (add-to-list 'completion-ignored-extensions x))
+      '(".aux"
+        ".bbl"
+        ".blg"
+        ".meta"
+        ".out"
+        ".synctex.gz"
+        ".tdo"
+        ".toc"
+        "-pkg.el"
+        "-autoloads.el"
+        "auto/"
+        ".fasl"
+        ".pyc"))
+
 (add-to-list 'clean-local-keybindings "C-j")
 
 (use-package avy
