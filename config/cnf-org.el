@@ -23,6 +23,31 @@
 
 (setq org-src-fontify-natively t)
 
+;; highlighting of latex math in org buffers
+(require 'font-latex)
+
+(org-set-emph-re 'org-emphasis-alist '(("*" bold)
+                                       ("/" italic)
+                                       ("_" underline)
+                                       ("=" org-verbatim verbatim)
+                                       ("~" org-code verbatim)
+                                       ;;("+" (:strike-through t))
+                                       ("$" font-latex-math-face verbatim)))
+
+(defvar org-latex-math-envs)
+(setf org-latex-math-envs '("equation" "align" "multline"))
+
+;; (font-lock-add-keywords 'org-mode
+;;                         (mapcar
+;;                          (lambda (env)
+;;                            `(,(format "\\(\\\\begin{%s\\*?}\\)\n*\\([^$]*\\)\n*\\(\\\\end{%s\\*?}\\)" env env)
+;;                               (1 org-block-begin-line)
+;;                               (2 font-latex-math-face)
+;;                               (3 org-block-end-line)))
+;;                          org-latex-math-envs)
+;;                         t)
+
+
 ;; don't introduce indentation everywhere
 (setq org-adapt-indentation nil
       org-startup-indented t)
