@@ -167,7 +167,14 @@
                (nnimap-stream ssl)
                (nnir-search-engine imap))
               ;; use gwene as RSS/Atom -> nntp gateway
-              (nntp "news.gwene.org")))
+              (nntp "news.gwene.org"
+               (nntp-open-connection-function nntp-open-tls-stream)
+               (nntp-port-number 563)
+               (nntp-address "news.gwene.org"))
+              (nntp "news.gmane.org"
+               (nntp-open-connection-function nntp-open-tls-stream)
+               (nntp-port-number 563)
+               (nntp-address "news.gmane.org"))))
 
 ;; Make Gnus NOT ignore [Gmail] mailboxes
 (setq gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
