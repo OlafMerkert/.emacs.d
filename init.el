@@ -44,6 +44,7 @@
 
 ;; org and email
 (require 'cnf-email)
+(require 'cnf-twitter)
 (require 'cnf-org)
 (require 'cnf-org-export)
 (require 'cnf-org-babel)
