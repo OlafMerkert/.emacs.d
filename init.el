@@ -31,6 +31,7 @@
 
 ;; writing and programming
 (require 'cnf-prog)
+(require 'cnf-autocomplete)
 (require 'cnf-smartparens)
 (require 'cnf-lisp)
 (require 'cnf-python)
