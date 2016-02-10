@@ -65,12 +65,16 @@
 ;; mail queue
 (setq smtpmail-queue-mail nil)
 
+;; draft folder
+(setq nndraft-directory "1und1/Drafts")
+
 ;; store sent email on the imap server as well
-(setq gnus-message-archive-method
-       '(nnfolder "archive"
-         (nnfolder-inhibit-expiry t)
-         (nnfolder-directory "~/Mail/archive")
-         (nnfolder-active-file "~/Mail/archive/active")))
+(setq gnus-message-archive-method nil
+       ;; '(nnfolder "archive"
+       ;;   (nnfolder-inhibit-expiry t)
+       ;;   (nnfolder-directory "~/Mail/archive")
+       ;;   (nnfolder-active-file "~/Mail/archive/active"))
+       )
 
 (setq message-alternative-emails (regexp-opt (rest user-mail-addresses))
       gnus-ignored-from-addresses (regexp-opt user-mail-addresses))
@@ -78,11 +82,7 @@
 (setq message-dont-reply-to-names (regexp-opt active-user-mail-addresses))
 
 (defun gnus-sent-messages-folder (&optional narrowed-p)
-  (if (search "sns.it" (if narrowed-p
-                           (message-fetch-field "From")
-                           (message-field-value "From")))
-      "nnimap+sns:INBOX"
-      "nnimap+1und1:INBOX"))
+  "1und1")
 
 (setq gnus-message-archive-group
       '((cond
@@ -90,9 +90,7 @@
            ;; News
            "sent-news")
           ;; Mail
-          ((message-mail-p)
-           nil ; (gnus-sent-messages-folder)
-           ))))
+          ((message-mail-p) "1und1"))))
 
 (setq gnus-gcc-mark-as-read t)
 
