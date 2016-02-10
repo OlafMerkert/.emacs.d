@@ -170,6 +170,12 @@
          (nntp-port-number 563)
          (nntp-address "news.gmane.org"))))
 
+(use-package offlineimap
+    :ensure t
+    :commands offlineimap
+    :init ;;(add-hook 'gnus-before-startup-hook 'offlineimap)
+    (bind-key "I" 'offlineimap gnus-group-mode-map))
+
 ;; Make Gnus NOT ignore [Gmail] mailboxes
 (setq gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
 
