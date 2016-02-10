@@ -153,28 +153,22 @@
 (setq gnus-ignored-newsgroups ""
       mm-discouraged-alternatives '("text/html" "text/richtext"))
 
-(setq gnus-select-method '(nntp "akk4-dmz.akk.uni-karlsruhe.de"))
+(setq gnus-select-method '(nnimap "local"
+                           (nnimap-stream shell)
+                           (nnimap-shell-program "/usr/lib/dovecot/imap -o mail_location=maildir:$HOME/Mail:LAYOUT=fs") 
+                           (nnir-search-engine imap)))
 
 (setq gnus-secondary-select-methods
-            '((nnimap "1und1"
-               (nnimap-address "imap.1und1.de")
-               (nnimap-server-port 993)
-               (nnimap-stream tls)
-               (nnir-search-engine imap))
-              (nnimap "sns"
-               (nnimap-address "imap.gmail.com")
-               (nnimap-server-port 993)
-               (nnimap-stream ssl)
-               (nnir-search-engine imap))
-              ;; use gwene as RSS/Atom -> nntp gateway
-              (nntp "news.gwene.org"
-               (nntp-open-connection-function nntp-open-tls-stream)
-               (nntp-port-number 563)
-               (nntp-address "news.gwene.org"))
-              (nntp "news.gmane.org"
-               (nntp-open-connection-function nntp-open-tls-stream)
-               (nntp-port-number 563)
-               (nntp-address "news.gmane.org"))))
+      '(;; (nntp "akk4-dmz.akk.uni-karlsruhe.de")
+        ;; use gwene as RSS/Atom -> nntp gateway
+        (nntp "news.gwene.org"
+         (nntp-open-connection-function nntp-open-tls-stream)
+         (nntp-port-number 563)
+         (nntp-address "news.gwene.org"))
+        (nntp "news.gmane.org"
+         (nntp-open-connection-function nntp-open-tls-stream)
+         (nntp-port-number 563)
+         (nntp-address "news.gmane.org"))))
 
 ;; Make Gnus NOT ignore [Gmail] mailboxes
 (setq gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")

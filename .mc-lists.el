@@ -9,6 +9,7 @@
         ace-jump-mode
         backward-sentence
         backward-sexp
+        beginning-of-buffer
         beginning-of-visual-line
         c-electric-semi&comma
         comment-dwim
@@ -18,6 +19,7 @@
         downcase-region
         end-of-visual-line
         forward-sexp
+        gnus-group-kill-group
         indent-new-comment-line
         isearch-abort
         isearch-backward-regexp
