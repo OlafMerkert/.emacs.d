@@ -75,13 +75,57 @@
         (clisp ("/usr/bin/clisp"))
         ))
 
+
+(defun slime-setup-forwarding (server-login start-lisp)
+  (let ((buffer "*remote inferior lisp*"))
+    (unless (get-buffer buffer)
+      (shell buffer)
+      (switch-to-buffer buffer)
+      (comint-simple-send buffer (concat "ssh -L4005:127.0.0.1:4005 " server-login "\n"))
+      (when start-lisp
+        (comint-simple-send buffer "sbcl\n")
+        (comint-simple-send buffer "(ql:quickload 'swank)\n")
+        (comint-simple-send buffer
+                            "(progn
+
+(swank:create-server :port 4005 :dont-close nil)
+                              (setf swank:*use-dedicated-output-stream* nil))\n")
+        (comint-simple-send buffer "\"forwarding ready\"\n"))
+      (unless start-lisp
+        (comint-simple-send buffer "echo \"forwarding ready\"\n"))
+      (sit-for 20)
+      t)))
+
+(defun slime-remote (host &optional username start-lisp)
+  (interactive)
+  (unless username
+    (setf username "olaf"))
+  (let* ((server-login (concat username "@" host))
+         (server-prefix (concat "/ssh:" server-login ":"))
+         (server-prefix-length (length server-prefix)))
+    ;; open ssh connection if none is open
+    (save-window-excursion
+      (slime-setup-forwarding server-login start-lisp))
+    ;; setup translators
+    (setq slime-to-lisp-filename-function
+          (lambda (file-name) (subseq file-name server-prefix-length))
+          slime-from-lisp-filename-function
+          (lambda (file-name) (concat server-prefix file-name)))
+    ;; connect to slime on server
+    (slime-connect "127.0.0.1" 4005)))
+
 (defun slime-sl2z ()
   (interactive)
-  ;; setup translators
-  (setq slime-to-lisp-filename-function   (lambda (file-name) (subseq file-name 18))
-        slime-from-lisp-filename-function (lambda (file-name) (concat "/ssh:olaf@sl2z.de:" file-name)))
-  ;; connect to slime on server
-  (slime-connect "127.0.0.1" 4005))
+  (slime-remote "sl2z.de" "olaf" nil))
+
+(defun slime-maglor ()
+  (interactive)
+  (slime-remote "maglor" "olaf" t))
+
+(defun cleanup-remote-slime-buffers ()
+  (interactive)
+  (kill-buffer "*remote inferior lisp*")
+  (kill-buffer "*slime-repl sbcl*"))
 
 (defun slime-local (&optional command)
   (interactive)
@@ -112,11 +156,12 @@
 (defhydra slime-start (:color blue)
   "slime"
   ("d" slime-local "default")
-  ("s" (slime-sbcl) "sbcl")
-  ("r" slime-sl2z "remote")
-  ("z" (slime-ccl) "ccl")
-  ("c" (slime-clisp) "clisp")
-  )
+  ("s" slime-sbcl "sbcl")
+  ("r" slime-sl2z "sl2z")
+  ("m" slime-maglor "maglor")
+  ("z" slime-ccl "ccl")
+  ("c" slime-clisp "clisp")
+  ("q" cleanup-remote-slime-buffers "cleanup"))
 
 (defun slime-selector-or-start ()
   (interactive)
