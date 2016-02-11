@@ -106,6 +106,7 @@
 
 (define-key message-mode-map (kbd "C-c a") 'message-toggle-alternate)
 
+;; TODO perhaps we do no longer need the following functionality? 
 (defun message-use-alternative-email-as-from--adjust-gcc-for-alternative ()
   (message-remove-header "Gcc")
   (insert "Gcc: " (gnus-sent-messages-folder t) "\n"))
@@ -195,7 +196,7 @@
 
 ;; where to move stuff by default
 (setq gnus-move-split-methods nil
-      gnus-move-group-prefix-function (lambda (group-name) "nnimap+1und1:Archiv/"))
+      gnus-move-group-prefix-function (lambda (group-name) "1und1/Archiv/"))
 
 ;;; bbdb configuration
 (bbdb-initialize 'gnus 'message)
