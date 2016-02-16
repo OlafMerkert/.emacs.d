@@ -66,7 +66,7 @@
 (setq smtpmail-queue-mail nil)
 
 ;; draft folder
-(setq nndraft-directory "1und1/Drafts")
+(setq nndraft-directory "~/Mail/Gnus/")
 
 ;; store sent email on the imap server as well
 (setq gnus-message-archive-method nil
@@ -177,7 +177,7 @@
       "offlineimap"
       ("f" (lambda ()
              (interactive)
-             (if (get-buffer offlineimap-buffer-name)
+             (if (get-buffer "*OfflineIMAP*")
                  (offlineimap-resync)
                  (offlineimap)))
            "sync")
@@ -185,8 +185,9 @@
              (interactive)
              (gnus-group-get-new-news))
            "read")
-      ("q" offlineimap-quit "quit" :color blue)
-      ("k" offlineimap-kill "kill" :color blue)))
+      ("c" offlineimap-quit "close" :color blue)
+      ("k" offlineimap-kill "kill" :color blue)
+      ("q" nil "quit")))
 
 ;; Make Gnus NOT ignore [Gmail] mailboxes
 (setq gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
@@ -225,6 +226,7 @@
 (setq bbdb-file "~/Personal/kontakte.bbdb")
 
 (setq bbdb-send-mail-style 'gnus
+      bbdb-mail-user-agent 'gnus-user-agent
       bbdb-complete-name-full-completion t
       bbdb-completion-type 'primary-or-name
       bbdb-complete-name-allow-cycling t)
