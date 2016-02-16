@@ -173,7 +173,20 @@
     :ensure t
     :commands offlineimap
     :init ;;(add-hook 'gnus-before-startup-hook 'offlineimap)
-    (bind-key "I" 'offlineimap gnus-group-mode-map))
+    (defhydra offlineimap-from-gnus (gnus-group-mode-map "I")
+      "offlineimap"
+      ("f" (lambda ()
+             (interactive)
+             (if (get-buffer offlineimap-buffer-name)
+                 (offlineimap-resync)
+                 (offlineimap)))
+           "sync")
+      ("g" (lambda ()
+             (interactive)
+             (gnus-group-get-new-news))
+           "read")
+      ("q" offlineimap-quit "quit" :color blue)
+      ("k" offlineimap-kill "kill" :color blue)))
 
 ;; Make Gnus NOT ignore [Gmail] mailboxes
 (setq gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
