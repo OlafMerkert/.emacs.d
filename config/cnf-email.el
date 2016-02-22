@@ -169,6 +169,11 @@
          (nntp-port-number 563)
          (nntp-address "news.gmane.org"))))
 
+(defun kill-gnutls-processes ()
+  (interactive)
+  (call-process "/usr/bin/killall" nil nil nil "gnutls-cli"))
+
+
 (use-package offlineimap
     :ensure t
     :commands offlineimap
@@ -189,8 +194,13 @@
              (interactive)
              (aif (get-buffer "*OfflineIMAP*") (switch-to-buffer it)))
            "to buffer")
+      ("G" (lambda ()
+             (interactive)
+             (aif (gnus-buffer-exists-p "*Group*") (switch-to-buffer it)))
+           "groups")
       ("c" offlineimap-quit "close" :color blue)
-      ("k" offlineimap-kill "kill" :color blue)
+      ("k" offlineimap-kill "kill")
+      ("K" kill-gnutls-processes "kill gnutls")
       ("q" nil "quit")))
 
 ;; Make Gnus NOT ignore [Gmail] mailboxes
