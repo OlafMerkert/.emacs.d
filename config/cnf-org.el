@@ -103,7 +103,7 @@
 ;;; configure org capture
 (let ((my-todo-template "* TODO %?%i\n  %a")
       (my-simple-todo-template "* TODO %?")
-      (my-note-template "* %?%i\n  %a"))
+      (my-note-template "* %?%i\n%a"))
   (setq  org-capture-templates
          `(("t" "Todo" entry
                 (file+headline "" "Tasks")
@@ -119,7 +119,7 @@
                 ,my-todo-template)
            ("v" "Vortrag" entry
                 (file+headline ,(org-path "sns") "Vorträge")
-                "* %?%i\n  %a")
+                "* %?%i\n%a")
            ("p" "Privat Todo" entry
                 (file+headline ,(org-path "privat") "Tasks")
                 ,my-todo-template)
@@ -139,9 +139,9 @@
            ("m" "Music" entry
                 (file+headline ,(org-path "privat") "Musik")
                 "* %a%?")
-           ("z" "Zimmer" entry
-                (file+headline ,(org-path "privat") "Neue Wohnung")
-                "* %?%i\n  %a")
+           ("z" "Zannier" entry
+                (file+headline ,(org-path "sns") "Termine")
+                "* Meet [[bbdb:Zannier][Zannier]\n%?")
            )))
 
 (defun find-git-project-readme-tasks ()
