@@ -182,7 +182,7 @@
       "offlineimap"
       ("f" (lambda ()
              (interactive)
-             (if (get-buffer "*OfflineIMAP*")
+             (if (and (get-buffer "*OfflineIMAP*") (get-buffer-process "*OfflineIMAP*"))
                  (offlineimap-resync)
                  (offlineimap)))
            "sync")
