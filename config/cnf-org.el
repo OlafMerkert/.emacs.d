@@ -101,7 +101,7 @@
     (unless pull-only (magit-push "master" personal-information-remote nil))))
 
 ;;; configure org capture
-(let ((my-todo-template "* TODO %?%i\n  %a")
+(let ((my-todo-template "* TODO %?%i\n%a")
       (my-simple-todo-template "* TODO %?")
       (my-note-template "* %?%i\n%a"))
   (setq  org-capture-templates
@@ -123,7 +123,7 @@
            ("p" "Privat Todo" entry
                 (file+headline ,(org-path "privat") "Tasks")
                 ,my-todo-template)
-           ;; TODO capture to readme.org of current (git) project
+           ;; capture to readme.org of current (git) project
            ("r" "Readme" entry
                 (function find-git-project-readme-tasks)
                 ,my-todo-template)
@@ -141,7 +141,13 @@
                 "* %a%?")
            ("z" "Zannier" entry
                 (file+headline ,(org-path "sns") "Termine")
-                "* Meet [[bbdb:Zannier][Zannier]\n%?")
+                "* Meet [[bbdb:Zannier][Zannier]]\n%?")
+           ("d" "Thesis task" entry
+                (file+headline "/home/olaf/Perfezionamento/thesis/phd-thesis.en.org" "Tasks")
+                ,my-simple-todo-template)
+           ("j" "Tagebuch" entry
+                (file+datetree ,(org-path "tagebuch"))
+                "* %?")
            )))
 
 (defun find-git-project-readme-tasks ()
