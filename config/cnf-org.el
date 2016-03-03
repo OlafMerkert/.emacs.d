@@ -150,6 +150,10 @@
                 "* %?")
            )))
 
+;; make org-capture much faster by switching off clipboard lookup (who needs that?)
+;; thanks to http://blog.andy.glew.ca/2013/09/org-capture-org-get-x-clipboard-very.html
+(advice-add 'org-get-x-clipboard :around (lambda (fn value) nil))
+
 (defun find-git-project-readme-tasks ()
   (find-git-project-readme "Tasks"))
 
