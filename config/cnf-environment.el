@@ -12,6 +12,8 @@
 (after-load 'tramp
   (setenv "SHELL" "/bin/bash"))
 
+(setq tramp-default-method "sshx")
+
 ;; projects
 (use-package ecb :disabled t)
 
