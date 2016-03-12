@@ -164,10 +164,11 @@
          (nntp-open-connection-function nntp-open-tls-stream)
          (nntp-port-number 563)
          (nntp-address "news.gwene.org"))
-        (nntp "news.gmane.org"
-         (nntp-open-connection-function nntp-open-tls-stream)
-         (nntp-port-number 563)
-         (nntp-address "news.gmane.org"))))
+        ;; (nntp "news.gmane.org"
+        ;;  (nntp-open-connection-function nntp-open-tls-stream)
+        ;;  (nntp-port-number 563)
+        ;;  (nntp-address "news.gmane.org"))
+        ))
 
 (defun kill-gnutls-processes ()
   (interactive)
