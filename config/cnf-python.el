@@ -85,6 +85,7 @@
 (setenv "SAGE_PATH" "/home/olaf/Projekte/olsage:/home/olaf/Perfezionamento/thesis")
 
 (defun sage-var-index-transform ()
+  "If the output contains stuff like q8, b3, etc, transform it into q[8], b[3]."
   (interactive)
   (save-excursion
     (mark-sexp)
@@ -111,9 +112,9 @@
   (let ((region (elpy-shell--region-without-indentation
                  (save-excursion
                    (search-backward-regexp "^\\(def\\|class\\)")
-                   ;; todo add support for decorators
+                   ;; TODO add support for decorators
                    (point))
-                 ;; todo figure out if we can also autofind the end of
+                 ;; TODO figure out if we can also autofind the end of
                  ;; a definition: two empty lines, or the next time
                  ;; a non-trivial character appears at beginning of line
                  (point))))
@@ -137,6 +138,15 @@
     (if (<= (length variable-names) 1)
         (concat "\"" (or (car variable-names) "") "\"")
         (concat "[\"" (s-join "\", \"" variable-names) "\"]"))))
+
+(defun sage->python-notation (start end)
+  "In region, ensure that sage output is interpreted as correct python notation"
+  (interactive "r")
+  ;; exponentation
+  (replace-string "^" "**" nil start end)
+  ;; wrap integer before "/"
+  (replace-regexp "\\(^\\|[ (-]\\)\\([0-9]+\\)/" "\\1Integer(\\2)/" nil start end))
+
 
 
 (provide 'cnf-python)
