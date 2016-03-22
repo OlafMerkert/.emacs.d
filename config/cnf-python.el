@@ -89,7 +89,7 @@
   (interactive)
   (save-excursion
     (mark-sexp)
-    (replace-regexp "\\([qb]\\)\\([0-9]+\\)" "\\1[\\2]" nil (region-beginning) (region-end))))
+    (replace-regexp "\\([abq]\\)\\([0-9]+\\)" "\\1[\\2]" nil (region-beginning) (region-end))))
 
 (defun elpy-shell-send-line ()
   "Send the current line to the Python shell. "
