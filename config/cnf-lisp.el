@@ -96,13 +96,16 @@
       (sit-for 20)
       t)))
 
+(defvar server-prefix-length 0)
+(defvar server-prefix "")
+
 (defun slime-remote (host &optional username start-lisp)
   (interactive)
   (unless username
     (setf username "olaf"))
-  (let* ((server-login (concat username "@" host))
-         (server-prefix (concat "/ssh:" server-login ":"))
-         (server-prefix-length (length server-prefix)))
+  (let ((server-login (concat username "@" host)))
+    (setf server-prefix (concat "/ssh:" server-login ":")
+          server-prefix-length (length server-prefix))
     ;; open ssh connection if none is open
     (save-window-excursion
       (slime-setup-forwarding server-login start-lisp))
@@ -155,10 +158,10 @@
 
 (defhydra slime-start (:color blue)
   "slime"
-  ("d" slime-local "default")
+  ("r" slime-local "default")
   ("s" slime-sbcl "sbcl")
-  ("r" slime-sl2z "sl2z")
-  ("m" slime-maglor "maglor")
+  ("R" slime-sl2z "sl2z")
+  ("M" slime-maglor "maglor")
   ("z" slime-ccl "ccl")
   ("c" slime-clisp "clisp")
   ("q" cleanup-remote-slime-buffers "cleanup"))
