@@ -266,6 +266,7 @@
                   name-format name-face
                   bbdb-id
                   asynk:bbdbgoogleprivate:gc
+                  asynk:bbdbgoogleprivate:bb
                   ))
          (toggle . t)
          (indentation . 21))
