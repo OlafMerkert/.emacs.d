@@ -82,7 +82,7 @@
 (setq message-dont-reply-to-names (regexp-opt active-user-mail-addresses))
 
 (defun gnus-sent-messages-folder (&optional narrowed-p)
-  "1und1")
+  "1und1/INBOX")
 
 (setq gnus-message-archive-group
       '((cond
@@ -90,7 +90,7 @@
            ;; News
            "sent-news")
           ;; Mail
-          ((message-mail-p) "1und1"))))
+          ((message-mail-p) "1und1/INBOX"))))
 
 (setq gnus-gcc-mark-as-read t)
 
@@ -106,7 +106,7 @@
 
 (define-key message-mode-map (kbd "C-c a") 'message-toggle-alternate)
 
-;; TODO perhaps we do no longer need the following functionality? 
+;; TODO perhaps we do no longer need the following functionality?
 (defun message-use-alternative-email-as-from--adjust-gcc-for-alternative ()
   (message-remove-header "Gcc")
   (insert "Gcc: " (gnus-sent-messages-folder t) "\n"))
@@ -154,7 +154,7 @@
 
 (setq gnus-select-method '(nnimap "local"
                            (nnimap-stream shell)
-                           (nnimap-shell-program "/usr/lib/dovecot/imap -o mail_location=maildir:$HOME/Mail:LAYOUT=fs") 
+                           (nnimap-shell-program "/usr/lib/dovecot/imap -o mail_location=maildir:$HOME/Mail:LAYOUT=fs")
                            (nnir-search-engine imap)))
 
 (setq gnus-secondary-select-methods
@@ -174,35 +174,38 @@
   (interactive)
   (call-process "/usr/bin/killall" nil nil nil "gnutls-cli"))
 
+(let ((path (expand-file-name "addons/mbsync-el" user-emacs-directory)))
+  (when (file-exists-p path)
+    (add-to-list 'load-path path)
+    (require 'mbsync)))
 
-(use-package offlineimap
-    :ensure t
-    :commands offlineimap
-    :init ;;(add-hook 'gnus-before-startup-hook 'offlineimap)
-    (defhydra offlineimap-from-gnus (gnus-group-mode-map "I")
-      "offlineimap"
-      ("f" (lambda ()
-             (interactive)
-             (if (and (get-buffer "*OfflineIMAP*") (get-buffer-process "*OfflineIMAP*"))
-                 (offlineimap-resync)
-                 (offlineimap)))
-           "sync")
-      ("g" (lambda ()
-             (interactive)
-             (gnus-group-get-new-news))
-           "read")
-      ("b" (lambda ()
-             (interactive)
-             (aif (get-buffer "*OfflineIMAP*") (switch-to-buffer it)))
-           "to buffer")
-      ("G" (lambda ()
-             (interactive)
-             (aif (gnus-buffer-exists-p "*Group*") (switch-to-buffer it)))
-           "groups")
-      ("c" offlineimap-quit "close" :color blue)
-      ("k" offlineimap-kill "kill")
-      ("K" kill-gnutls-processes "kill gnutls")
-      ("q" nil "quit")))
+(after-load 'mbsync
+  (defun mbsync-verbose ()
+    (interactive)
+    (mbsync)
+    (message "Synchronising mails ..."))
+
+  (defun mbsync-finished-message ()
+    (message "Synchronising mails completed."))
+
+  (add-hook 'mbsync-exit-hook 'gnus-group-get-new-news)
+  (add-hook 'mbsync-exit-hook 'mbsync-finished-message)
+  (define-key gnus-group-mode-map (kbd "f") 'mbsync-verbose)
+
+  (defhydra mbsync-from-gnus (gnus-group-mode-map "I")
+    "mbsync"
+    ("f" mbsync-verbose "sync")
+    ("g" (lambda ()
+           (interactive)
+           (gnus-group-get-new-news))
+         "read")
+    ("G" (lambda ()
+           (interactive)
+           (aif (gnus-buffer-exists-p "*Group*") (switch-to-buffer it)))
+         "groups")
+    ("K" kill-gnutls-processes "kill gnutls")
+    ("q" nil "quit")))
+
 
 ;; Make Gnus NOT ignore [Gmail] mailboxes
 (setq gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
