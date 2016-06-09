@@ -91,4 +91,5 @@
         org-src-actions/org-ctrl-c-ctrl-c
         slime-compile-defun
         slime-selector-or-start
+        window-manager/delete-other-windows
         ))

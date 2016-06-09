@@ -9,7 +9,7 @@
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    (quote
-    ("~/Perfezionamento/thesis/continued-fractions-computations.sage.org" "~/Personal/bookmarks.org"  "~/Personal/sns.org" "~/Personal/notizen.org" "~/Personal/privat.org")))
+    ("~/Personal/jobsuche.org" "~/Perfezionamento/thesis/continued-fractions-computations.sage.org" "~/Personal/bookmarks.org" "~/Personal/sns.org" "~/Personal/notizen.org" "~/Personal/privat.org")))
  '(safe-local-variable-values
    (quote
     ((sage . t)
