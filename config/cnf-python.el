@@ -147,6 +147,6 @@
   ;; wrap integer before "/"
   (replace-regexp "\\(^\\|[ (-]\\)\\([0-9]+\\)/" "\\1Integer(\\2)/" nil start end))
 
-
+(setf python-fill-docstring-style 'symmetric)
 
 (provide 'cnf-python)
