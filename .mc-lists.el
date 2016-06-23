@@ -62,7 +62,9 @@
         paredit-splice-sexp
         paredit-splice-sexp-killing-backward
         paredit-splice-sexp-killing-forward
+        paredit-split-sexp
         reindent-then-newline-and-indent
+        repeat
         slime-autodoc-space
         slime-export-symbol-at-point
         slime-space
