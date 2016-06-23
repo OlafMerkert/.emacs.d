@@ -138,4 +138,7 @@
 
 (advice-add 'org-latex-special-block :before 'org-latex-special-block-downcase)
 
+;; HTML export with bootstrap stylesheet
+(use-package ox-twbs :ensure t)
+
 (provide 'cnf-org-export)
