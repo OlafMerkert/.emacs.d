@@ -79,17 +79,14 @@
 (use-package helm-bibtex :ensure t)
 
 ;; it is more convenient to tangle the files manually for now
-(let ((path (expand-file-name "addons/org-ref" user-emacs-directory)))
-  (when (file-exists-p path)
-    (add-to-list 'load-path path)
-    (require 'org-ref)
-    (require 'doi-utils)
-    (require 'jmax-bibtex)))
-
-(after-load 'org-ref
-  (setq reftex-default-bibliography '("~/Perfezionamento/topics/topics.bib")
-        org-ref-default-bibliography reftex-default-bibliography
-        org-ref-pdf-directory "~/.cache/bibtex-manager/links/"))
+(use-package org-ref
+    :ensure t
+    :config (progn
+              (require 'doi-utils)
+              (require 'org-ref-bibtex)
+              (setq reftex-default-bibliography '("~/Perfezionamento/topics/topics.bib")
+                    org-ref-default-bibliography reftex-default-bibliography
+                    org-ref-pdf-directory "~/.cache/bibtex-manager/links/")))
 
 ;; highlighting of source blocks in LaTeX with listings
 (add-to-list 'org-latex-packages-alist '("" "listings"))
@@ -140,5 +137,8 @@
       (org-element-put-property special-block :type type))))
 
 (advice-add 'org-latex-special-block :before 'org-latex-special-block-downcase)
+
+;; HTML export with bootstrap stylesheet
+(use-package ox-twbs :ensure t)
 
 (provide 'cnf-org-export)
