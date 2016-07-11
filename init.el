@@ -1,3 +1,6 @@
+;; package.el expects this; but we call it in cnf-package.el
+;; (package-initialize)
+
 (when (version<= emacs-version "24")
   (error "This emacs is too old for this config."))
 
