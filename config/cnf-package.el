@@ -1,7 +1,7 @@
 (require 'package)
 
 ;; disable use of the gnutls library (broken)?
-(if (fboundp 'gnutls-available-p) (fmakunbound 'gnutls-available-p))
+;; (if (fboundp 'gnutls-available-p) (fmakunbound 'gnutls-available-p))
 
 ;; make sure we check certificates. fall back to trust on first use
 (setq tls-checktrust 'ask
