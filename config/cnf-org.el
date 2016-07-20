@@ -135,19 +135,16 @@
                 "* %a%?")
            ("w" "Movie or TV Series" entry
                 (file+headline ,(org-path "privat") "Filme")
-                "* %a%?")
-           ("m" "Music" entry
-                (file+headline ,(org-path "privat") "Musik")
-                "* %a%?")
-           ("z" "Zannier" entry
-                (file+headline ,(org-path "sns") "Termine")
-                "* Meet [[bbdb:Zannier][Zannier]]\n%?")
+                "* %a%?") 
            ("d" "Thesis task" entry
                 (file+headline "/home/olaf/Perfezionamento/thesis/phd-thesis.en.org" "Tasks")
                 ,my-simple-todo-template)
            ("j" "Tagebuch" entry
                 (file+datetree ,(org-path "tagebuch"))
                 "* %?")
+           ("f" "Firma/Stelle" entry
+                (file+headline ,(org-path "jobsuche") "Arbeitgeber")
+                "* %A%?\n%U")
            )))
 
 ;; make org-capture much faster by switching off clipboard lookup (who needs that?)
