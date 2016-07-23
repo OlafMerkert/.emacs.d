@@ -9,6 +9,11 @@
 ;; gnus window configuration
 (setq gnus-use-full-window t)
 
+(setq gnus-thread-sort-functions
+      '(gnus-thread-sort-by-number
+        gnus-thread-sort-by-subject
+        (not gnus-thread-sort-by-most-recent-date)))
+
 (defvar vertical-gnus-buffer-configuration)
 (defvar horizontal-gnus-buffer-configuration)
 
