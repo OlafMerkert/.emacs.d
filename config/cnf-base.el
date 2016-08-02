@@ -100,7 +100,6 @@
 ;;; some keybindings
 (global-set-key (kbd "S-<return>") 'split-line)
 (global-set-key (kbd "C-x M-o")    'other-frame)
-(global-set-key (kbd "C-x c")      'comment-dwim)
 
 (after-load 'comint
   ;; removing all output from comint buffers

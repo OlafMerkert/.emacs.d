@@ -14,6 +14,8 @@
 (global-set-key (kbd "C-x m") 'eshell)
 (global-set-key (kbd "C-x M") 'shell)
 
+(global-set-key (kbd "C-x c") 'comment-dwim)
+
 ;; rebound movement keys
 (defvar my-keys-minor-mode-map (make-sparse-keymap)
   "Personal customisation of keybindings.")
