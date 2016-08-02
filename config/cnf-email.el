@@ -87,7 +87,7 @@
 (setq message-dont-reply-to-names (regexp-opt active-user-mail-addresses))
 
 (defun gnus-sent-messages-folder (&optional narrowed-p)
-  "1und1/INBOX")
+  "1und1")
 
 (setq gnus-message-archive-group
       '((cond
@@ -95,7 +95,7 @@
            ;; News
            "sent-news")
           ;; Mail
-          ((message-mail-p) "1und1/INBOX"))))
+          ((message-mail-p) "1und1"))))
 
 (setq gnus-gcc-mark-as-read t)
 
