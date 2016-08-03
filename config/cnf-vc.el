@@ -7,7 +7,7 @@
           magit-push-always-verify nil))
 
 (use-package ibuffer-vc
-    :disabled nil
+    :demand t
     :init
     (progn
       (require 'vc)
@@ -24,8 +24,9 @@
           (when ibuf
             (with-current-buffer ibuf
               (pop-to-buffer ibuf)
-              (ibuffer-update nil t)))))
-      (define-key ibuffer-mode-map (kbd "C-x C-b") 'ibuffer-vc-set-filter-groups-by-vc-root)
-      (define-key ibuffer-mode-map (kbd "g") 'ibuffer-vc-set-filter-groups-by-vc-root)))
+              (ibuffer-update nil t))))))
+    :bind (:map ibuffer-mode-map
+             ("C-x C-b" . ibuffer-vc-set-filter-groups-by-vc-root)
+             ("g" . ibuffer-vc-set-filter-groups-by-vc-root)))
 
 (provide 'cnf-vc)

@@ -14,6 +14,8 @@
 (global-set-key (kbd "C-x m") 'eshell)
 (global-set-key (kbd "C-x M") 'shell)
 
+(global-set-key (kbd "C-x c") 'comment-dwim)
+
 ;; rebound movement keys
 (defvar my-keys-minor-mode-map (make-sparse-keymap)
   "Personal customisation of keybindings.")
@@ -60,10 +62,11 @@
 
 (use-package 2048-game
     :commands '2048-game
-    :config (progn
-              (define-key 2048-mode-map (kbd "h") '2048-left)
-              (define-key 2048-mode-map (kbd "j") '2048-down)
-              (define-key 2048-mode-map (kbd "k") '2048-up)
-              (define-key 2048-mode-map (kbd "l") '2048-right)))
+    :config
+    (bind-keys :map  2048-mode-map
+               ("h" . 2048-left)
+               ("j" . 2048-down)
+               ("k" . 2048-up)
+               ("l" . 2048-right)))
 
 (provide 'cnf-bindings)

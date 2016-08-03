@@ -7,6 +7,9 @@
 ;; repeat last command
 (global-set-key (kbd "C-z") 'repeat)
 
+;; show unfinished keystrokes immediately
+(setq echo-keystrokes 0.1)
+
 (use-package dash :ensure t)
 (use-package fullframe :ensure t)
 
@@ -29,7 +32,7 @@
 
 ;; present files with same names in a nice way
 (require 'uniquify)
-(setq uniquify-buffer-name-style) 'post-forward
+(setq uniquify-buffer-name-style 'post-forward)
 
 (use-package ido
     :ensure t
@@ -97,7 +100,6 @@
 ;;; some keybindings
 (global-set-key (kbd "S-<return>") 'split-line)
 (global-set-key (kbd "C-x M-o")    'other-frame)
-(global-set-key (kbd "C-x c")      'comment-dwim)
 
 (after-load 'comint
   ;; removing all output from comint buffers

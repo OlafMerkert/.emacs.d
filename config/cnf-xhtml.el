@@ -10,10 +10,11 @@
   (indent-region (point-min) (point-max)))
 
 (after-load 'nxml-mode
-  (define-key nxml-mode-map (kbd "<return>") 'reindent-then-newline-and-indent)
-  (define-key nxml-mode-map (kbd "C-c p") 'prettify-xml))
+  (bind-keys :map nxml-mode-map
+             ("<return>" . reindent-then-newline-and-indent)
+             ("C-c p" . prettify-xml)))
 
 (after-load 'css-mode
-  (define-key css-mode-map  (kbd "<return>") 'reindent-then-newline-and-indent))
+  (bind-keys :map css-mode-map ("<return>" . reindent-then-newline-and-indent)))
 
 (provide 'cnf-xhtml)

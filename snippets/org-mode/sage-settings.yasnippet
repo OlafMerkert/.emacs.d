@@ -3,18 +3,15 @@
 # key: sage
 # expand-env: ((yas-indent-line 'fixed))
 # --
-#+PROPERTY:  header-args  :session *${1:sage}*  :results output silent  :tangle yes  :exports both
+# -*- sage: t; ispell-dictionary: "${2:en_GB}" -*-
+#+property:  header-args  :session *${1:sage}*  :results output silent  :tangle yes  :exports both
 
 * imports :noexport:
-#+NAME: imports
-#+BEGIN_SRC python :results silent
+#+name: imports
+#+begin_src python :results silent
+from __future__ import print_function
 from sage.all import *
-#+END_SRC
+from sage_helpers import *
+#+end_src
 
 $0
-
-* finalities :noexport:
-# Local Variables:
-# ispell-dictionary: "${2:en_GB}"
-# org-babel-python-command: "sage -python"
-# End:

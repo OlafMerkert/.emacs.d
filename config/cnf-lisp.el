@@ -75,13 +75,60 @@
         (clisp ("/usr/bin/clisp"))
         ))
 
+
+(defun slime-setup-forwarding (server-login start-lisp)
+  (let ((buffer "*remote inferior lisp*"))
+    (unless (get-buffer buffer)
+      (shell buffer)
+      (switch-to-buffer buffer)
+      (comint-simple-send buffer (concat "ssh -L4005:127.0.0.1:4005 " server-login "\n"))
+      (when start-lisp
+        (comint-simple-send buffer "sbcl\n")
+        (comint-simple-send buffer "(ql:quickload 'swank)\n")
+        (comint-simple-send buffer
+                            "(progn
+
+(swank:create-server :port 4005 :dont-close nil)
+                              (setf swank:*use-dedicated-output-stream* nil))\n")
+        (comint-simple-send buffer "\"forwarding ready\"\n"))
+      (unless start-lisp
+        (comint-simple-send buffer "echo \"forwarding ready\"\n"))
+      (sit-for 20)
+      t)))
+
+(defvar server-prefix-length 0)
+(defvar server-prefix "")
+
+(defun slime-remote (host &optional username start-lisp)
+  (interactive)
+  (unless username
+    (setf username "olaf"))
+  (let ((server-login (concat username "@" host)))
+    (setf server-prefix (concat "/ssh:" server-login ":")
+          server-prefix-length (length server-prefix))
+    ;; open ssh connection if none is open
+    (save-window-excursion
+      (slime-setup-forwarding server-login start-lisp))
+    ;; setup translators
+    (setq slime-to-lisp-filename-function
+          (lambda (file-name) (subseq file-name server-prefix-length))
+          slime-from-lisp-filename-function
+          (lambda (file-name) (concat server-prefix file-name)))
+    ;; connect to slime on server
+    (slime-connect "127.0.0.1" 4005)))
+
 (defun slime-sl2z ()
   (interactive)
-  ;; setup translators
-  (setq slime-to-lisp-filename-function   (lambda (file-name) (subseq file-name 18))
-        slime-from-lisp-filename-function (lambda (file-name) (concat "/ssh:olaf@sl2z.de:" file-name)))
-  ;; connect to slime on server
-  (slime-connect "127.0.0.1" 4005))
+  (slime-remote "sl2z.de" "olaf" nil))
+
+(defun slime-maglor ()
+  (interactive)
+  (slime-remote "maglor" "olaf" t))
+
+(defun cleanup-remote-slime-buffers ()
+  (interactive)
+  (kill-buffer "*remote inferior lisp*")
+  (kill-buffer "*slime-repl sbcl*"))
 
 (defun slime-local (&optional command)
   (interactive)
@@ -111,12 +158,13 @@
 
 (defhydra slime-start (:color blue)
   "slime"
-  ("d" slime-local "default")
-  ("s" (slime-sbcl) "sbcl")
-  ("r" slime-sl2z "remote")
-  ("z" (slime-ccl) "ccl")
-  ("c" (slime-clisp) "clisp")
-  )
+  ("r" slime-local "default")
+  ("s" slime-sbcl "sbcl")
+  ("R" slime-sl2z "sl2z")
+  ("M" slime-maglor "maglor")
+  ("z" slime-ccl "ccl")
+  ("c" slime-clisp "clisp")
+  ("q" cleanup-remote-slime-buffers "cleanup"))
 
 (defun slime-selector-or-start ()
   (interactive)
@@ -247,9 +295,13 @@
   (define-key mode-map       (kbd "C-4")   'multiply-last-sexp-4)
   (define-key mode-map       (kbd "C-c f") 'defun-this-symbol))
 
+(defun turn-on-paredit ()
+  (paredit-mode 1)) 
+
 (dolist (mode '(lisp-mode-hook
+                emacs-lisp-mode-hook
                 slime-repl-mode-hook))
-  (add-hook mode (lambda () (paredit-mode 1))))
+  (add-hook mode 'turn-on-paredit))
 
 ;; adjustments to indentation
 (defmacro copy-cl-indentation (&rest mapping)
@@ -274,6 +326,11 @@
                            (2 font-lock-function-name-face)))
                         t)
 
+(font-lock-add-keywords 'lisp-mode
+                        '(("(\\(awhen\\|aif\\|aprog1\\|alambda\\|acond\\)[ \n]+"
+                           (1 font-lock-keyword-face)))
+                        t)
+
 ;; for hu.dwim.def
 (let ((file "~/.quicklisp/dists/quicklisp/software/hu.dwim.def-20140713-darcs/emacs/hu.dwim.def.el"))
   (if (file-exists-p file) (load-file file)))
@@ -283,15 +340,6 @@
 (defun repeated (n item &optional tail)
   (if (<= n 0) tail
       (repeated (- n 1) item (cons item tail))))
-
-(let ((rep2 (repeated 10 3))
-      (rep0 (repeated 10 1)))
-  (mapc (lambda (tag) (put tag 'common-lisp-indent-function rep2))
-        '(:a :abbr :acronym :address :applet :area :article :aside :audio :b :base :basefont :bdi :bdo :big :blockquote :body :br :button :canvas :caption :center :cite :code :col :colgroup :command :datalist :dd :del :details :dfn :dir :div :dl :dt :em :embed :fieldset :figcaption :figure :font :footer :form :frame :frameset :h1 :h2 :h3 :h4 :h5 :h6 :head :header :hgroup :hr :html :i :iframe :img :input :ins :keygen :kbd :label :legend :li :link :map :mark :menu :meta :meter :nav :noframes :noscript :object :ol :optgroup :option :output :p :param :pre :progress :q :rp :rt :ruby :s :samp :script :section :select :small :source :span :strike :strong :style :sub :summary :sup :table :tbody :td :textarea :tfoot :th :thead :time :title :tr :track :tt :u :ul :var :video :wbr))
-  ;; for common css properties
-  (mapc (lambda (prop) (put prop 'common-lisp-indent-function rep0))
-        '(:color :opacity :background :background-attachment :background-color :background-image :background-position :background-repeat :background-clip :background-origin :background-size :border :border-bottom :border-bottom-color :border-bottom-left-radius :border-bottom-right-radius :border-bottom-style :border-bottom-width :border-color :border-image :border-image-outset :border-image-repeat :border-image-slice :border-image-source :border-image-width :border-left :border-left-color :border-left-style :border-left-width :border-radius :border-right :border-right-color :border-right-style :border-right-width :border-style :border-top :border-top-color :border-top-left-radius :border-top-right-radius :border-top-style :border-top-width :border-width :box-decoration-break :box-shadow :bottom :clear :clip :display :float :height :left :overflow :overflow-x :overflow-y :padding :padding-bottom :padding-left :padding-right :padding-top :position :right :top :visibility :width :vertical-align :z-index :align-content :align-items :align-self :display :flex :flex-basis :flex-direction :flex-flow :flex-grow :flex-shrink :flex-wrap :justify-content :margin :margin-bottom :margin-left :margin-right :margin-top :max-height :max-width :min-height :min-width :order :hanging-punctuation :hyphens :letter-spacing :line-break :line-height :overflow-wrap :tab-size :text-align :text-align-last :text-indent :text-justify :text-transform :white-space :word-break :word-spacing :word-wrap :text-decoration :text-decoration-color :text-decoration-line :text-decoration-style :text-shadow :text-underline-position :font :font-family :font-feature-setting :@font-feature-values :font-kerning :font-language-override :font-synthesis :font-variant-alternates :font-variant-caps :font-variant-east-asian :font-variant-ligatures :font-variant-numeric :font-variant-position :font-size :font-style :font-variant :font-weight :@font-face :font-size-adjust :font-stretch :direction :text-orientation :text-combine-horizontal :unicode-bidi :writing-mode :border-collapse :border-spacing :caption-side :empty-cells :table-layout :counter-increment :counter-reset :list-style :list-style-image :list-style-position :list-style-type :@keyframes :animation :animation-delay :animation-direction :animation-duration :animation-fill-mode :animation-iteration-count :animation-name :animation-timing-function :animation-play-state :backface-visibility :perspective :perspective-origin :transform :transform-origin :transform-style :transition :transition-property :transition-duration :transition-timing-function :transition-delay :box-sizing :content :cursor :icon :ime-mode :nav-down :nav-index :nav-left :nav-right :nav-up :outline :outline-color :outline-offset :outline-style :outline-width :resize :text-overflow :break-after :break-before :break-inside :column-count :column-fill :column-gap :column-rule :column-rule-color :column-rule-style :column-rule-width :column-span :column-width :columns :widows :orphans :page-break-after :page-break-before :page-break-inside :marks :quotes :filter :image-orientation :image-rendering :image-resolution :object-fit :object-position :mask :mask-type :mark :mark-after :mark-before :phonemes :rest :rest-after :rest-before :voice-balance :voice-duration :voice-pitch :voice-pitch-range :voice-rate :voice-stress :voice-volume :marquee-direction :marquee-play-count :marquee-speed
-          :marquee-style)))
 
 (defun common-lisp-hyperspec--use-w3m (f lookup-term)
   "Use w3m as for `browse-url' for the CL hyperspec."

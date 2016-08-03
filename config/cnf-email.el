@@ -9,6 +9,11 @@
 ;; gnus window configuration
 (setq gnus-use-full-window t)
 
+(setq gnus-thread-sort-functions
+      '(gnus-thread-sort-by-number
+        gnus-thread-sort-by-subject
+        (not gnus-thread-sort-by-most-recent-date)))
+
 (defvar vertical-gnus-buffer-configuration)
 (defvar horizontal-gnus-buffer-configuration)
 
@@ -22,7 +27,7 @@
 (defun open-gnus ()
   (interactive)
   (setf gnus-buffer-configuration
-        (if (< 140 (frame-width))
+        (if (< 150 (frame-width))
             ;; wide-screen layout
             horizontal-gnus-buffer-configuration
             vertical-gnus-buffer-configuration))
@@ -65,12 +70,16 @@
 ;; mail queue
 (setq smtpmail-queue-mail nil)
 
+;; draft folder
+(setq nndraft-directory "~/Mail/Gnus/")
+
 ;; store sent email on the imap server as well
-(setq gnus-message-archive-method
-       '(nnfolder "archive"
-         (nnfolder-inhibit-expiry t)
-         (nnfolder-directory "~/Mail/archive")
-         (nnfolder-active-file "~/Mail/archive/active")))
+(setq gnus-message-archive-method nil
+       ;; '(nnfolder "archive"
+       ;;   (nnfolder-inhibit-expiry t)
+       ;;   (nnfolder-directory "~/Mail/archive")
+       ;;   (nnfolder-active-file "~/Mail/archive/active"))
+       )
 
 (setq message-alternative-emails (regexp-opt (rest user-mail-addresses))
       gnus-ignored-from-addresses (regexp-opt user-mail-addresses))
@@ -78,11 +87,7 @@
 (setq message-dont-reply-to-names (regexp-opt active-user-mail-addresses))
 
 (defun gnus-sent-messages-folder (&optional narrowed-p)
-  (if (search "sns.it" (if narrowed-p
-                           (message-fetch-field "From")
-                           (message-field-value "From")))
-      "nnimap+sns:INBOX"
-      "nnimap+1und1:INBOX"))
+  "1und1")
 
 (setq gnus-message-archive-group
       '((cond
@@ -90,9 +95,7 @@
            ;; News
            "sent-news")
           ;; Mail
-          ((message-mail-p)
-           nil ; (gnus-sent-messages-folder)
-           ))))
+          ((message-mail-p) "1und1"))))
 
 (setq gnus-gcc-mark-as-read t)
 
@@ -108,6 +111,7 @@
 
 (define-key message-mode-map (kbd "C-c a") 'message-toggle-alternate)
 
+;; TODO perhaps we do no longer need the following functionality?
 (defun message-use-alternative-email-as-from--adjust-gcc-for-alternative ()
   (message-remove-header "Gcc")
   (insert "Gcc: " (gnus-sent-messages-folder t) "\n"))
@@ -153,21 +157,60 @@
 (setq gnus-ignored-newsgroups ""
       mm-discouraged-alternatives '("text/html" "text/richtext"))
 
-(setq gnus-select-method '(nntp "akk4-dmz.akk.uni-karlsruhe.de"))
+(setq gnus-select-method '(nnimap "local"
+                           (nnimap-stream shell)
+                           (nnimap-shell-program "/usr/lib/dovecot/imap -o mail_location=maildir:$HOME/Mail:LAYOUT=fs")
+                           (nnir-search-engine imap)))
 
 (setq gnus-secondary-select-methods
-            '((nnimap "1und1"
-               (nnimap-address "imap.1und1.de")
-               (nnimap-server-port 993)
-               (nnimap-stream tls)
-               (nnir-search-engine imap))
-              (nnimap "sns"
-               (nnimap-address "imap.gmail.com")
-               (nnimap-server-port 993)
-               (nnimap-stream ssl)
-               (nnir-search-engine imap))
-              ;; use gwene as RSS/Atom -> nntp gateway
-              (nntp "news.gwene.org")))
+      '(;; (nntp "akk4-dmz.akk.uni-karlsruhe.de")
+        ;; use gwene as RSS/Atom -> nntp gateway
+        (nntp "news.gwene.org"
+         (nntp-open-connection-function nntp-open-tls-stream)
+         (nntp-port-number 563)
+         (nntp-address "news.gwene.org"))
+        ;; (nntp "news.gmane.org"
+        ;;  (nntp-open-connection-function nntp-open-tls-stream)
+        ;;  (nntp-port-number 563)
+        ;;  (nntp-address "news.gmane.org"))
+        ))
+
+(defun kill-gnutls-processes ()
+  (interactive)
+  (call-process "/usr/bin/killall" nil nil nil "gnutls-cli"))
+
+(let ((path (expand-file-name "addons/mbsync-el" user-emacs-directory)))
+  (when (file-exists-p path)
+    (add-to-list 'load-path path)
+    (require 'mbsync)))
+
+(after-load 'mbsync
+  (defun mbsync-verbose ()
+    (interactive)
+    (mbsync)
+    (message "Synchronising mails ..."))
+
+  (defun mbsync-finished-message ()
+    (message "Synchronising mails completed."))
+
+  (add-hook 'mbsync-exit-hook 'gnus-group-get-new-news)
+  (add-hook 'mbsync-exit-hook 'mbsync-finished-message)
+  (define-key gnus-group-mode-map (kbd "f") 'mbsync-verbose)
+
+  (defhydra mbsync-from-gnus (gnus-group-mode-map "I")
+    "mbsync"
+    ("f" mbsync-verbose "sync")
+    ("g" (lambda ()
+           (interactive)
+           (gnus-group-get-new-news))
+         "read")
+    ("G" (lambda ()
+           (interactive)
+           (aif (gnus-buffer-exists-p "*Group*") (switch-to-buffer it)))
+         "groups")
+    ("K" kill-gnutls-processes "kill gnutls")
+    ("q" nil "quit")))
+
 
 ;; Make Gnus NOT ignore [Gmail] mailboxes
 (setq gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
@@ -190,7 +233,7 @@
 
 ;; where to move stuff by default
 (setq gnus-move-split-methods nil
-      gnus-move-group-prefix-function (lambda (group-name) "nnimap+1und1:Archiv/"))
+      gnus-move-group-prefix-function (lambda (group-name) "1und1/Archiv/"))
 
 ;;; bbdb configuration
 (bbdb-initialize 'gnus 'message)
@@ -206,6 +249,7 @@
 (setq bbdb-file "~/Personal/kontakte.bbdb")
 
 (setq bbdb-send-mail-style 'gnus
+      bbdb-mail-user-agent 'gnus-user-agent
       bbdb-complete-name-full-completion t
       bbdb-completion-type 'primary-or-name
       bbdb-complete-name-allow-cycling t)
@@ -217,6 +261,39 @@
 
 (setq bbdb-north-american-phone-numbers-p nil
       bbdb-phone-style nil)
+
+;; setup bbdb layouts
+(setf bbdb-layout-alist
+      '((one-line
+         (order . (mail phone notes))
+         (name-end  . 24)
+         (toggle    . t))
+        (multi-line
+         (order . (mail mail-alias phone t))
+         (omit . (creation-date timestamp
+                  name-format name-face
+                  bbdb-id
+                  asynk:bbdbgoogleprivate:gc
+                  asynk:bbdbgoogleprivate:bb
+                  ))
+         (toggle . t)
+         (indentation . 21))
+        (pop-up-multi-line  (omit . (creation-date timestamp
+                                     name-format name-face))
+         (indentation . 21))
+        (full-multi-line (indentation . 21))))
+
+
+(after-load 'bbdb-com
+  (defun bbdb-search/wrap (f &rest args)
+   (let ((bbdb-xfield-label-list
+          (remove 'asynk:bbdbgoogleprivate:gc bbdb-xfield-label-list)))
+     (message "calling bbdb-search")
+     (apply f args)))
+
+  (dolist (bbdb-fun '(bbdb bbdb-search-xfields))
+    (advice-add bbdb-fun :around 'bbdb-search/wrap)))
+
 
 ;;; rss feed commands
 (defun gwene-article-open-full ()
@@ -246,18 +323,20 @@
   (delete-other-windows))
 
 (after-load 'gnus-sum
-  (define-key gnus-summary-mode-map (kbd "v") 'gnus-summary-show-only-summary)
-  (define-key gnus-summary-mode-map (kbd "o") 'gwene-summary-open-full)
-  (define-key gnus-summary-mode-map (kbd "r") 'gnus-summary-wide-reply)
-  (define-key gnus-summary-mode-map (kbd "R") 'gnus-summary-wide-reply-with-original)
-  (define-key gnus-summary-mode-map (kbd "u") 'gnus-summary-put-mark-as-unread))
+  (bind-keys :map gnus-summary-mode-map
+             ("v" . gnus-summary-show-only-summary)
+             ("o" . gwene-summary-open-full)
+             ("r" . gnus-summary-wide-reply)
+             ("R" . gnus-summary-wide-reply-with-original)
+             ("u" . gnus-summary-put-mark-as-unread)))
 
 (after-load 'gnus-art
-  (define-key gnus-article-mode-map (kbd "v") 'gnus-article-show-only-summary)
-  (define-key gnus-article-mode-map (kbd "o") 'gwene-article-open-full)
-  (define-key gnus-article-mode-map (kbd "C-c C-s") 'gnus-article-save-part)
-  (define-key gnus-article-mode-map (kbd "r") 'gnus-article-wide-reply-with-original)
-  (define-key gnus-article-mode-map (kbd "R") 'gnus-article-wide-reply-with-original))
+  (bind-keys :map gnus-article-mode-map
+             ("v" . gnus-article-show-only-summary)
+             ("o" . gwene-article-open-full)
+             ("C-c C-s" . gnus-article-save-part)
+             ("r" . gnus-article-wide-reply-with-original)
+             ("R" . gnus-article-wide-reply-with-original)))
 
 
 ;; TODO keybindings seem to be overwritten

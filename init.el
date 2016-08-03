@@ -1,3 +1,6 @@
+;; package.el expects this; but we call it in cnf-package.el
+;; (package-initialize)
+
 (when (version<= emacs-version "24")
   (error "This emacs is too old for this config."))
 
@@ -11,6 +14,7 @@
 (require 'cnf-utils)
 ;; (require 'cnf-functions)
 (require 'cnf-package)
+(require 'cnf-clear-bindings)
 (require 'cnf-base-settings)
 
 (require 'cnf-environment)
@@ -30,6 +34,8 @@
 
 ;; writing and programming
 (require 'cnf-prog)
+(require 'cnf-autocomplete)
+(require 'cnf-smartparens)
 (require 'cnf-lisp)
 (require 'cnf-python)
 (require 'cnf-tex)
@@ -42,10 +48,12 @@
 
 ;; org and email
 (require 'cnf-email)
+(require 'cnf-twitter)
 (require 'cnf-org)
 (require 'cnf-org-export)
 (require 'cnf-org-babel)
 (require 'cnf-org-protocol)
+(require 'cnf-mobile)
 
 ;; final tweaks
 (require 'cnf-bindings)

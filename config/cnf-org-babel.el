@@ -6,7 +6,8 @@
  '((emacs-lisp . t)
    (lisp . t)
    (python . t)
-   (sh . t)))
+   (sh . t)
+   (maxima . t)))
 
 (defun babel-language-p (language)
   (and (not (string-equal language "sh"))
@@ -37,12 +38,66 @@
 (setf org-babel-sh-command "sh")
 
 ;; evaluating source blocks from org-src mode
+(defmacro org-src-value-in-org-buffer (&rest body)
+  `(let ((beg org-src--beg-marker))
+     (with-current-buffer (marker-buffer beg)
+       (save-excursion
+         (goto-char beg)
+         ,@body))))
+
 (defun org-edit-src-evaluate-code-block ()
   (interactive)
-  (org-src-in-org-buffer
+  (org-edit-src-save)
+  (org-src-value-in-org-buffer
    (org-babel-execute-maybe)))
 
-(define-key org-src-mode-map (kbd "C-c C-c") 'org-edit-src-evaluate-code-block)
+(defun org-src-eval-and-next ()
+  (interactive)
+  (org-ctrl-c-ctrl-c)
+  (org-babel-next-src-block))
+
+;;; a function to paste the contents of current code block into other
+;;; buffer. Essentially, this is a universal poor man's session
+;;; support.
+(defun org-src-block-append-other-buffer ()
+  (interactive)
+  (org-babel-when-in-src-block
+   (let ((contents (org-element-property :value (org-element-at-point))))
+     (other-window 1)
+     (end-of-buffer)
+     (insert contents))))
+
+(defun org-edit-src-exit-and-eval ()
+  (interactive)
+  (org-edit-src-exit)
+  (org-babel-execute-maybe))
+
+(defhydra org-src-actions (org-mode-map "<f5>")
+  "src block:"
+  ("r" org-babel-execute-maybe "eXec")
+  ("s" org-babel-execute-subtree "eXec subtree")
+  ("e" org-edit-special "Edit" :color blue)
+  ("a" ob-abort-sage-calculation "Abort calculation")
+  ("p" org-babel-previous-src-block "Previous")
+  ("n" org-babel-next-src-block "Next")
+  ("P" org-backward-heading-same-level "Previous heading")
+  ("N" org-forward-heading-same-level "Next heading")
+  ("d" org-babel-demarcate-block "Split")
+  ("z" org-babel-switch-to-session "repl" :color blue)
+  ("k" org-babel-remove-result "remove result")
+  ("x" org-src-eval-and-next)
+  ("o" org-src-block-append-other-buffer "append other buffer" )
+  ("q" nil "quit"))
+
+(defhydra org-src-edit-actions (org-src-mode-map "<f5>")
+  "src edit:"
+  ("r" org-edit-src-evaluate-code-block "eXec")
+  ;; TODO exit, eval and next
+  ("e" org-edit-src-exit "close Edit" :color blue)
+  ("x" org-edit-src-exit-and-eval "close and eval" :color blue)
+  ("a" org-src-abort-sage-calculation "Abort calculation")
+  ("k" org-babel-remove-result "remove result")
+  ("q" nil "quit"))
 
 ;; removing superfluous prompts in output
 (defun strip-python-shell-prompt (string)
@@ -53,5 +108,25 @@
         string)))
 
 (advice-add 'org-babel-trim :filter-return 'strip-python-shell-prompt)
+
+;; figure out if we are using sage
+(defun org-src-turn-on-sage ()
+  (when (setf sage (org-src-value-in-org-buffer sage))
+    (turn-on-sage)))
+
+(defun ob-abort-sage-calculation ()
+  (interactive)
+  (save-window-excursion
+    (org-babel-when-in-src-block
+    (org-babel-switch-to-session)
+    (comint-interrupt-subjob))))
+
+(defun org-src-abort-sage-calculation ()
+  (interactive)
+  (org-src-value-in-org-buffer
+   (ob-abort-sage-calculation)))
+
+
+(add-hook 'org-src-mode-hook 'org-src-turn-on-sage)
 
 (provide 'cnf-org-babel)

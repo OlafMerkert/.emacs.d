@@ -67,5 +67,4 @@
                  (save-excursion (beginning-of-line) (point)) (point-max)
                  '(face esk-eshell-error-prompt-face))))))
 
-
 (provide 'cnf-eshell)

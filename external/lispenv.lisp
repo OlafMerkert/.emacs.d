@@ -19,3 +19,10 @@
       #+sbcl (in-package :ol-user))
   (quicklisp:system-not-found ()
     (abort)))
+
+;;; if we are using swank on sbcl, enable the ed function
+#+(and swank sbcl)
+(push (lambda (&rest args)
+        (apply #'swank:ed-in-emacs args)
+        t)
+      sb-ext:*ed-functions*)

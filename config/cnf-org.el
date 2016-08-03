@@ -1,6 +1,15 @@
 (use-package org
     :ensure t
-    :pin gnu)
+    :pin gnu
+    :demand t
+    :bind (:map org-mode-map
+                ("<f2>" . insert-greek-letter)
+                ("C-c C-v k" . org-babel-remove-result)
+                ("C-;" . tex-goto-prev-dollar)
+                ("C-'" . tex-goto-next-dollar)
+                ("M-;" . tex-goto-prev-backslash)
+                ("M-'" . tex-goto-next-backslash)
+                ("C-_" . org-table-insert-hline)))
 
 (require 'org-capture)
 (require 'org-protocol)
@@ -9,19 +18,53 @@
 (defun org-path (filebase)
    (concat org-directory "/" filebase ".org"))
 
-(after-load 'org
-  (define-key org-mode-map (kbd "<f2>") 'insert-greek-letter)
-  (define-key org-mode-map (kbd "C-c C-v k") 'org-babel-remove-result)
-  (define-key org-mode-map (kbd "C-;") 'tex-goto-prev-dollar)
-  (define-key org-mode-map (kbd "C-'") 'tex-goto-next-dollar)
-  (define-key org-mode-map (kbd "M-;") 'tex-goto-prev-backslash)
-  (define-key org-mode-map (kbd "M-'") 'tex-goto-next-backslash)
-  (define-key org-mode-map (kbd "C-_") 'org-table-insert-hline))
-
 (setq org-deadline-warning-days 5
       org-completion-use-ido t)
 
 (setq org-src-fontify-natively t)
+
+;; highlighting of latex math in org buffers
+(require 'font-latex)
+
+(org-set-emph-re 'org-emphasis-alist '(("*" bold)
+                                       ("/" italic)
+                                       ("_" underline)
+                                       ("=" org-verbatim verbatim)
+                                       ("~" org-code verbatim)
+                                       ;;("+" (:strike-through t))
+                                       ("$" font-latex-math-face verbatim)))
+
+(defvar org-latex-math-envs)
+(setf org-latex-math-envs '("equation" "align" "multline"))
+
+;; (font-lock-add-keywords 'org-mode
+;;                         (mapcar
+;;                          (lambda (env)
+;;                            `(,(format "\\(\\\\begin{%s\\*?}\\)\n*\\([^$]*\\)\n*\\(\\\\end{%s\\*?}\\)" env env)
+;;                               (1 org-block-begin-line)
+;;                               (2 font-latex-math-face)
+;;                               (3 org-block-end-line)))
+;;                          org-latex-math-envs)
+;;                         t)
+
+
+;; don't introduce indentation everywhere
+(setq org-adapt-indentation nil
+      org-startup-indented t)
+
+(after-load 'org-indent (diminish 'org-indent-mode))
+
+;; customise bullets and ellipsis
+(setq org-ellipsis " ⚬⚬⚬")
+
+(use-package org-bullets
+    :ensure t
+    :commands org-bullets-mode
+    :init
+    (defun turn-on-org-bullets ()
+      (org-bullets-mode +1))
+    (add-hook 'org-mode-hook 'turn-on-org-bullets)
+    :config (setq org-bullets-bullet-list '("◉")))
 
 (setq org-directory "~/Personal"
       org-default-notes-file (org-path "notizen"))
@@ -37,7 +80,7 @@
 
 ;; magit requires a trailing slash for the directory path!
 (defpar personal-information-dir "~/Personal/")
-(defpar personal-information-remote "sl2z")
+(defpar personal-information-remote "sl2z/master")
 
 (defun sync-personal-information (&optional pull-only)
   ;; if prefix argument is given, only pull info
@@ -54,13 +97,13 @@
                                 " at "
                                 (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))))
         (message "Commited changes to personal data.")))
-    (magit-pull personal-information-remote "master")
-    (unless pull-only (magit-push "master" personal-information-remote))))
+    (magit-pull personal-information-remote nil)
+    (unless pull-only (magit-push "master" personal-information-remote nil))))
 
 ;;; configure org capture
-(let ((my-todo-template "* TODO %?%i\n  %a")
+(let ((my-todo-template "* TODO %?%i\n%a")
       (my-simple-todo-template "* TODO %?")
-      (my-note-template "* %?%i\n  %a"))
+      (my-note-template "* %?%i\n%a"))
   (setq  org-capture-templates
          `(("t" "Todo" entry
                 (file+headline "" "Tasks")
@@ -76,11 +119,11 @@
                 ,my-todo-template)
            ("v" "Vortrag" entry
                 (file+headline ,(org-path "sns") "Vorträge")
-                "* %?%i\n  %a")
+                "* %?%i\n%a")
            ("p" "Privat Todo" entry
                 (file+headline ,(org-path "privat") "Tasks")
                 ,my-todo-template)
-           ;; TODO capture to readme.org of current (git) project
+           ;; capture to readme.org of current (git) project
            ("r" "Readme" entry
                 (function find-git-project-readme-tasks)
                 ,my-todo-template)
@@ -92,14 +135,21 @@
                 "* %a%?")
            ("w" "Movie or TV Series" entry
                 (file+headline ,(org-path "privat") "Filme")
-                "* %a%?")
-           ("m" "Music" entry
-                (file+headline ,(org-path "privat") "Musik")
-                "* %a%?")
-           ("z" "Zimmer" entry
-                (file+headline ,(org-path "privat") "Neue Wohnung")
-                "* %?%i\n  %a")
+                "* %a%?") 
+           ("d" "Thesis task" entry
+                (file+headline "/home/olaf/Perfezionamento/thesis/phd-thesis.en.org" "Tasks")
+                ,my-simple-todo-template)
+           ("j" "Tagebuch" entry
+                (file+datetree ,(org-path "tagebuch"))
+                "* %?")
+           ("f" "Firma/Stelle" entry
+                (file+headline ,(org-path "jobsuche") "Arbeitgeber")
+                "* %A%?\n%U")
            )))
+
+;; make org-capture much faster by switching off clipboard lookup (who needs that?)
+;; thanks to http://blog.andy.glew.ca/2013/09/org-capture-org-get-x-clipboard-very.html
+(advice-add 'org-get-x-clipboard :around (lambda (fn value) nil))
 
 (defun find-git-project-readme-tasks ()
   (find-git-project-readme "Tasks"))

@@ -1,7 +1,8 @@
 ;;; customisations for python programming
 (use-package elpy
     :ensure t
-    :init (elpy-enable))
+    :init (elpy-enable)
+    :config (setf python-check-command "flake8-python2"))
 ;; (elpy-clean-modeline)
 
 (use-package ipython :disabled t)
@@ -34,9 +35,61 @@
 ;; return and pass removes one level, while double blank lines reset
 ;; indentation to 0
 
-(setq python-shell-interpreter "python"
-      python-shell-interpreter-args "-i")
-(setq org-babel-python-command "python")
+(defun string-join (sep lst)
+  (cond ((null lst) nil)
+        ((null (cdr lst)) (car lst))
+        (t (string-join sep (cons (concat (car lst) sep (cadr lst))
+                                  (cddr lst))))))
+
+(defun set-interpreter-python (cmd &rest args)
+  (setq python-shell-interpreter cmd
+        python-shell-interpreter-args (string-join " " args)
+        org-babel-python-command (string-join " " (cons cmd args))
+        python-shell-buffer-name cmd))
+
+
+(defun set-interpreter-python3 ()
+  (interactive)
+  (set-interpreter-python "python3" "-i")
+  (setf python-check-command "flake8"))
+
+(defun set-interpreter-python2 ()
+  (interactive)
+  (set-interpreter-python "python2" "-i")
+  (setf python-check-command "flake8-python2"))
+
+(defun set-interpreter-sage ()
+  (interactive)
+  (set-interpreter-python "sage" "-python -i")
+  (setf python-check-command "flake8-python2"))
+
+(set-interpreter-python3)
+
+(defvar sage nil)
+(make-variable-buffer-local 'sage)
+
+(defun turn-on-sage ()
+  (when sage
+    (make-local-variable 'python-shell-interpreter)
+    (make-local-variable 'python-shell-interpreter-args)
+    (make-local-variable 'org-babel-python-command)
+    (make-local-variable 'python-shell-buffer-name)
+    (make-local-variable 'python-check-command)
+    (message "Use sage as python interpreter for this buffer.")
+    (set-interpreter-sage)))
+
+(add-hook 'hack-local-variables-hook 'turn-on-sage)
+
+;; TODO create a function for adding to path
+(setenv "PYTHONPATH" "/home/olaf/Projekte/olsage:/home/olaf/Perfezionamento/thesis")
+(setenv "SAGE_PATH" "/home/olaf/Projekte/olsage:/home/olaf/Perfezionamento/thesis")
+
+(defun sage-var-index-transform ()
+  "If the output contains stuff like q8, b3, etc, transform it into q[8], b[3]."
+  (interactive)
+  (save-excursion
+    (mark-sexp)
+    (replace-regexp "\\([abq]\\)\\([0-9]+\\)" "\\1[\\2]" nil (region-beginning) (region-end))))
 
 (defun elpy-shell-send-line ()
   "Send the current line to the Python shell. "
@@ -59,9 +112,9 @@
   (let ((region (elpy-shell--region-without-indentation
                  (save-excursion
                    (search-backward-regexp "^\\(def\\|class\\)")
-                   ;; todo add support for decorators
+                   ;; TODO add support for decorators
                    (point))
-                 ;; todo figure out if we can also autofind the end of
+                 ;; TODO figure out if we can also autofind the end of
                  ;; a definition: two empty lines, or the next time
                  ;; a non-trivial character appears at beginning of line
                  (point))))
@@ -77,8 +130,23 @@
 
 (defun py-remove-debug-statements ()
   (interactive)
-  (let ((re "^\s*print \"debug.*$"))
+  (let ((re "^\s*print[ (]\"debug.*$"))
     (delete-matching-lines re (region-beginning) (region-end))))
 
+(defun sage-var-transform (assignment-string)
+  (let ((variable-names (s-split " *, *" (s-trim assignment-string) t)))
+    (if (<= (length variable-names) 1)
+        (concat "\"" (or (car variable-names) "") "\"")
+        (concat "[\"" (s-join "\", \"" variable-names) "\"]"))))
+
+(defun sage->python-notation (start end)
+  "In region, ensure that sage output is interpreted as correct python notation"
+  (interactive "r")
+  ;; exponentation
+  (replace-string "^" "**" nil start end)
+  ;; wrap integer before "/"
+  (replace-regexp "\\(^\\|[ (-]\\)\\([0-9]+\\)/" "\\1Integer(\\2)/" nil start end))
+
+(setf python-fill-docstring-style 'symmetric)
 
 (provide 'cnf-python)

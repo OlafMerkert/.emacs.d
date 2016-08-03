@@ -1,9 +1,30 @@
 
-(use-package ace-jump-mode
-    :ensure t
-    :bind ("C-j" . ace-jump-mode))
+;; don't open files with some endings
+(mapc (lambda (x)
+        (add-to-list 'completion-ignored-extensions x))
+      '(".aux"
+        ".bbl"
+        ".blg"
+        ".meta"
+        ".out"
+        ".synctex.gz"
+        ".tdo"
+        ".toc"
+        "-pkg.el"
+        "-autoloads.el"
+        "auto/"
+        ".fasl"
+        ".pyc"))
 
 (add-to-list 'clean-local-keybindings "C-j")
+
+(use-package avy
+    :ensure t
+    :config (setf avy-keys
+                  '(?a ?s ?d ?f ?j ?k ?l  ?g ?h ?q ?w ?e ?r ?t ?y ?u ?i ?o ?p ?z ?x ?c ?v ?b ?n ?m))
+    :bind (("M-g g" . avy-goto-line)
+           ("M-g M-g" . avy-goto-line)
+           ("C-j" . avy-goto-word-1)))
 
 (use-package iy-go-to-char
     :ensure t
@@ -30,28 +51,28 @@ horizontal space is available."
       (split-window-horizontally size)
       (split-window-vertically size)))
 
-(global-set-key
- (kbd "<f5>")
- (defhydra window-manager ()
-   "window"
-   ("b" ido-switch-buffer "sw buf")
-   ("B" ido-switch-buffer-other-window)
-   ("f" ido-find-file "open file")
-   ("F" ido-find-file-other-window)
-   ("h" windmove-left "<")
-   ("j" windmove-down "\/")
-   ("k" windmove-up "^")
-   ("l" windmove-right ">")
-   ("o" ace-window "other")
-   ("a" ace-window "ace" :color blue)
-   ;; ("f" other-frame :color blue)
-   ("s" split-window-automatically "split")
-   ("0" delete-window "del win")
-   ("1" delete-other-windows "del other")
-   ("2" split-window-vertically "split vert")
-   ("3" split-window-horizontally "split horiz")
-   ("=" balance-windows "balance")
-   ("y" bury-buffer "bury")))
+(defhydra window-manager (global-map "C-x")
+  "window"
+  ("b" ido-switch-buffer "switch buffer")
+  ("B" ido-switch-buffer-other-window "switch other buffer")
+  ("C-f" ido-find-file "open file")
+  ("k" ido-kill-buffer "kill buffer")
+  ;; ("F" ido-find-file-other-window)
+  ("<left>" windmove-left "<")
+  ("<down>" windmove-down "v")
+  ("<up>" windmove-up "^")
+  ("<right>" windmove-right ">")
+  ("o" ace-window "other" :color blue)
+  ;; ("f" other-frame :color blue)
+  ;; ("s" split-window-automatically "split")
+  ("0" delete-window "del win")
+  ("1" delete-other-windows "del other")
+  ("2" split-window-vertically "split vert")
+  ("3" split-window-horizontally "split horiz")
+  ("+" balance-windows "balance")
+  ("q" nil)
+  ;; ("y" bury-buffer "bury")
+  )
 
 ;;; if we want to show the same buffer left and right, call these
 (defun same-buffers (&optional arg)
@@ -129,5 +150,24 @@ horizontal space is available."
   "Matches an opening C-style comment, like \"/***\".")
 
 (use-package find-file-in-project :ensure t)
+
+(use-package page-break-lines
+    :ensure t
+    :init (add-hook 'prog-mode-hook 'page-break-lines-mode)
+    ;; TODO find a better replacement for this
+    :config (setf page-break-lines-char ?_))
+
+;; when moving to next page, move page start to first line
+(defun recenter-page (&rest args)
+  (recenter 0))
+
+(advice-add 'forward-page :after 'recenter-page)
+(advice-add 'backward-page :after 'recenter-page)
+
+;; from http://endlessparentheses.com/improving-page-navigation.html#comment-2254443893
+(defhydra hydra-page-break (global-map "C-x")
+  "page breaks"
+  ("[" backward-page "back")
+  ("]" forward-page "forward"))
 
 (provide 'cnf-navigation)

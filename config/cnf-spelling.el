@@ -36,11 +36,16 @@
 
 (defhydra change-input-method (:color blue)
   "select input method"
-   ("d" (activate-input-method (match-input-method-dictionary "de_DE")) "deutsch")
-   ("e" (activate-input-method (match-input-method-dictionary "en_GB")) "english")
-   ("f" (activate-input-method (match-input-method-dictionary "fr_FR")) "français")
-   ("i" (activate-input-method (match-input-method-dictionary "it")) "italiano")
-   ("q" nil "quit"))
+  ("d" (activate-input-method (match-input-method-dictionary "de_DE")) "deutsch")
+  ("e" (activate-input-method (match-input-method-dictionary "en_GB")) "english")
+  ("f" (activate-input-method (match-input-method-dictionary "fr_FR")) "français")
+  ("i" (activate-input-method (match-input-method-dictionary "it")) "italiano")
+  ("o" (activate-input-method
+        (read-input-method-name
+         (if default-input-method "Input method (default %s): " "Input method: ")
+         default-input-method t))
+       "other")
+  ("q" nil "quit"))
 
 (defun my-toggle-input-method (&optional arg)
   (interactive "P")

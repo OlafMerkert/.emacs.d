@@ -14,3 +14,5 @@ auto-save-list
 /image-dired/
 /addons/
 /session.*
+/.org-id-locations
+/network-security.data
