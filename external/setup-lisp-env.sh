@@ -4,8 +4,10 @@ cd $HOME
 
 # install quicklisp and slime
 curl -O "http://beta.quicklisp.org/quicklisp.lisp"
-sbcl --load quicklisp.lisp <<EOF
+sbcl --no-userinit --load quicklisp.lisp <<EOF
 (quicklisp-quickstart:install :path "~/.quicklisp/")
+EOF
+sbcl <<EOF
 (ql:quickload 'quicklisp-slime-helper)
 EOF
 
