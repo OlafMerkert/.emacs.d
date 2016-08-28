@@ -112,4 +112,28 @@
 
   (add-hook 'comint-output-filter-functions 'comint-watch-for-password-prompt))
 
+;;; don't display pdf with docview, but external viewer
+(defun ensc/mailcap-mime-data-filter (filter)
+  ""
+  (mapcar (lambda(major)
+        (append (list (car major))
+            (remove nil
+                (mapcar (lambda(minor)
+                      (when (funcall filter (car major) (car minor) (cdr minor))
+                    minor))
+                    (cdr major)))))
+      mailcap-mime-data))
+
+(defun ensc/no-pdf-doc-view-filter (major minor spec)
+  (if (and (string= major "application")
+       (string= minor "pdf")
+       (member '(viewer . doc-view-mode) spec))
+      nil
+    t))
+
+(eval-after-load 'mailcap
+  '(progn
+     (setq mailcap-mime-data
+       (ensc/mailcap-mime-data-filter 'ensc/no-pdf-doc-view-filter))))
+
 (provide 'cnf-base)
