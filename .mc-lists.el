@@ -77,6 +77,7 @@
         transpose-sexps
         transpose-words
         wdired-downcase-word
+        wdired-upcase-word
         whole-line-or-region-kill-ring-save
         whole-line-or-region-yank
         yas-expand
