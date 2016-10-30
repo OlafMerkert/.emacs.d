@@ -110,9 +110,12 @@
 (advice-add 'org-babel-trim :filter-return 'strip-python-shell-prompt)
 
 ;; figure out if we are using sage
+(defvar suppress-sage-hook nil)
+
 (defun org-src-turn-on-sage ()
-  (when (setf sage (org-src-value-in-org-buffer sage))
-    (turn-on-sage)))
+  (unless suppress-sage-hook
+    (when (setf sage (org-src-value-in-org-buffer sage))
+      (turn-on-sage))))
 
 (defun ob-abort-sage-calculation ()
   (interactive)
@@ -128,5 +131,14 @@
 
 
 (add-hook 'org-src-mode-hook 'org-src-turn-on-sage)
+
+;; during html export (and probably always during export), we need to
+;; disable our special sage hook, otherwise we run into trouble
+(defun org-export-as-suppress-sage (f &rest args)
+  (setf suppress-sage-hook t)
+  (prog1 (apply f args)
+    (setf suppress-sage-hook nil)))
+
+(advice-add 'org-export-as :around 'org-export-as-suppress-sage)
 
 (provide 'cnf-org-babel)

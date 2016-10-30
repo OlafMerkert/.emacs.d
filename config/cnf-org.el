@@ -144,7 +144,7 @@
                 "* %?")
            ("f" "Firma/Stelle" entry
                 (file+headline ,(org-path "jobsuche") "Arbeitgeber")
-                "* %A%?\n%U")
+                "* %a%?\n%U")
            )))
 
 ;; make org-capture much faster by switching off clipboard lookup (who needs that?)
