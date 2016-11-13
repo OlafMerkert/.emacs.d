@@ -55,6 +55,7 @@
 (defvar htmlize-disable-modes nil)
 
 (add-to-list 'htmlize-disable-modes 'highlight-indentation-mode)
+(add-to-list 'htmlize-disable-modes 'slime-highlight-edits-mode)
 
 (defun htmlize-turn-off-modes ()
   (make-local-variable 'htmlize-reenable-modes)
