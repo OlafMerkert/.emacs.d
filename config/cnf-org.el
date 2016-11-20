@@ -239,14 +239,14 @@
 ;; applications
 (setq my-video-viewer "vlc %s")
 
-(add-to-list 'org-file-apps '("nb" . "mathematica -sl %s") t)
-(add-to-list 'org-file-apps '("pdf" . "evince %s"))
-(add-to-list 'org-file-apps `("mp4" . ,my-video-viewer))
-(add-to-list 'org-file-apps `("avi" . ,my-video-viewer))
+(add-to-list 'org-file-apps '("nb" . (lambda (file link) "mathematica -sl %s")) t)
+(add-to-list 'org-file-apps '("pdf" . (lambda (file link) " evince %s")))
+(add-to-list 'org-file-apps `("mp4" . ,(lambda (file link) my-video-viewer)))
+(add-to-list 'org-file-apps `("avi" . ,(lambda (file link) my-video-viewer)))
 
 ;; open html exports in browser instead of Emacs (we want to look at
 ;; them, not edit them.
-(add-to-list 'org-file-apps '("html" . (browse-url-of-file file)))
+(add-to-list 'org-file-apps '("html" . (lambda (file link) (browse-url-of-file file))))
 
 (defun name-to-bbdb-link (&optional arg)
   (interactive "P")
