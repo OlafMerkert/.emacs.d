@@ -67,6 +67,7 @@
         repeat
         slime-autodoc-space
         slime-export-symbol-at-point
+        slime-fuzzy-select-or-update-completions
         slime-space
         smex
         sp-backward-slurp-sexp

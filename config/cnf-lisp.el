@@ -315,6 +315,7 @@
                      (defgeneric* defgeneric)
                      (mvbind multiple-value-bind)
                      (dbind destructuring-bind)
+                     (defclass/f defclass)
                      )
 
 (put 'defpar 'common-lisp-indent-function '(&rest))
