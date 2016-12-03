@@ -93,7 +93,7 @@
         (comint-simple-send buffer "\"forwarding ready\"\n"))
       (unless start-lisp
         (comint-simple-send buffer "echo \"forwarding ready\"\n"))
-      (sit-for 20)
+      (sit-for 5)
       t)))
 
 (defvar server-prefix-length 0)
